@@ -27,8 +27,8 @@ export default function Recipes() {
         <div style={{ margin: '4rem' }} className="grid">
           {recipes && recipes.map((recipe, idx) => {
             return (
-              <div style={{ margin: '2rem' }}>
-                <RecipeItem key={idx} show_link={true} {...recipe} />
+              <div key={idx} style={{ margin: '2rem' }}>
+                <RecipeItem show_link={true} {...recipe} />
               </div>
             );
           })}
