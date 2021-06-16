@@ -25,7 +25,7 @@ export default function Recipe() {
 
   const clickHandler = () => {
     const name = nameRef.current.value;
-    
+
     postFork({
       id_user: 'id_user',
       id_repo: id_recipe,
@@ -63,7 +63,6 @@ export default function Recipe() {
         <Link href="/recipes"><Button 
             variant="contained"
             color="primary"
-            onClick={clickHandler}
             style={{margin: '4rem'}}
           >
           レシピ一覧へ
