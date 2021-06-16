@@ -1,4 +1,21 @@
-.container {
+import Document, { Head, Main, NextScript } from 'next/document'
+import Image from 'next/image'
+import Link from 'next/link';
+
+export default class MyDocument extends Document {
+  static async getInitialProps(ctx) {
+    const initialProps = await Document.getInitialProps(ctx)
+    return { ...initialProps }
+  }
+
+  render() {
+    return (
+      <html>
+        <Head>
+          <title>Recipe Hub</title>
+          <meta name="description" content="Recipe Hub (Github for Cooking)" />
+          <link rel="icon" href="/favicon.ico" />
+          <style>{`.container {
   min-height: 100vh;
   padding: 0 0.5rem;
   display: flex;
@@ -15,7 +32,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  top: 0;
 }
 
 .footer {
@@ -120,8 +136,53 @@
     flex-direction: column;
   }
 }
+.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #3f51b5;
+  box-shadow: 0 10px 15px rgba(10, 10, 10, 0.3);
+  display: flex;
+  justify-content: space-between;
+  z-index: 100;
+  padding-left: 20px;
+  padding-right: 20px;
+  vertical-align: center;
+}
 
-.link {
-  color: rgb(0,128,255);
-  text-decoration: underline;
+.header a {
+  text-decoration: none;
+  color: white;
+}
+
+.header a:hover {
+  text-decoration: none;
+  color: white;
+  text-shadow: rgba(255, 255, 255, 0.8) 1px 0 5px;
+}
+
+.wrapper {
+  margin-top: 200px;
+  letter-spacing: 1px;
+}
+`}</style>
+        </Head>
+        <body>
+          <div className="header">
+            <h1>
+              <Link href="/"><a>Recipe Hub</a></Link>
+            </h1>
+            <h1>
+              <Link href="/"><a>Github for Cooking</a></Link>
+            </h1>
+          </div>
+          <div className='wrapper'>
+            <Main />
+            <NextScript />
+          </div>
+        </body>
+      </html>
+    )
+  }
 }
