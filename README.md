@@ -43,6 +43,8 @@ export const apiUrl = 'https://recipe-hub-back.herokuapp.com/';
 
 ![mrepository_post](https://imgur.com/wzYbaBe.jpg)
 
+テーブル操作系は `admin/v1/` 以下，その他カスタムな API 系は `api/v1/` 以下としています．
+
 また，重要な注意点として，**末尾の / 有無等は swagger の表記を正確に守ってください．出ないとエラーになります．**
 
 一番右の灰色のボックスは DB のテーブルを表します．`MRepository` や `MUser` がテーブル名で，`id_fork_from` とかしたに箇条書きになっているのがカラムです．以下に説明を書きます．
