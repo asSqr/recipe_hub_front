@@ -15,6 +15,36 @@ Hot Reload といって，この状態のまま VSCode 等でコードをいじ�
 
 赤い矢印は叩いている API を表します．API を叩く関数群は `utils/api_request.js` に定義されています．
 
+`https://recipe-hub-back.herokuapp.com/swagger/` にバックエンドの API 情報があるのですが，これを見ながら関数を追加してみましょう．
+
+試しに `https://recipe-hub-back.herokuapp.com/admin/v1/mrepository` の `GET` メソッドに注目します．
+
+![mrepository](https://imgur.com/9ZbXRNX.jpg)
+
+swagger 上では API を試しに叩くこともできて Try it out → Execute で実行できます．レスポンスとしてどのような形態で帰ってくるか確認しましょう：
+
+![mrepository_resp](https://imgur.com/GVXnf96.jpg)
+
+さて，`utils/api_request.js` に以下を追加しましょう．
+
+```js
+export const fetchRecipes = async () => {
+  return axios.get(`${apiUrl}admin/v1/mrepository/`);
+}
+```
+
+`apiUrl` は，
+```js
+export const apiUrl = 'https://recipe-hub-back.herokuapp.com/';
+```
+です．
+
+`GET` メソッドなので `axios.get` となります．あとは使いそうなところで `POST`, `PATCH`, `DELETE` であり，それぞれ 作成，部分更新，削除と思っていただければ良いです．(特に `PATCH` は変更するフィールドだけポストすればそこだけ変えてくれます) ポストする系の API は swagger でポストするリクエストパラメーターを別途指定します．
+
+![mrepository_post](https://imgur.com/wzYbaBe.jpg)
+
+また，重要な注意点として，*末尾の / 有無等は swagger の表記を正確に守ってください．出ないとエラーになります．*
+
 一番右の灰色のボックスは DB のテーブルを表します．`MRepository` や `MUser` がテーブル名で，`id_fork_from` とかしたに箇条書きになっているのがカラムです．以下に説明を書きます．
 
 # MRepository
@@ -33,6 +63,10 @@ Hot Reload といって，この状態のまま VSCode 等でコードをいじ�
 - email: メールアドレス
 - create_date: 作成日時
 - update_date: 更新日時
+
+最新情報は swagger の末尾にあります．
+
+![model](https://imgur.com/HINWwr9.jpg)
 
 ## ページを編集するには
 Next.js ではファイルシステムによるパス指定を行うので，`pages/` 以下の URL のパスに対応した位置にある js ファイルにページの定義があります．例えば，`/create` であれば `pages/create.js` に定義があります．デザイン等は `styles/` 以下の css を参照していたり，`_document.js` に直書きしたりしていますが，tailwind-css や chakura-ui 等を用いるのもてだと思います．
