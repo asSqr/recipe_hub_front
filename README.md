@@ -1,13 +1,13 @@
 ## ローカルでの実行方法
 ```bash
-git clone 
+git clone https://github.com/asSqr/recipe_hub_front.git
 yarn install
 yarn dev
 ```
 Hot Reload といって，この状態のまま VSCode 等でコードをいじると自動で反映されます．
 
 ## URL パス・ページ間のつながり・叩いている API 等
-![フロー図](https://imgur.com/kDwjfHI)
+![フロー図](https://imgur.com/kDwjfHI.jpg)
 
 左の灰色のボックスがページを表しています．オレンジはリンクの貼られたテキスト・ボタンを示しており，クリックすると矢印のように遷移します．
 
