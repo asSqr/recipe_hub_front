@@ -11,11 +11,11 @@ Hot Reload といって，この状態のまま VSCode 等でコードをいじ�
 
 左の灰色のボックスがページを表しています．オレンジはリンクの貼られたテキスト・ボタンを示しており，クリックすると矢印のように遷移します．
 
-(index) や (recipes) のようなものは，`https://recipe-hub-front.vercel.app/` の末尾につくパスです．ただ一点注意が必要なのは，各レシピページで，`https://recipe-hub-front.vercel.app/recipe/{id}` となります．この id は DB 上でふられている id に対応しており，各テーブルの各レコードに同様にユニークな id があります．
+(index) や (recipes) のようなものは，https://recipe-hub-front.vercel.app/ の末尾につくパスです．ただ一点注意が必要なのは，各レシピページで，`https://recipe-hub-front.vercel.app/recipe/{id}` となります．この id は DB 上でふられている id に対応しており，各テーブルの各レコードに同様にユニークな id があります．
 
 赤い矢印は叩いている API を表します．API を叩く関数群は `utils/api_request.js` に定義されています．
 
-`https://recipe-hub-back.herokuapp.com/swagger/` にバックエンドの API 情報があるのですが，これを見ながら関数を追加してみましょう．
+https://recipe-hub-back.herokuapp.com/swagger/ にバックエンドの API 情報があるのですが，これを見ながら関数を追加してみましょう．
 
 試しに `https://recipe-hub-back.herokuapp.com/admin/v1/mrepository` の `GET` メソッドに注目します．
 
@@ -43,13 +43,13 @@ export const apiUrl = 'https://recipe-hub-back.herokuapp.com/';
 
 ![mrepository_post](https://imgur.com/wzYbaBe.jpg)
 
-また，重要な注意点として，*末尾の / 有無等は swagger の表記を正確に守ってください．出ないとエラーになります．*
+また，重要な注意点として，**末尾の / 有無等は swagger の表記を正確に守ってください．出ないとエラーになります．**
 
 一番右の灰色のボックスは DB のテーブルを表します．`MRepository` や `MUser` がテーブル名で，`id_fork_from` とかしたに箇条書きになっているのがカラムです．以下に説明を書きます．
 
 # MRepository
 - id: id
-- id_fork_from: フォーク元のレポジトリの id
+- id_fork_from: フォーク元のレポジトリの id (null ならフォーク元なし)
 - name: レシピ名
 - recipe: レシピ本体 (これは文字列としているが，どう保つかは検討)
 - id_author: 作ったユーザーの id
@@ -69,7 +69,7 @@ export const apiUrl = 'https://recipe-hub-back.herokuapp.com/';
 ![model](https://imgur.com/HINWwr9.jpg)
 
 ## ページを編集するには
-Next.js ではファイルシステムによるパス指定を行うので，`pages/` 以下の URL のパスに対応した位置にある js ファイルにページの定義があります．例えば，`/create` であれば `pages/create.js` に定義があります．デザイン等は `styles/` 以下の css を参照していたり，`_document.js` に直書きしたりしていますが，tailwind-css や chakura-ui 等を用いるのもてだと思います．
+Next.js ではファイルシステムによるパス指定を行うので，`pages/` 以下の URL のパスに対応した位置にある js ファイルにページの定義があります．例えば，`/create` であれば `pages/create.js` に定義があります．デザイン等は `styles/` 以下の css を参照していたり，`_document.js` に直書きしたりしていますが，tailwind-css や chakura-ui 等を用いるのも手だと思います．
 
 ## その他 Next.js 情報
 React はコンポーネントとしてページの部品を独立に切り出して定義してそれを組み合わせるように作ります．今回は，レシピに対応するカードだけをコンポーネントとして切り出していて，`components/RecipeItem.js` に定義があります．
