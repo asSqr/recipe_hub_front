@@ -1,6 +1,7 @@
 ## ローカルでの実行方法
 ```bash
 git clone https://github.com/asSqr/recipe_hub_front.git
+cd recipe_hub_front
 yarn install
 yarn dev
 ```
