@@ -8,6 +8,8 @@ import RecipeItem from '../../components/RecipeItem';
 
 export default function Recipe() {
   const nameRef = React.createRef();
+  const titleRef = React.createRef();
+  const recipeRef = React.createRef();
   const [recipe, setRecipe] = useState({});
   const router = useRouter();
 
@@ -25,11 +27,17 @@ export default function Recipe() {
 
   const clickHandler = () => {
     const name = nameRef.current.value;
+    const title = titleRef.current.value;
+    const recipe = recipeRef.current.value;
 
     postFork({
       id_user: 'id_user',
       id_repo: id_recipe,
-      name
+      name,
+      title,
+      recipe,
+      genre: name,
+      thumbnail: null
     })
   }
 
@@ -48,6 +56,18 @@ export default function Recipe() {
           <TextField
             id="standard-basic"
             label="レシピ名"
+            inputRef={titleRef}
+            style={{marginTop: '2rem', marginButtom: '2rem'}}
+          /> <br />
+          <TextField
+            id="standard-basic"
+            label="レシピ"
+            inputRef={recipeRef}
+            style={{marginTop: '2rem', marginButtom: '2rem'}}
+          /> <br />
+          <TextField
+            id="standard-basic"
+            label="料理名"
             inputRef={nameRef}
             style={{marginTop: '2rem', marginButtom: '2rem'}}
           /> <br />

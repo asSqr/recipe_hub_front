@@ -55,13 +55,16 @@ export const apiUrl = 'https://recipe-hub-back.herokuapp.com/';
 # MRepository
 - id: id
 - id_fork_from: フォーク元のレポジトリの id (null ならフォーク元なし)
-- name: レシピ名
+- name: 料理名
+- title: レシピ名
 - recipe: レシピ本体 (これは文字列としているが，どう保つかは検討)
+- genre: ジャンル
+- thumbnail: サムネイル画像 (input file で入力)
 - id_author: 作ったユーザーの id
 - create_date: 作成日時
 - update_date: 更新日時
 
-# MUser
+# MUser (今は機能していない)
 - id: id
 - name: ユーザー名
 - pass: パスワード
@@ -72,6 +75,75 @@ export const apiUrl = 'https://recipe-hub-back.herokuapp.com/';
 最新情報は swagger の末尾にあります．
 
 ![model](https://imgur.com/HINWwr9.jpg)
+
+## Fork について
+fork する時は，`api/v1/fork` に以下を `POST` してください．よし何やってくれます．
+
+```js
+{
+  id_user: "フォークするユーザーの id (仮．今は機能していないのでどんな文字列でも良い)",
+  id_repo: "フォーク元のレポジトリ id",
+  name: "料理名",
+  title: "レシピタイトル",
+  recipe: "レシピ内容",
+  genre: "ジャンル",
+  thumbnail: "サムネイル画像"
+}
+```
+
+あるレポジトリに関する Fork Tree を取得するには `api/v1/fork-tree/{id}` を `GET` すればよく，レスポンスは例えば以下のようになる：
+
+```js
+{
+  "id": "6515e02c-d456-40b0-9ad7-1f6d4b481cb0",
+  "title": "ラーメン",
+  "name": "ラーメン",
+  "recipe": "豚骨",
+  "genre": "ラーメン",
+  "next": [
+    {
+      "id": "2701b114-57c4-4ada-bcda-8a7993bcb9f7",
+      "title": "醤油ラーメン",
+      "name": "醤油ラーメン",
+      "recipe": "醤油の方がうまい",
+      "genre": "醤油ラーメン",
+      "next": []
+    },
+    {
+      "id": "fdc4a390-5411-478b-b5bc-1100ac6823db",
+      "title": "醤油ラーメン2",
+      "name": "醤油ラーメン",
+      "recipe": "これの方がさらうまい",
+      "genre": "醤油ラーメン",
+      "next": [
+        {
+          "id": "c3ca37c5-9f46-4916-a70a-381d87dd2f81",
+          "title": "ラーメン 〜匠の味〜",
+          "name": "ラーメン",
+          "recipe": "ラーメンの決定版",
+          "genre": "ラーメン",
+          "next": []
+        }
+      ]
+    }
+  ]
+}
+```
+
+`next` プロパティに子オブジェクトのリスト (木上の隣接する子孫) が来る．難しくいうと，以下のように再帰的に定義される．
+
+```ts
+type Tree = {
+  id: string,
+  title: string,
+  name: string,
+  recipe: string,
+  genre: string,
+  next: [Tree]
+}
+```
+
+`next` が空リストなら葉 (子孫がない末端) であることを示す．
 
 ## ページを編集するには
 Next.js ではファイルシステムによるパス指定を行うので，`pages/` 以下の URL のパスに対応した位置にある js ファイルにページの定義があります．例えば，`/create` であれば `pages/create.js` に定義があります．デザイン等は `styles/` 以下の css を参照していたり，`_document.js` に直書きしたりしていますが，tailwind-css や chakura-ui 等を用いるのも手だと思います．
