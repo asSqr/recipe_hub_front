@@ -77,7 +77,7 @@ export const apiUrl = 'https://recipe-hub-back.herokuapp.com/';
 ![model](https://imgur.com/HINWwr9.jpg)
 
 ## Fork について
-fork する時は，`api/v1/fork` に以下を `POST` してください．よし何やってくれます．
+fork する時は，`api/v1/fork` に以下を `POST` してください．よしなにやってくれます．
 
 ```js
 {
