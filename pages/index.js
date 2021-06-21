@@ -9,7 +9,7 @@ export default function Home() {
       </h1>
 
       <p className={styles.description}>
-        Github for Cooking <br/> <br/>
+        Github for Cooking Development <br/> <br/>
         Recipes available <Link href="/recipes"><a>here</a></Link>
       </p>
     </main>
