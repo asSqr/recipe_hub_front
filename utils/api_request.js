@@ -17,3 +17,7 @@ export const postRecipe = async param => {
 export const postFork = async param => {
   return axios.post(`${apiUrl}api/v1/fork`, param);
 }
+
+export const fetchTree = async id_repository => {
+  return axios.get(`${apiUrl}api/v1/fork-tree/${id_repository}`);
+}
