@@ -15,13 +15,16 @@ export default function Recipe() {
 
   useEffect(() => {
     const f = async () => {
+      if( !id_recipe )
+        return;
+
       const { data } = await fetchRecipe(id_recipe);
 
       setRecipe(data);
     };
 
     f();
-  }, []);
+  }, [id_recipe]);
 
   const clickHandler = () => {
     const name = nameRef.current.value;
