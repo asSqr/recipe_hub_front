@@ -1,15 +1,11 @@
-import {TextField, Button, FormGroup, Switch, Container, Grid} from '@material-ui/core'
+import {Icon, TextField, Button, FormGroup, Switch, Container, Grid} from '@material-ui/core'
 import Link from 'next/link';
 import styles from '../styles/Home.module.css'
 import React, { useEffect, useState } from 'react';
 import { fetchRecipes } from '../utils/api_request';
 import RecipeMenu from '../components/RecipeMenu';
 import { normalizeRouteRegex } from 'next/dist/lib/load-custom-routes';
-
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-
-// import FormGroup from '@material-ui/core/FormGroup';
-// import Switch from '@material-ui/core/Switch';
 
 
 export default function Recipes() {
@@ -70,6 +66,14 @@ export default function Recipes() {
             検索
           </Button>
 
+          {/* <Button
+            variant="contained"
+            color="primary"
+            // endIcon={<Icon Send />}
+          >
+            新規作成
+          </Button> */}
+
           <FormGroup row>
             <FormControlLabel
               control={<Switch color="primary" checked={wa} onClick={() => setWa(! wa)}  />}
@@ -84,7 +88,7 @@ export default function Recipes() {
                 label="中華"
             />
           </FormGroup>
-        
+      
         </div>
 
 
