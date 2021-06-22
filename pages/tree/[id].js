@@ -2,6 +2,7 @@ import styles from '../../styles/Home.module.css'
 import { useRouter } from 'next/router';
 import { fetchTree } from '/utils/api_request';
 import { useEffect, useState } from 'react';
+import {TreeComponent} from '../../components/TreeComponent'
 
 export default function Tree() {
   const [tree, setTree] = useState({});
@@ -26,7 +27,9 @@ export default function Tree() {
           木構造
         </h1>
         <p>{id_recipe}</p>
-        <p>{tree['name']}</p>
+        <ul>
+          <TreeComponent {...tree} />
+        </ul>
       </main>
     </div>
   )
