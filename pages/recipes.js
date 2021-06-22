@@ -6,7 +6,7 @@ import { fetchRecipes } from '../utils/api_request';
 import RecipeMenu from '../components/RecipeMenu';
 import { normalizeRouteRegex } from 'next/dist/lib/load-custom-routes';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-
+import AddIcon from '@material-ui/icons/Add';
 
 export default function Recipes() {
 
@@ -46,33 +46,32 @@ export default function Recipes() {
   }, []);
 
   return (
-      <main className={styles.main}>  {/* 全体の調整を行うタイミングでHome.module.cssのmainのmargin topを編集して幅の調整を行いたい   */}
+      <main className={styles.main}> 
 
         <h1 className={styles.title}>
           レシピ一覧
         </h1>
 
-        {/* <div className={styles.container}>   */}
-        {/* 全体の調整を行うタイミングでHome.module.cssのcontainerを編集して幅の調整を行いたい */}
-        
-        <div style={{ margin: '2rem' ,marginLeft: '10rem'}}>
-      
+        <div style={{ margin: '2rem' ,marginLeft: '10%'}}>
+
+          <div style={{ margin: '2rem'}}>
+            <Button
+              variant="contained"
+              color="secondary"
+              endIcon={<AddIcon />}
+              href = '/create'
+            >新規作成
+            </Button>
+          </div>
+
           <TextField label="料理名,ユーザー名" type="text"
             name="料理名ユーザー名検索"
             onChange={e => setTmpDish(e.target.value)}
             value={tmpDish} />
 
-          <Button variant="contained" color="primary" href="#contained-buttons"　onClick={addDish}>
+          <Button variant="contained" color="primary"　onClick={addDish}>
             検索
           </Button>
-
-          {/* <Button
-            variant="contained"
-            color="primary"
-            // endIcon={<Icon Send />}
-          >
-            新規作成
-          </Button> */}
 
           <FormGroup row>
             <FormControlLabel
@@ -90,7 +89,6 @@ export default function Recipes() {
           </FormGroup>
       
         </div>
-
 
         <div style={{ marginLeft: '5rem'}}>
           <Container maxWidth="lg">
@@ -115,7 +113,7 @@ export default function Recipes() {
 
             })}
             </Grid>
-          </Container>
+          </Container>          
         </div>
         
 

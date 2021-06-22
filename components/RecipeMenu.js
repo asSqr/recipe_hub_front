@@ -75,11 +75,9 @@ const RecipeMenu = (props) => {
             {name}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            <div className={classes.text}>
             作成日:{date}<br></br>
             ジャンル:{genre}<br></br>
             作成者:{id_author}
-            </div>
           </Typography>
         </CardContent>
         
