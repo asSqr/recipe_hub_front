@@ -5,8 +5,8 @@ export const TreeComponent = (tree) => {
     <li>
       <span>{tree.title}</span>
       <ul>
-        {tree.hasOwnProperty('next') && tree['next'].map(item => (
-          <TreeComponent {...item} />
+        {tree.hasOwnProperty('next') && tree['next'].map((item) => (
+          <TreeComponent key={item.id} {...item} />
         ))}
       </ul>
     </li>
