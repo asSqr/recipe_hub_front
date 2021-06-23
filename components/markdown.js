@@ -1,18 +1,24 @@
 import React from 'react';
-import {Editor, EditorState, getDefaultKeyBinding, RichUtils } from 'draft-js';
-
+import { Editor, EditorState, getDefaultKeyBinding, RichUtils } from 'draft-js';
+import { stateToHTML } from 'draft-js-export-html';
 class RichEditorExample extends React.Component {
     constructor(props) {
       super(props);
-      this.state = {editorState: EditorState.createEmpty()};
+      this.state = {editorState: EditorState.createEmpty(), editorEnable: false};
 
-      this.focus = () => this.refs.editor.focus();
+      this.focus = () => {
+        this.refs.editor.focus();
+      }
       this.onChange = (editorState) => this.setState({editorState});
 
       this.handleKeyCommand = this._handleKeyCommand.bind(this);
       this.mapKeyToEditorCommand = this._mapKeyToEditorCommand.bind(this);
       this.toggleBlockType = this._toggleBlockType.bind(this);
       this.toggleInlineStyle = this._toggleInlineStyle.bind(this);
+    }
+
+    componentDidMount() {
+      this.setState( { editorEnable: true } );
     }
 
     _handleKeyCommand(command, editorState) {
@@ -68,32 +74,39 @@ class RichEditorExample extends React.Component {
         if (contentState.getBlockMap().first().getType() !== 'unstyled') {
           className += ' RichEditor-hidePlaceholder';
         }
+      } else {
+        this.props.setContent(stateToHTML(contentState));
       }
 
       return (
-        <div className="RichEditor-root">
-          <BlockStyleControls
-            editorState={editorState}
-            onToggle={this.toggleBlockType}
-          />
-          <InlineStyleControls
-            editorState={editorState}
-            onToggle={this.toggleInlineStyle}
-          />
-          <div className={className} onClick={this.focus}>
-            <Editor
-              blockStyleFn={getBlockStyle}
-              customStyleMap={styleMap}
-              editorState={editorState}
-              handleKeyCommand={this.handleKeyCommand}
-              keyBindingFn={this.mapKeyToEditorCommand}
-              onChange={this.onChange}
-              placeholder="Tell a story..."
-              ref="editor"
-              spellCheck={true}
-            />
-          </div>
-        </div>
+        <>
+          {this.state.editorEnable && (<div className="RichEditor-root">
+              <BlockStyleControls
+                editorState={editorState}
+                onToggle={this.toggleBlockType}
+              />
+              <InlineStyleControls
+                editorState={editorState}
+                onToggle={this.toggleInlineStyle}
+              />
+              <div className={className} onClick={this.focus}>
+                <Editor
+                  blockStyleFn={getBlockStyle}
+                  customStyleMap={styleMap}
+                  editorState={editorState}
+                  handleKeyCommand={this.handleKeyCommand}
+                  keyBindingFn={this.mapKeyToEditorCommand}
+                  onChange={this.onChange}
+                  placeholder=""
+                  ref="editor"
+                  spellCheck={true}
+                  userSelect="none"
+                  contentEditable={false}
+                />
+              </div>
+            </div>)
+          }
+        </>
       );
     }
   }
