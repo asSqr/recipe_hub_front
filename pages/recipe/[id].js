@@ -4,7 +4,8 @@ import { useRouter } from 'next/router';
 import styles from '../../styles/Home.module.css'
 import React, { useEffect, useState } from 'react';
 import { fetchRecipe, postFork } from '../../utils/api_request';
-import RecipeItem from '../../components/RecipeItem';
+// import RecipeItem from '../../components/RecipeItem';
+import RecipeItem from '../../components/preview';
 
 export default function Recipe() {
   const nameRef = React.createRef();
