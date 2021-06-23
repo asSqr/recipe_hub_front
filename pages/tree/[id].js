@@ -3,6 +3,9 @@ import { useRouter } from 'next/router';
 import { fetchTree } from '/utils/api_request';
 import { useEffect, useState } from 'react';
 import { TreeComponent } from '../../components/TreeComponent'
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Link from 'next/link'
 
 export default function Tree() {
   const [tree, setTree] = useState({});
@@ -12,9 +15,9 @@ export default function Tree() {
 
   useEffect(() => {
     const f = async () => {
-      if( !id_recipe )
+      if (!id_recipe)
         return;
-      
+
       const { data } = await fetchTree(id_recipe);
 
       setTree(data);
@@ -33,6 +36,22 @@ export default function Tree() {
         <ul>
           <TreeComponent {...tree} />
         </ul>
+        <Grid container>
+          <Grid item xs={6}>
+            <Link href={`/recipe/${id_recipe}`}>
+              <Button variant="contained" color="primary">
+                レシピに戻る
+              </Button>
+            </Link>
+          </Grid>
+          <Grid item xs={6}>
+            <Link href={`/recipes`}>
+              <Button variant="contained" color="primary">
+                レシピ一覧
+              </Button>
+            </Link>
+          </Grid>
+        </Grid>
       </main>
     </div>
   )
