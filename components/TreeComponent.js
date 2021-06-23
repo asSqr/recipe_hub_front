@@ -5,6 +5,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import Link from 'next/link'
 
 const useStyles = makeStyles((theme) => ({
   media: {
@@ -26,28 +27,30 @@ export const TreeComponent = (tree) => {
 
   return (
     <li>
-      <Card variant="outlined">
-        <Grid container spacing={1} alignItems="center">
-          <Grid item xs={8}>
-            <CardContent className={classes.cardcontent}>
-              <Typography variant="h5" component="h2">
-                {tree.title}
-              </Typography>
-              <Typography variant="body1" color="textSecondary" component="text">
-                {tree.name}
-              </Typography>
-            </CardContent>
+      <Link href={`/recipe/${tree.id}`}>
+        <Card variant="outlined">
+          <Grid container spacing={1} alignItems="center">
+            <Grid item xs={8}>
+              <CardContent className={classes.cardcontent}>
+                <Typography variant="h5" component="h2">
+                  {tree.title}
+                </Typography>
+                <Typography variant="body1" color="textSecondary" component="text">
+                  {tree.name}
+                </Typography>
+              </CardContent>
+            </Grid>
+            <Grid item xs={4}>
+              <CardMedia
+                className={classes.media}
+                image="/noimage.png"
+                title="Image"
+                onError={onMediaFallback}
+              />
+            </Grid>
           </Grid>
-          <Grid item xs={4}>
-            <CardMedia
-              className={classes.media}
-              image="/noimage.png"
-              title="Image"
-              onError={onMediaFallback}
-            />
-          </Grid>
-        </Grid>
-      </Card>
+        </Card>
+      </Link>
       <ul>
         {tree.hasOwnProperty('next') && tree['next'].map((item) => (
           <TreeComponent key={item.id} {...item} />
