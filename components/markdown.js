@@ -6,8 +6,13 @@ class RichEditorExample extends React.Component {
       super(props);
       this.state = {editorState: EditorState.createEmpty(), editorEnable: false};
 
+      this.editorRef = React.createRef();
+
       this.focus = () => {
-        this.refs.editor.focus();
+        if( !this.state.editorEnable )
+          return;
+        
+        this.editorRef.focus();
       }
       this.onChange = (editorState) => this.setState({editorState});
 
@@ -98,7 +103,7 @@ class RichEditorExample extends React.Component {
                   keyBindingFn={this.mapKeyToEditorCommand}
                   onChange={this.onChange}
                   placeholder=""
-                  ref="editor"
+                  ref={input => this.editorRef = input}
                   spellCheck={true}
                   userSelect="none"
                   contentEditable={false}
