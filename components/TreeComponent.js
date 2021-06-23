@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+import CardActionArea from '@material-ui/core/CardActionArea';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Link from 'next/link'
@@ -27,30 +28,32 @@ export const TreeComponent = (tree) => {
 
   return (
     <li>
-      <Link href={`/recipe/${tree.id}`}>
-        <Card variant="outlined">
-          <Grid container spacing={1} alignItems="center">
-            <Grid item xs={8}>
-              <CardContent className={classes.cardcontent}>
-                <Typography variant="h5" component="h2">
-                  {tree.title}
-                </Typography>
-                <Typography variant="body1" color="textSecondary" component="text">
-                  {tree.name}
-                </Typography>
-              </CardContent>
+      <Card variant="outlined">
+        <CardActionArea component="div">
+          <Link href={`/recipe/${tree.id}`}>
+            <Grid container spacing={1} alignItems="center">
+              <Grid item xs={8}>
+                <CardContent className={classes.cardcontent}>
+                  <Typography variant="h5" component="h2">
+                    {tree.title}
+                  </Typography>
+                  <Typography variant="body1" color="textSecondary" component="text">
+                    {tree.name}
+                  </Typography>
+                </CardContent>
+              </Grid>
+              <Grid item xs={4}>
+                <CardMedia
+                  className={classes.media}
+                  image="/noimage.png"
+                  title="Image"
+                  onError={onMediaFallback}
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={4}>
-              <CardMedia
-                className={classes.media}
-                image="/noimage.png"
-                title="Image"
-                onError={onMediaFallback}
-              />
-            </Grid>
-          </Grid>
-        </Card>
-      </Link>
+          </Link>
+        </CardActionArea>
+      </Card>
       <ul>
         {tree.hasOwnProperty('next') && tree['next'].map((item) => (
           <TreeComponent key={item.id} {...item} />
