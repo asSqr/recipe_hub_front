@@ -46,7 +46,7 @@ export const TreeComponent = (tree) => {
                 <CardMedia
                   className={classes.media}
                   image="/noimage.png"
-                  title="Image"
+                  title={tree.title}
                   onError={onMediaFallback}
                 />
               </Grid>
