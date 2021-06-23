@@ -36,15 +36,15 @@ export default function Tree() {
         <ul>
           <TreeComponent {...tree} />
         </ul>
-        <Grid container>
-          <Grid item xs={6}>
+        <Grid container alignItems="center" justify="center">
+          <Grid item xs={6} style={{textAlign: "center"}}>
             <Link href={`/recipe/${id_recipe}`}>
               <Button variant="contained" color="primary">
                 レシピに戻る
               </Button>
             </Link>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={6} style={{textAlign: "center"}}>
             <Link href={`/recipes`}>
               <Button variant="contained" color="primary">
                 レシピ一覧
