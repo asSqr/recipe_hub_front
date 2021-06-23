@@ -3,6 +3,7 @@ import Link from 'next/link';
 import styles from '../styles/Home.module.css'
 import React, { useEffect, useState } from 'react';
 import { postRecipe } from '../utils/api_request';
+import RichEditorExample from '../components/markdown';
 
 export default function CreateRecipe() {
   const nameRef = React.createRef();
@@ -32,14 +33,22 @@ export default function CreateRecipe() {
             label="レシピ名"
             inputRef={nameRef}
           /> <br />
-          <TextareaAutosize
+          {/* <TextareaAutosize
             rowsMax={100}
             aria-label="maximum height"
             placeholder="レシピを入力してください"
             defaultValue=""
             ref={recipeRef}
             style={{marginTop: '2rem', marginButtom: '2rem'}}
-          /> <br />
+          /> <br /> */}
+          <RichEditorExample 
+            rowsMax={100}
+            aria-label="maximum height"
+            placeholder="レシピを入力してください"
+            defaultValue=""
+            ref={recipeRef}
+            style={{marginTop: '2rem', marginButtom: '2rem'}}
+          />
           <Button 
             variant="contained"
             color="primary"
