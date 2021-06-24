@@ -1,98 +1,105 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Link from 'next/link';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
-import { getDisplayName } from 'next/dist/next-server/lib/utils';
+import AccountTreeIcon from '@material-ui/icons/AccountTree';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
+import CardHeader from '@material-ui/core/CardHeader';
+import Avatar from '@material-ui/core/Avatar';
+import { red } from '@material-ui/core/colors';
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 
-// Material UI
-// https://material-ui.com/components/cards/
-
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
-    width: '20rem',
-    height: '20rem',
-    textAlign: 'center',
-    position: 'relative'
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
+    width:270,
   },
   media: {
-    height: 140,
+    height: 0,
+    paddingTop: '56.25%', // 16:9
   },
-
-  title: {
-    fontSize: 14,
-  },
-  footer: {
-    position: 'absolute',
-    bottom: '5px',
+  expand: {
+    transform: 'rotate(0deg)',
     marginLeft: 'auto',
-    marginRight: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
   },
-
-  text: {
-    textAlign: "left"
-  }
-});
+  expandOpen: {
+    transform: 'rotate(180deg)',
+  },
+  avatar: {
+    backgroundColor: red[500],
+  },
+}));
 
 const RecipeMenu = (props) => {
-  // console.log(props)
-
-  const { create_date, genre, id, id_author, id_fork_from, id_fork_to_list, name, recipe, show_link, thumbnail, title, update_date } = props;
 
   const classes = useStyles();
-  const onMediaFallback = event => event.target.src = "/noimage.png";
 
-  // const bull = <span className={classes.bullet}>•</span>;
+  // データの展開
+  const { create_date, genre, id, id_author, id_fork_from, id_fork_to_list, name, recipe, show_link, thumbnail, title, update_date } = props; 
+
+  // 画像がなかった場合の処理
+  const onMediaFallback = event => event.target.src = "/noimage.png";
 
   // 日付の正規化
   var dateRaw = create_date
-  var date = dateRaw.substr( 0, 10 )
+  var date = dateRaw.substr(0,10)
+
+  // 名前の頭文字
+  var authorRaw = id_author
+  var HeadId = authorRaw.substr(0,1)
 
   return (
     <Card className={classes.root}>
-      <CardActionArea>
-        <Link href={`/recipe/${id}`}>
-          <CardMedia
-            className={classes.media}
-            image="/noimage.png"
-            title={name}
-            onError={onMediaFallback}
-          />
-        </Link>
 
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            {name}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            作成日:{date}<br></br>
-            ジャンル:{genre}<br></br>
-            作成者:{id_author}
-          </Typography>
-        </CardContent>
-        
-      </CardActionArea>
-      <CardActions>
+      {/* ヘッダー */}
+      <CardHeader
+        avatar={
+          <Avatar aria-label="recipe" className={classes.avatar}>
+            {HeadId}
+          </Avatar>
+        }
+        // action={
+        //   <IconButton aria-label="settings">
+        //     <MoreVertIcon />
+        //   </IconButton>
+        // }
+        title={id_author}
+        subheader={date}
+        />
+   
+      {/* 写真 */}
+      <Link href={`/recipe/${id}`}>
+        <CardMedia
+          className={classes.media}
+          image= {thumbnail}
+          title={title}
+          onError={onMediaFallback}
+        />
+      </Link>
+      
+      {/* 本文 */}
+      <CardContent>
+        <Typography variant="body2" color="textSecondary" component="p">
+        料理名:{title}<br></br>
+        ジャンル:{genre}<br></br>         
+        </Typography>
+      </CardContent>
 
-        <Button variant="contained" color="primary" href= {`/tree/${id}`}>
-          木構造確認
-        </Button>
-        <Button variant="contained" color="primary" href={`/recipe/${id}`}>
-          レシピ表示
-        </Button>
+      {/* ボタン */}
+      <BottomNavigation showLabels>
+        <BottomNavigationAction label="木構造" href = {`/tree/${id}`}　icon={<AccountTreeIcon />} />
+        <BottomNavigationAction label="レシピ" href = {`/recipe/${id}`}　icon={<MenuBookIcon />} />
+      </BottomNavigation>
 
-      </CardActions>
     </Card>
+
   );
 }
 

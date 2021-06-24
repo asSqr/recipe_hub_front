@@ -10,23 +10,17 @@ import AddIcon from '@material-ui/icons/Add';
 
 export default function Recipes() {
 
-  // use State の使い方
-  // https://ja.reactjs.org/docs/hooks-state.html
-
   // レシピ一覧のstate
   const [recipes, setRecipes] = useState([]);
 
   // 和洋中の検索ステータス
   const [wa, setWa] = useState(true);
-  // console.log(wa);
   const [you, setYou] = useState(true);
-  // console.log(you);
   const [chu, setChu] = useState(true);
-  // console.log(chu);
 
   // 料理名，ユーザー名入力
   const [dish, setDish] = useState([]);
-  // console.log(dish)
+
   // フォームに入力された値をdishに登録するまでに入れておくためのstate
   const [tmpDish, setTmpDish] = useState("");
 
@@ -91,6 +85,7 @@ export default function Recipes() {
         </div>
 
         <div style={{ marginLeft: '5rem'}}>
+
           <Container maxWidth="lg">
             <Grid container spacing={4}>
             {recipes && recipes.map((recipe, idx) => {
@@ -113,7 +108,8 @@ export default function Recipes() {
 
             })}
             </Grid>
-          </Container>          
+          </Container>    
+
         </div>
         
 
