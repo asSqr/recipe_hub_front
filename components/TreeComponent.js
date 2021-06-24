@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
+    backgroundColor: 'transparent'
   },
   cardcontent: {
     padding: 16, // default value
@@ -21,14 +22,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const normalCardStyle = makeStyles({
+  root: {
+  },
+})
+
+const pickupCardStyle = makeStyles({
+  root: {
+    backgroundColor: 'skyblue'
+  },
+})
+
 export const TreeComponent = (tree) => {
 
+  const cardClasses = (tree.id == tree.source) ? pickupCardStyle() : normalCardStyle();
   const classes = useStyles();
-  const onMediaFallback = event => event.target.src = "/noimage.png";
+  const onMediaFallback = event => event.target.src = "/noimage_transparent.png";
 
   return (
     <li>
-      <Card variant="outlined">
+      <Card variant="outlined" className={cardClasses.root}>
         <CardActionArea component="div">
           <Link href={`/recipe/${tree.id}`}>
             <Grid container spacing={1} alignItems="center">
@@ -45,7 +58,7 @@ export const TreeComponent = (tree) => {
               <Grid item xs={4}>
                 <CardMedia
                   className={classes.media}
-                  image="/noimage.png"
+                  image="/noimage_transparent.png"
                   title={tree.title}
                   onError={onMediaFallback}
                 />
@@ -56,7 +69,7 @@ export const TreeComponent = (tree) => {
       </Card>
       <ul>
         {tree.hasOwnProperty('next') && tree['next'].map((item) => (
-          <TreeComponent key={item.id} {...item} />
+          <TreeComponent key={item.id} source={tree.source} {...item} />
         ))}
       </ul>
     </li>
