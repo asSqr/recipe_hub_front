@@ -8,7 +8,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import AddIcon from '@material-ui/icons/Add';
 import SearchIcon from '@material-ui/icons/Search';
 import LocalDiningIcon from '@material-ui/icons/LocalDining';
-
+import { urlObjectKeys } from 'next/dist/next-server/lib/utils';
 
 export default function Recipes() {
 
@@ -40,6 +40,13 @@ export default function Recipes() {
     setDish(tmpDish);
   };
 
+  // 背景写真
+  // https://www.ac-illust.com/main/detail.php?id=2616215&word=カトラリーフレーム※png背景透明&searchId=3954786678
+  const styling = {
+    backgroundImage: 'url("/tomato.jpg")',
+    width:"100%",
+}
+
   // レシピの取得
   useEffect(() => {
     const f = async () => {
@@ -52,7 +59,7 @@ export default function Recipes() {
   }, []);
 
   return (
-      <main className={styles.main}> 
+      <main className={styles.main} style={styling} > 
 
         {/* タイトル */}
         <h1 className={styles.title}>
