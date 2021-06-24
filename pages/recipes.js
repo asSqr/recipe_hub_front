@@ -40,11 +40,11 @@ export default function Recipes() {
     setDish(tmpDish);
   };
 
-  // 背景写真
   // https://www.ac-illust.com/main/detail.php?id=2616215&word=カトラリーフレーム※png背景透明&searchId=3954786678
   const styling = {
     backgroundImage: 'url("/tomato.jpg")',
     width:"100%",
+    marginTop: '2rem'
 }
 
   // レシピの取得
@@ -59,7 +59,7 @@ export default function Recipes() {
   }, []);
 
   return (
-      <main className={styles.main} style={styling} > 
+      <main className={styles.main} > 
 
         {/* タイトル */}
         <h1 className={styles.title}>
@@ -118,7 +118,7 @@ export default function Recipes() {
         </Grid>
        
         {/* メニュー表示 */}
-        <Container style={{backgroundColor: '#D7EEFF', marginTop: '2rem'}}>
+        <Container style={styling}>
           <Grid container justify="center" spacing={4}>
             {recipes && recipes.map((recipe, idx) => {
               const { create_date, genre, id, id_author, id_fork_from, id_fork_to_list, name, recipe_detail, show_link, thumbnail, title, update_date } = recipe;
