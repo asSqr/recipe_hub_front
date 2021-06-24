@@ -114,7 +114,6 @@ export default function Recipes() {
               検索
             </Button>
           </Grid>
-
         </Grid>
        
         {/* メニュー表示 */}
