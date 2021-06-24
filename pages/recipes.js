@@ -4,11 +4,10 @@ import styles from '../styles/Home.module.css'
 import React, { useEffect, useState } from 'react';
 import { fetchRecipes } from '../utils/api_request';
 import RecipeMenu from '../components/RecipeMenu';
-import { normalizeRouteRegex } from 'next/dist/lib/load-custom-routes';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import AddIcon from '@material-ui/icons/Add';
 import SearchIcon from '@material-ui/icons/Search';
-import { green } from '@material-ui/core/colors';
+import LocalDiningIcon from '@material-ui/icons/LocalDining';
 
 
 export default function Recipes() {
@@ -26,7 +25,9 @@ export default function Recipes() {
   });
 
   const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
+    setState({ ...state, 
+      [event.target.name]: event.target.checked,
+    });
   };
 
   // 料理名，ユーザー名入力
@@ -53,8 +54,9 @@ export default function Recipes() {
   return (
       <main className={styles.main}> 
 
+        {/* タイトル */}
         <h1 className={styles.title}>
-          レシピ一覧
+          <LocalDiningIcon /> レシピ一覧 <LocalDiningIcon />
         </h1>
 
         {/* 新規作成 */}
@@ -68,66 +70,70 @@ export default function Recipes() {
           </Button>
         </ButtonGroup>
 
-        {/* 検索メニュー */}
-        <Grid container justify ='center'>
-          <TextField label="料理名,ユーザー名" type="text"
-            name="料理名ユーザー名検索"
-            onChange={e => setTmpDish(e.target.value)}
-            value={tmpDish} />
-          <Button variant="contained" color="primary"　onClick={addDish}　endIcon={<SearchIcon />}>
-            検索
-          </Button>
-        </Grid>
+        <Grid container justify="center" spacing={2}>
+          {/* 選択エリア */}
+          <FormGroup row style={{marginTop: '5px', marginRight: '5px'}}>
+            <FormControlLabel
+              control={<Checkbox checked={state.wa} onChange={handleChange} name = "wa" color="primary" />}
+              label="和食"
+            />
+            <FormControlLabel
+              control={<Checkbox checked={state.you} onChange={handleChange} name = "you" color="primary" />}
+              label="洋食"
+            />
+            <FormControlLabel
+              control={<Checkbox checked={state.chu} onChange={handleChange} name = "chu" color="primary" />}
+              label="中華"
+            />
+            <FormControlLabel
+              control={<Checkbox checked={state.damy1} onChange={handleChange} name = "damy1" color="primary" />}
+              label="ダミー1"
+            />
+            <FormControlLabel
+              control={<Checkbox checked={state.damy2} onChange={handleChange} name = "damy2" color="primary" />}
+              label="ダミー2"
+            />
+          </FormGroup>
 
-        {/* 選択エリア */}
-        <FormGroup row container justify="center">
-          <FormControlLabel
-            control={<Checkbox checked={state.wa} onChange={handleChange} color="secondary" />}
-            label="和食"
-          />
-          <FormControlLabel
-            control={<Checkbox checked={state.you} onChange={handleChange} color="secondary" />}
-            label="洋食"
-          />
-          <FormControlLabel
-            control={<Checkbox checked={state.chu} onChange={handleChange} color="secondary" />}
-            label="中華"
-          />
-          <FormControlLabel
-            control={<Checkbox checked={state.damy1} onChange={handleChange} color="secondary" />}
-            label="ダミー1"
-          />
-          <FormControlLabel
-            control={<Checkbox checked={state.damy2} onChange={handleChange} color="secondary" />}
-            label="ダミー2"
-          />
-        </FormGroup>
+          {/* 検索メニュー */}
+          <Grid>
+            <TextField label="料理名,ユーザー名" type="text"
+              name="料理名ユーザー名検索"
+              onChange={e => setTmpDish(e.target.value)}
+              color="primary" 
+              focused
+              value={tmpDish} />
+            <Button variant="contained" color="primary"　onClick={addDish}　endIcon={<SearchIcon />}>
+              検索
+            </Button>
+          </Grid>
+
+        </Grid>
        
         {/* メニュー表示 */}
-        <Container maxWidth="lg">
+        <Container style={{backgroundColor: '#D7EEFF', marginTop: '2rem'}}>
           <Grid container justify="center" spacing={4}>
-          {recipes && recipes.map((recipe, idx) => {
-            const { create_date, genre, id, id_author, id_fork_from, id_fork_to_list, name, recipe_detail, show_link, thumbnail, title, update_date } = recipe;
-          
-            if (state.wa == false && genre == "和食" ||
-            state.you == false && genre == "洋食"||
-            state.chu == false && genre == "中華"){
-              return
-            }
-            else if (name.match(dish) || id_author.match(dish)|| dish == ""){
-              return (
-                <div key={idx} style={{ margin: '2rem' }}>
-                  <RecipeMenu show_link={true} {...recipe} />
-                </div>
-              );
-            }else{
-              return
-            }
+            {recipes && recipes.map((recipe, idx) => {
+              const { create_date, genre, id, id_author, id_fork_from, id_fork_to_list, name, recipe_detail, show_link, thumbnail, title, update_date } = recipe;
+            
+              if (state.wa == false && genre == "和食" ||
+              state.you == false && genre == "洋食"||
+              state.chu == false && genre == "中華"){
+                return
+              }
+              else if (name.match(dish) || id_author.match(dish)|| dish == ""){
+                return (
+                  <div key={idx} style={{ margin: '2rem' }}>
+                    <RecipeMenu show_link={true} {...recipe} />
+                  </div>
+                );
+              }else{
+                return
+              }
 
-          })}
+            })}
           </Grid>
         </Container>    
-        
 
       </main>
   )
