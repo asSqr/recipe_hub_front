@@ -79,7 +79,7 @@ const RecipeMenu = (props) => {
         <CardMedia
           className={classes.media}
           image= {thumbnail}
-          title={title}
+          title={name}
           onError={onMediaFallback}
         />
       </Link>
@@ -87,7 +87,7 @@ const RecipeMenu = (props) => {
       {/* 本文 */}
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-        料理名:{title}<br></br>
+        料理名:{name}<br></br>
         ジャンル:{genre}<br></br>         
         </Typography>
       </CardContent>
