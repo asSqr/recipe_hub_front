@@ -34,7 +34,7 @@ export default function Tree() {
         </h1>
         <p>{id_recipe}</p>
         <ul>
-          <TreeComponent {...tree} />
+          <TreeComponent key={tree.id} {...tree} />
         </ul>
         <Grid container alignItems="center" justify="center">
           <Grid item xs={6} style={{textAlign: "center"}}>
