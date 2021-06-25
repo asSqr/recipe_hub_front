@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Link from 'next/link';
 import RichEditorExample from './markdown'
+import { Container } from '@material-ui/core';
 
 const useStyles = makeStyles({
   root: {
@@ -28,7 +29,18 @@ const useStyles = makeStyles({
     bottom: '5px',
     marginLeft: 'auto',
     marginRight: 'auto',
-  }
+  },
+  menu: {
+    backgroundImage: 'url("https://raw.githubusercontent.com/asSqr/recipe_hub_front/feature/recipes/public/tomato.jpg")',
+  },
+  content: {
+    backgroundColor: 'white',
+    width: '785px',
+    marginTop: '24px',
+    marginRight: '248px',
+    marginLeft: '248px',
+    marginBottom: '24px',
+  },
 });
 
 const unescapeHtml = target => {
@@ -58,8 +70,8 @@ const RecipeItem = (props) => {
 
   return (
     
-    <Card>
-      <CardContent>
+    <Card className={classes.menu}>
+      <CardContent className={classes.content}>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
           レシピ名
         </Typography>
@@ -76,7 +88,7 @@ const RecipeItem = (props) => {
         dangerouslySetInnerHTML={{__html: `${unescapeHtml(recipe)}`,}}
         />
       </CardContent>
-
+      
       {show_link ?
         <Link href={`/recipe/${id}`}>
           <Button 

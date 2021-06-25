@@ -1,4 +1,4 @@
-import { Button, TextField, TextareaAutosize } from '@material-ui/core'
+import { Button, TextField, TextareaAutosize, Grid } from '@material-ui/core'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styles from '../../styles/Home.module.css'
@@ -56,33 +56,45 @@ export default function Recipe() {
           <RecipeItem show_link={false} {...recipe} />
         </div>
 
-        <form style={{ margin: '2rem' }} noValidate autoComplete="off">
+        <form style={{ margin: '2rem', flexDirection: 'row', justifyContent: 'center', }} noValidate autoComplete="off">
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center">
           <TextField
             id="standard-basic"
             label="レシピ名"
             inputRef={titleRef}
-            style={{marginTop: '2rem', marginButtom: '2rem'}}
+            color="primary"
+            focused
+            style={{marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
           /> <br />
           <TextField
             id="standard-basic"
             label="レシピ"
             inputRef={recipeRef}
-            style={{marginTop: '2rem', marginButtom: '2rem'}}
+            color="primary"
+            focused
+            style={{marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
           /> <br />
           <TextField
             id="standard-basic"
             label="料理名"
             inputRef={nameRef}
-            style={{marginTop: '2rem', marginButtom: '2rem'}}
+            color="primary"
+            focused
+            style={{marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
           /> <br />
           <Button 
             variant="contained"
             color="primary"
             onClick={clickHandler}
-            style={{marginTop: '2rem', marginButtom: '2rem'}}
+            style={{marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
           >
             レシピ Fork
           </Button>
+          </Grid>
         </form>
         <Link href="/recipes"><Button 
             variant="contained"

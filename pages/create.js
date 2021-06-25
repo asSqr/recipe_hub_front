@@ -1,4 +1,4 @@
-import { Button, TextField, TextareaAutosize } from '@material-ui/core'
+import { Button, TextField, TextareaAutosize, Grid } from '@material-ui/core'
 import Link from 'next/link';
 import styles from '../styles/Home.module.css'
 import React, { useEffect, useState } from 'react';
@@ -34,21 +34,37 @@ export default function CreateRecipe() {
           レシピを作る
         </h1>
         <form style={{ margin: '2rem' }} noValidate autoComplete="off">
+        <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center">
           <TextField
             id="standard-basic"
             label="料理名"
             inputRef={nameRef}
+            color="primary"
+            focused
+            style={{marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
           /> <br />
           <TextField
             id="standard-basic"
             label="ジャンル"
             inputRef={genreRef}
+            color="primary"
+            focused
+            style={{marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
           /> <br />
           <TextField
             id="standard-basic"
             label="レシピ名"
             inputRef={titleRef}
-          /> <br />
+            color="primary"
+            focused
+            style={{marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
+          /> 
+          <br />
+          </Grid>
           {/* <TextareaAutosize
             rowsMax={100}
             aria-label="maximum height"

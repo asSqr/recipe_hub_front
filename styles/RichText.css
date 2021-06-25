@@ -20,8 +20,9 @@
 }
 
 .RichEditor-editor .public-DraftEditor-content {
+    min-width: 785px;
     min-height: 300px;
-    min-width: 485px;
+    max-width: 785px;
 }
 
 .RichEditor-hidePlaceholder .public-DraftEditorPlaceholder-root {
