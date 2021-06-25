@@ -31,7 +31,7 @@ const useStyles = makeStyles({
   }
 });
 
-export const unescapeHtml = target => {
+const unescapeHtml = target => {
     if( typeof target !== 'string' )
       return target;
   
@@ -57,7 +57,8 @@ const RecipeItem = (props) => {
   const bull = <span className={classes.bullet}>•</span>;
 
   return (
-    <Card className={classes.root}>
+    
+    <Card>
       <CardContent>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
           レシピ名
@@ -65,21 +66,17 @@ const RecipeItem = (props) => {
         <Typography variant="h5" component="h2">
           {name}
         </Typography>
-        <br /> <br />
+        <br /> 
+        <br />
         <Typography className={classes.title} color="textSecondary" gutterBottom>
           レシピ
         </Typography>
-        {/* <Typography variant="body2" component="p">
-          {recipe}
-        </Typography> */}
         <div
-          className="article-body"
-          dangerouslySetInnerHTML={{
-            __html: `${unescapeHtml(recipe)}`,
-          }}
+        className="article-body"
+        dangerouslySetInnerHTML={{__html: `${unescapeHtml(recipe)}`,}}
         />
-
       </CardContent>
+
       {show_link ?
         <Link href={`/recipe/${id}`}>
           <Button 
