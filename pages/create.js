@@ -3,20 +3,27 @@ import Link from 'next/link';
 import styles from '../styles/Home.module.css'
 import React, { useEffect, useState } from 'react';
 import { postRecipe } from '../utils/api_request';
+import RichEditorExample from '../components/markdown';
 
 export default function CreateRecipe() {
   const nameRef = React.createRef();
-  const recipeRef = React.createRef();
+  const [recipe, setRecipe] = useState('');
+  const titleRef = React.createRef();
+  const genreRef = React.createRef();
 
   const clickHandler = () => {
     const name = nameRef.current.value;
-    const recipe = recipeRef.current.value;
-    console.log(name, recipe);
+    const title = titleRef.current.value;
+    const genre = genreRef.current.value;
+
+    console.log(recipe);
 
     postRecipe({
       name,
       recipe,
-      id_author: 'id_author'
+      title,
+      id_author: 'id_author',
+      genre
     })
   }
 
@@ -29,17 +36,36 @@ export default function CreateRecipe() {
         <form style={{ margin: '2rem' }} noValidate autoComplete="off">
           <TextField
             id="standard-basic"
-            label="レシピ名"
+            label="料理名"
             inputRef={nameRef}
           /> <br />
-          <TextareaAutosize
+          <TextField
+            id="standard-basic"
+            label="ジャンル"
+            inputRef={genreRef}
+          /> <br />
+          <TextField
+            id="standard-basic"
+            label="レシピ名"
+            inputRef={titleRef}
+          /> <br />
+          {/* <TextareaAutosize
             rowsMax={100}
             aria-label="maximum height"
             placeholder="レシピを入力してください"
             defaultValue=""
             ref={recipeRef}
             style={{marginTop: '2rem', marginButtom: '2rem'}}
-          /> <br />
+          /> <br /> */}
+          <div style={{marginTop: '2rem', marginButtom: '2rem'}}>
+            <RichEditorExample 
+              rowsMax={100}
+              aria-label="maximum height"
+              placeholder="レシピを入力してください"
+              defaultValue=""
+              setContent={setRecipe}
+            />
+          </div>
           <Button 
             variant="contained"
             color="primary"
