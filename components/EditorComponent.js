@@ -2,23 +2,35 @@ import { Button, TextField, TextareaAutosize, Grid } from '@material-ui/core'
 import Link from 'next/link';
 import styles from '../styles/Home.module.css'
 import React, { useEffect, useState } from 'react';
-import { postRecipe } from '../utils/api_request';
+import { fetchRecipe } from '../utils/api_request';
 import RichEditorExample from '../components/markdown';
+import RecipeItem from '../components/preview';
 
 export default function Editor({ apiFunc, title, action, initObj }) {
   const nameRef = React.createRef();
   const [recipe, setRecipe] = useState('');
+  const [recipeFrom, setRecipeFrom] = useState(null);
   const titleRef = React.createRef();
   const genreRef = React.createRef();
   const [image, setImage] = useState(null);
 
   useEffect(() => {
-    if( !initObj )
-      return;
-    
-    nameRef.current.value = initObj.name;
-    titleRef.current.value = initObj.title;
-    genreRef.current.value = initObj.genre;
+    const f = async () => {
+      if( !initObj )
+        return;
+      
+      nameRef.current.value = initObj.name;
+      titleRef.current.value = initObj.title;
+      genreRef.current.value = initObj.genre;
+
+      if( initObj && initObj.id_fork_from ) {
+        const { data } = await fetchRecipe(initObj.id_fork_from);
+
+        setRecipeFrom(data);
+      }
+    }
+
+    f();
   }, [initObj]);
 
   const getImage = (e) => {
@@ -56,6 +68,11 @@ export default function Editor({ apiFunc, title, action, initObj }) {
         <h1 className={styles.title}>
           {title}
         </h1>
+        {recipeFrom && (
+          <div style={{ margin: '0.5rem' }}>
+            <RecipeItem show_link={false} {...recipeFrom} />
+          </div>
+        )}
         <form style={{ margin: '2rem' }} noValidate autoComplete="off">
         <Grid
             container
