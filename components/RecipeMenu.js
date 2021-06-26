@@ -22,18 +22,14 @@ const useStyles = makeStyles((theme) => ({
     height: 0,
     paddingTop: '56.25%', // 16:9
   },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)',
-  },
   avatar: {
     backgroundColor: red[500],
+  },
+  hover: {
+    background: "#f1f1f1",
+    '&:hover': {
+       background: "#98fb98",
+    },
   },
 }));
 
@@ -94,8 +90,8 @@ const RecipeMenu = (props) => {
 
       {/* ボタン */}
       <BottomNavigation showLabels>
-        <BottomNavigationAction label="木構造" href = {`/tree/${id}`}　icon={<AccountTreeIcon />} />
-        <BottomNavigationAction label="レシピ" href = {`/recipe/${id}`}　icon={<MenuBookIcon />} />
+        <BottomNavigationAction className={classes.hover} label="木構造" href = {`/tree/${id}`}　icon={<AccountTreeIcon />} />
+        <BottomNavigationAction className={classes.hover} label="レシピ" href = {`/recipe/${id}`}　icon={<MenuBookIcon />} />
       </BottomNavigation>
 
     </Card>

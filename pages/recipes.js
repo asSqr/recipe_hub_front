@@ -67,7 +67,7 @@ export default function Recipes() {
         </h1>
 
         {/* 新規作成 */}
-        <ButtonGroup container justify ='center' style={{margin: '1rem'}}>
+        <ButtonGroup container justify ='center' style={{margin: '2rem'}}>
           <Button
             variant="contained"
             color="secondary"
@@ -92,14 +92,14 @@ export default function Recipes() {
               control={<Checkbox checked={state.chu} onChange={handleChange} name = "chu" color="primary" />}
               label="中華"
             />
-            <FormControlLabel
+            {/* <FormControlLabel
               control={<Checkbox checked={state.damy1} onChange={handleChange} name = "damy1" color="primary" />}
               label="ダミー1"
             />
             <FormControlLabel
               control={<Checkbox checked={state.damy2} onChange={handleChange} name = "damy2" color="primary" />}
               label="ダミー2"
-            />
+            /> */}
           </FormGroup>
 
           {/* 検索メニュー */}
