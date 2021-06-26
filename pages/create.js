@@ -10,6 +10,13 @@ export default function CreateRecipe() {
   const [recipe, setRecipe] = useState('');
   const titleRef = React.createRef();
   const genreRef = React.createRef();
+  const [image, setImage] = useState(null);
+
+  const getImage = (e) => {
+      if(!e.target.files) return
+      const img = e.target.files[0]
+      setImage(img)
+  }
 
   const clickHandler = () => {
     const name = nameRef.current.value;
@@ -18,13 +25,15 @@ export default function CreateRecipe() {
 
     console.log(recipe);
 
-    postRecipe({
-      name,
-      recipe,
-      title,
-      id_author: 'id_author',
-      genre
-    })
+    const data = new FormData()
+    data.append('thumbnail', image)
+    data.append('name', name);
+    data.append('recipe', recipe);
+    data.append('title', title);
+    data.append('id_author', 'id_author');
+    data.append('genre', genre);
+    
+    postRecipe(data)
   }
 
   return (
@@ -73,6 +82,9 @@ export default function CreateRecipe() {
             ref={recipeRef}
             style={{marginTop: '2rem', marginButtom: '2rem'}}
           /> <br /> */}
+          <div style={{marginTop: '2rem', marginButtom: '2rem'}}>
+            <input id="img" type="file" accept="image/*,.png,.jpg,.jpeg,.gif" onChange={(e) => getImage(e)} />
+          </div>
           <div style={{marginTop: '2rem', marginButtom: '2rem'}}>
             <RichEditorExample 
               rowsMax={100}
