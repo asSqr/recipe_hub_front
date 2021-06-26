@@ -62,7 +62,7 @@ export default function Recipe() {
             direction="row"
             justify="center"
             alignItems="center">
-          <TextField
+          {/* <TextField
             id="standard-basic"
             label="レシピ名"
             inputRef={titleRef}
@@ -85,15 +85,22 @@ export default function Recipe() {
             color="primary"
             focused
             style={{marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
-          /> <br />
+          /> <br /> */}
           <Button 
             variant="contained"
             color="primary"
             onClick={clickHandler}
-            style={{marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
+            style={{marginLeft: '2rem'}}
           >
             レシピ Fork
           </Button>
+          <Link href={`/edit/${id_recipe}`}><Button 
+            variant="contained"
+            color="primary"
+            style={{margin: '4rem'}}
+          >
+          レシピ編集画面へ
+        </Button></Link>
           </Grid>
         </form>
         <Link href="/recipes"><Button 
@@ -102,13 +109,6 @@ export default function Recipe() {
             style={{margin: '4rem'}}
           >
           レシピ一覧へ
-        </Button></Link>
-        <Link href={`/edit/${id_recipe}`}><Button 
-            variant="contained"
-            color="primary"
-            style={{margin: '4rem'}}
-          >
-          レシピ編集画面へ
         </Button></Link>
       </main>
     </div>
