@@ -33,7 +33,8 @@ const useStyles = makeStyles({
   },
   menu: {
     backgroundImage: 'url("https://raw.githubusercontent.com/asSqr/recipe_hub_front/feature/recipes/public/tomato.jpg")',
-    width: '100%'
+    width: '100%',
+    height: '100%'
   },
   content: {
     backgroundColor: 'white',
