@@ -7,10 +7,14 @@ class RichEditorExample extends React.Component {
     constructor(props) {
       super(props);
 
-      const state = stateFromHTML(this.props.default);
+      if( this.props.default ) {
+        const state = stateFromHTML(this.props.default);
 
-      this.state = {editorState: EditorState.createWithContent(state), editorEnable: false};
-
+        this.state = {editorState: EditorState.createWithContent(state), editorEnable: false};
+      } else {
+        this.state = {editorState: EditorState.createEmpty()};
+      }
+      
       this.editorRef = React.createRef();
 
       this.focus = () => {

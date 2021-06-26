@@ -105,7 +105,7 @@ export default function Editor({ apiFunc, title, action, initObj }) {
               aria-label="maximum height"
               placeholder="レシピを入力してください"
               defaultValue=""
-              deafult={initObj ? initObj.recipe : ""}
+              default={initObj ? initObj.recipe : ""}
               setContent={setRecipe}
             />
           </div>
