@@ -24,11 +24,13 @@ const useStyles = makeStyles((theme) => ({
 
 const normalCardStyle = makeStyles({
   root: {
+    width: 500
   },
 })
 
 const pickupCardStyle = makeStyles({
   root: {
+    width: 500,
     backgroundColor: 'skyblue'
   },
 })
