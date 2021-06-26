@@ -11,7 +11,7 @@ export default function Recipe() {
   const nameRef = React.createRef();
   const titleRef = React.createRef();
   const recipeRef = React.createRef();
-  const [recipe, setRecipe] = useState({});
+  const [recipe, setRecipe] = useState(null);
   const router = useRouter();
 
   const { id: id_recipe } = router.query;
@@ -29,20 +29,16 @@ export default function Recipe() {
     f();
   }, [id_recipe]);
 
-  const clickHandler = () => {
-    const name = nameRef.current.value;
-    const title = titleRef.current.value;
-    const recipe = recipeRef.current.value;
-
-    postFork({
+  const clickHandler = async () => {
+    if( !recipe )
+      return;
+    
+    const { data: { id } } = await postFork({
       id_user: 'id_user',
-      id_repo: id_recipe,
-      name,
-      title,
-      recipe,
-      genre: name,
-      thumbnail: null
-    })
+      id_repo: id_recipe
+    });
+
+    router.push(`/edit/${id}`);
   }
 
   return (
@@ -52,9 +48,9 @@ export default function Recipe() {
           レシピ
         </h1>
 
-        <div style={{ margin: '4rem' }}>
+        {recipe && (<div style={{ margin: '4rem' }}>
           <RecipeItem key={id_recipe} show_link={false} {...recipe} />
-        </div>
+        </div>)}
 
         <form style={{ margin: '2rem', flexDirection: 'row', justifyContent: 'center', }} noValidate autoComplete="off">
           <Grid

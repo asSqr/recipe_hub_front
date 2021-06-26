@@ -87,8 +87,8 @@ const RecipeItem = (props) => {
           レシピ
         </Typography>
         <div
-        className="article-body"
-        dangerouslySetInnerHTML={{__html: `${unescapeHtml(recipe)}`,}}
+          className={classes.title}
+          dangerouslySetInnerHTML={{__html: `${unescapeHtml(recipe)}`,}}
         />
       </CardContent>
       
