@@ -72,7 +72,6 @@ const RecipeItem = (props) => {
   const bull = <span className={classes.bullet}>•</span>;
 
   return (
-    
     <Card className={classes.menu}>
       <CardContent className={classes.content}>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
@@ -86,10 +85,12 @@ const RecipeItem = (props) => {
         <Typography className={classes.title} color="textSecondary" gutterBottom>
           レシピ
         </Typography>
-        <div
-        className="article-body"
-        dangerouslySetInnerHTML={{__html: `${unescapeHtml(recipe)}`,}}
-        />
+        <div className="markdown-body">
+          <div
+            className={classes.title}
+            dangerouslySetInnerHTML={{__html: `${unescapeHtml(recipe)}`,}}
+          />
+        </div>
       </CardContent>
       
       {show_link ?

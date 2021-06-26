@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchRecipe } from '../utils/api_request';
 import RichEditorExample from '../components/markdown';
 import RecipeItem from '../components/preview';
-import CardMedia from '@material-ui/core/CardMedia';
+import { useRouter } from 'next/router';
 
 export default function Editor({ apiFunc, title, action, initObj }) {
   const nameRef = React.createRef();
@@ -15,6 +15,8 @@ export default function Editor({ apiFunc, title, action, initObj }) {
   const genreRef = React.createRef();
   const [image, setImage] = useState(null);
   const [imgData, setImgData] = useState(null);
+
+  const router = useRouter();
 
   useEffect(() => {
     const f = async () => {
@@ -46,7 +48,7 @@ export default function Editor({ apiFunc, title, action, initObj }) {
       reader.readAsDataURL(e.target.files[0]);
   }
 
-  const clickHandler = () => {
+  const clickHandler = async () => {
     const name = nameRef.current.value;
     const title = titleRef.current.value;
     const genre = genreRef.current.value;
@@ -64,9 +66,11 @@ export default function Editor({ apiFunc, title, action, initObj }) {
     data.append('genre', genre);
     
     if( initObj )
-      apiFunc(initObj.id, data);
+      await apiFunc(initObj.id, data);
     else
-      apiFunc(data);
+      await apiFunc(data);
+
+    router.push(`/recipes`);
   }
 
   // const getImageName = "image/"+{image.name}
