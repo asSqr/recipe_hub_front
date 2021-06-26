@@ -149,20 +149,20 @@ type Tree = {
 
 `next` が空リストなら葉 (子孫がない末端) であることを示す．親を遡り根を見つける → 再帰的に木を構築 としているので，この木上のどのレポジトリ id で `api/v1/fork-tree` に投げても同じものが帰ってくる．
 
-レスポンスに `id_author` と `thumbnail` を追加しました．`thumbnail` は以下のように相対パスで与えられるので，フロント側では `apiUrl` を加えてください．
+レスポンスに `id_author` と `thumbnail` を追加しました．`thumbnail` は以下のように絶対パスなのでそのまま使って大丈夫です．
 
 ```js
 {
-    "id": "cba00720-b1e1-44b6-99f8-a25302353cef",
-    "title": "寿司",
-    "name": "寿司",
-    "recipe": "寿司",
-    "genre": "和",
-    "id_author": "As_sqr",
-    "thumbnail": "/media/images/cba00720-b1e1-44b6-99f8-a25302353cef.jpeg",
-    "create_date": "2021-06-26T03:21:13.861079Z",
-    "update_date": "2021-06-26T03:21:13.861098Z",
-    "next": []
+  "id": "acb92543-3641-442e-9fbb-421b382b7117",
+  "title": "そば",
+  "name": "そば",
+  "recipe": "<p><code>そば</code>を作ります．</p>\n<p><br></p>\n<p>完成しました．</p>",
+  "genre": "和",
+  "id_author": "id_author",
+  "thumbnail": "https://recipe-hub-back.herokuapp.com/media/images/acb92543-3641-442e-9fbb-421b382b7117.jpeg",
+  "create_date": "2021-06-26T05:37:16.063449Z",
+  "update_date": "2021-06-26T05:37:16.063474Z",
+  "next": []
 }
 ```
 ## ページを編集するには
