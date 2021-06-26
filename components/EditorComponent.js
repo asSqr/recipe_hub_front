@@ -74,7 +74,7 @@ export default function Editor({ apiFunc, title, action, initObj }) {
           {title}
         </h1>
         {recipeFrom && (
-          <div style={{ margin: '0.5rem' }}>
+          <div style={{ margin: '4rem' }}>
             <p style={{ margin: '0.5rem' }}>フォーク元レシピ</p>
             <RecipeItem show_link={false} {...recipeFrom} />
           </div>
