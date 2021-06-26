@@ -56,7 +56,7 @@ export const TreeComponent = (tree) => {
   const cardClasses = (tree.id == tree.source) ? pickupCardStyle() : normalCardStyle();
   const classes = useStyles();
   const onMediaFallback = event => event.target.src = "/noimage_transparent.png";
-  let avatarChar = tree.id_author.substr(0,1)
+  let avatarChar = tree.hasOwnProperty('substr') ? tree.id_author.substr(0,1) : "A";
 
   return (
     <li>
