@@ -54,6 +54,13 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@draft-js-plugins/image@^4.1.2":
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/@draft-js-plugins/image/-/image-4.1.2.tgz#ad84b35f83c862da2e96ddfc15de34da7d4c1910"
+  integrity sha512-Nuh+fgGMdDOwamH2oDU45zmbykX0owgr8XlfLFfjqBol9a0xblDK5sXS6juWofSrCKAP9vxh1OUbpRVf6kb/Gg==
+  dependencies:
+    clsx "^1.0.4"
+
 "@emotion/hash@^0.8.0":
   version "0.8.0"
   resolved "https://registry.npmjs.org/@emotion/hash/-/hash-0.8.0.tgz"
