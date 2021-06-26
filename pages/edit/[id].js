@@ -2,6 +2,7 @@ import Editor from '../../components/EditorComponent';
 import { fetchRecipe, patchRecipe } from '../../utils/api_request';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import styles from '../../styles/Home.module.css';
 
 export default function EditRecipe() {
   const [recipe, setRecipe] = useState(null);
@@ -25,7 +26,9 @@ export default function EditRecipe() {
   return (
     <>
       {recipe && (
+        <main className={styles.main} > 
           <Editor apiFunc={patchRecipe} title="レシピを編集" action="レシピ更新" initObj={recipe} />
+        </main>
       )}
     </>
   );

@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Link from 'next/link';
+import styles from '../styles/Home.module.css';
 import RichEditorExample from './markdown'
 import { Container } from '@material-ui/core';
 
@@ -32,6 +33,7 @@ const useStyles = makeStyles({
   },
   menu: {
     backgroundImage: 'url("https://raw.githubusercontent.com/asSqr/recipe_hub_front/feature/recipes/public/tomato.jpg")',
+    width: '100%'
   },
   content: {
     backgroundColor: 'white',
