@@ -103,6 +103,13 @@ export default function Recipe() {
           >
           レシピ一覧へ
         </Button></Link>
+        <Link href={`/edit/${id_recipe}`}><Button 
+            variant="contained"
+            color="primary"
+            style={{margin: '4rem'}}
+          >
+          レシピ編集画面へ
+        </Button></Link>
       </main>
     </div>
   )

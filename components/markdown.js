@@ -1,10 +1,15 @@
 import React from 'react';
-import { Editor, EditorState, getDefaultKeyBinding, RichUtils } from 'draft-js';
+import { Editor, EditorState, ContentState, getDefaultKeyBinding, RichUtils } from 'draft-js';
 import { stateToHTML } from 'draft-js-export-html';
+import { stateFromHTML } from 'draft-js-import-html';
+
 class RichEditorExample extends React.Component {
     constructor(props) {
       super(props);
-      this.state = {editorState: EditorState.createEmpty(), editorEnable: false};
+
+      const state = stateFromHTML(this.props.placeholder);
+
+      this.state = {editorState: EditorState.createWithContent(state), editorEnable: false};
 
       this.editorRef = React.createRef();
 
