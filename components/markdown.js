@@ -7,7 +7,7 @@ class RichEditorExample extends React.Component {
     constructor(props) {
       super(props);
 
-      const state = stateFromHTML(this.props.placeholder);
+      const state = stateFromHTML(this.props.default);
 
       this.state = {editorState: EditorState.createWithContent(state), editorEnable: false};
 
