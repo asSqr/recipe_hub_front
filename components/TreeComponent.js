@@ -56,7 +56,8 @@ export const TreeComponent = (tree) => {
   const cardClasses = (tree.id == tree.source) ? pickupCardStyle() : normalCardStyle();
   const classes = useStyles();
   const onMediaFallback = event => event.target.src = "/noimage_transparent.png";
-  let avatarChar = tree.hasOwnProperty('substr') ? tree.id_author.substr(0,1) : "A";
+  let avatarChar = tree.hasOwnProperty('id_author') ? tree.id_author.substr(0,1) : "";
+  let mediaURL = typeof tree.thumbnail !== "undefined" ? tree.thumbnail : "/noimage_transparent.png";
 
   return (
     <li>
@@ -86,7 +87,7 @@ export const TreeComponent = (tree) => {
               <Grid item xs={4}>
                 <CardMedia
                   className={classes.media}
-                  image={tree.thumbnail}
+                  image={mediaURL}
                   title={tree.title}
                   onError={onMediaFallback}
                 />
