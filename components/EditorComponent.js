@@ -14,6 +14,7 @@ export default function Editor({ apiFunc, title, action, initObj }) {
   const titleRef = React.createRef();
   const genreRef = React.createRef();
   const [image, setImage] = useState(null);
+  const [imgData, setImgData] = useState(null);
 
   const router = useRouter();
 
@@ -40,6 +41,11 @@ export default function Editor({ apiFunc, title, action, initObj }) {
       if(!e.target.files) return
       const img = e.target.files[0]
       setImage(img)
+      const reader = new FileReader();
+      reader.addEventListener("load", () => {
+        setImgData(reader.result);
+      });
+      reader.readAsDataURL(e.target.files[0]);
   }
 
   const clickHandler = async () => {
@@ -67,6 +73,8 @@ export default function Editor({ apiFunc, title, action, initObj }) {
     router.push(`/recipes`);
   }
 
+  // const getImageName = "image/"+{image.name}
+
   return (
     <div className={styles.container}>
       <main className={styles.main}>
@@ -85,6 +93,7 @@ export default function Editor({ apiFunc, title, action, initObj }) {
             direction="row"
             justify="center"
             alignItems="center">
+          <Grid style={{marginRight: '10rem'}}>
           <TextField
             id="standard-basic"
             label="料理名"
@@ -111,6 +120,12 @@ export default function Editor({ apiFunc, title, action, initObj }) {
           /> 
           <br />
           </Grid>
+          <div style={{display: 'flex', flexDirection: 'column', marginLeft: '5rem', marginTop: '2rem'}}>
+            <img src={imgData} style={{width: '300px', height: '200px', marginTop: '2rem', border: 'double 5px #3f51b5'}} />
+            <label htmlFor="file" style={{marginRight: '2rem', marginTop: '2rem',  marginBottom: '1rem', color: '#3f51b5'}}>サムネイル画像を追加して下さい</label>
+            <input id="img" type="file" accept="image/*,.png,.jpg,.jpeg,.gif" onChange={(e) => getImage(e)} />  
+          </div>
+          </Grid>
           {/* <TextareaAutosize
             rowsMax={100}
             aria-label="maximum height"
@@ -119,9 +134,6 @@ export default function Editor({ apiFunc, title, action, initObj }) {
             ref={recipeRef}
             style={{marginTop: '2rem', marginButtom: '2rem'}}
           /> <br /> */}
-          <div style={{marginTop: '2rem', marginButtom: '2rem'}}>
-          <label htmlFor="file" style={{marginRight: '2rem'}}>アップロードする画像を選択してください</label><input id="img" type="file" accept="image/*,.png,.jpg,.jpeg,.gif" onChange={(e) => getImage(e)} />
-          </div>
           <div style={{marginTop: '2rem', marginButtom: '2rem'}}>
             <RichEditorExample 
               rowsMax={100}
