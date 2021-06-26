@@ -27,6 +27,10 @@ export default function Editor({ apiFunc, title, action, initObj }) {
       titleRef.current.value = initObj.title;
       genreRef.current.value = initObj.genre;
 
+      if( initObj && initObj.thumbnail ) {
+        setImgData(initObj.thumbnail);
+      }
+
       if( initObj && initObj.id_fork_from ) {
         const { data } = await fetchRecipe(initObj.id_fork_from);
 
@@ -100,7 +104,7 @@ export default function Editor({ apiFunc, title, action, initObj }) {
             inputRef={nameRef}
             color="primary"
             focused
-            style={{marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
+            style={{width: '300px', marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
           /> <br />
           <TextField
             id="standard-basic"
@@ -108,7 +112,7 @@ export default function Editor({ apiFunc, title, action, initObj }) {
             inputRef={genreRef}
             color="primary"
             focused
-            style={{marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
+            style={{width: '300px', marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
           /> <br />
           <TextField
             id="standard-basic"
@@ -116,7 +120,7 @@ export default function Editor({ apiFunc, title, action, initObj }) {
             inputRef={titleRef}
             color="primary"
             focused
-            style={{marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
+            style={{width: '300px', marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
           /> 
           <br />
           </Grid>

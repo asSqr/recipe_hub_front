@@ -33,16 +33,14 @@ const useStyles = makeStyles({
   },
   menu: {
     backgroundImage: 'url("https://raw.githubusercontent.com/asSqr/recipe_hub_front/feature/recipes/public/tomato.jpg")',
-    width: '100%',
-    height: '100%'
+    width: '60rem',
   },
   content: {
     backgroundColor: 'white',
-    width: '785px',
-    marginTop: '24px',
-    marginRight: '248px',
-    marginLeft: '248px',
-    marginBottom: '24px',
+    width: '50rem',
+    margin: 'auto',
+    marginTop: '5rem',
+    marginBottom: '5rem'
   },
 });
 
