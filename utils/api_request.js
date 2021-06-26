@@ -25,3 +25,7 @@ export const fetchTree = async id_repository => {
 export const patchRecipe = async (id, param) => {
   return axios.patch(`${apiUrl}admin/v1/mrepository/${id}/`, param);
 }
+
+export const deleteRecipe = async id => {
+  return axios.delete(`${apiUrl}admin/v1/mrepository/${id}/`);
+}
