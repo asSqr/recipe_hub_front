@@ -5,7 +5,10 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Typography from '@material-ui/core/Typography';
+import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import { red } from '@material-ui/core/colors';
 import Link from 'next/link'
 
 const useStyles = makeStyles((theme) => ({
@@ -20,24 +23,41 @@ const useStyles = makeStyles((theme) => ({
       paddingBottom: 16 // default value is 24
     }
   },
+  avatar: {
+    width: theme.spacing(3),
+    height: theme.spacing(3),
+    background: red[500],
+  }
 }));
 
-const normalCardStyle = makeStyles({
+const normalCardStyle = makeStyles((theme) => ({
   root: {
+    [theme.breakpoints.down('xs')]: {
+      minWidth: 0,
+    },
+    minWidth: 500,
+    maxWidth: 500,
   },
-})
+}))
 
-const pickupCardStyle = makeStyles({
+const pickupCardStyle = makeStyles((theme) => ({
   root: {
+    [theme.breakpoints.down('xs')]: {
+      minWidth: 0,
+    },
+    minWidth: 500,
+    maxWidth: 500,
     backgroundColor: 'skyblue'
   },
-})
+}))
 
 export const TreeComponent = (tree) => {
 
   const cardClasses = (tree.id == tree.source) ? pickupCardStyle() : normalCardStyle();
   const classes = useStyles();
   const onMediaFallback = event => event.target.src = "/noimage_transparent.png";
+  let avatarChar = tree.hasOwnProperty('id_author') ? tree.id_author.substr(0,1) : "";
+  let mediaURL = typeof tree.thumbnail !== "undefined" ? tree.thumbnail : "/noimage_transparent.png";
 
   return (
     <li>
@@ -50,15 +70,24 @@ export const TreeComponent = (tree) => {
                   <Typography variant="h5" component="h2">
                     {tree.title}
                   </Typography>
-                  <Typography variant="body1" color="textSecondary" component="text">
-                    {tree.name}
-                  </Typography>
+                  <Box display="flex" flexDirection="row" alignItems="center">
+                    <Box>
+                      <Avatar className={classes.avatar}>
+                        {avatarChar}
+                      </Avatar>
+                    </Box>
+                    <Box style={{ marginLeft: "0.5rem" }}>
+                      <Typography variant="body1" color="textSecondary" component="text">
+                        {tree.id_author}
+                      </Typography>
+                    </Box>
+                  </Box>
                 </CardContent>
               </Grid>
               <Grid item xs={4}>
                 <CardMedia
                   className={classes.media}
-                  image="/noimage_transparent.png"
+                  image={mediaURL}
                   title={tree.title}
                   onError={onMediaFallback}
                 />
