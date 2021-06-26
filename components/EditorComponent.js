@@ -97,7 +97,7 @@ export default function Editor({ apiFunc, title, action, initObj }) {
             style={{marginTop: '2rem', marginButtom: '2rem'}}
           /> <br /> */}
           <div style={{marginTop: '2rem', marginButtom: '2rem'}}>
-          <label for="file" style={{marginRight: '2rem'}}>アップロードする画像を選択してください</label><input id="img" type="file" accept="image/*,.png,.jpg,.jpeg,.gif" onChange={(e) => getImage(e)} />
+          <label htmlFor="file" style={{marginRight: '2rem'}}>アップロードする画像を選択してください</label><input id="img" type="file" accept="image/*,.png,.jpg,.jpeg,.gif" onChange={(e) => getImage(e)} />
           </div>
           <div style={{marginTop: '2rem', marginButtom: '2rem'}}>
             <RichEditorExample 
