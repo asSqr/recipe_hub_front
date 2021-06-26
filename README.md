@@ -149,6 +149,22 @@ type Tree = {
 
 `next` が空リストなら葉 (子孫がない末端) であることを示す．親を遡り根を見つける → 再帰的に木を構築 としているので，この木上のどのレポジトリ id で `api/v1/fork-tree` に投げても同じものが帰ってくる．
 
+レスポンスに `id_author` と `thumbnail` を追加しました．`thumbnail` は以下のように相対パスで与えられるので，フロント側では `apiUrl` を加えてください．
+
+```js
+{
+    "id": "cba00720-b1e1-44b6-99f8-a25302353cef",
+    "title": "寿司",
+    "name": "寿司",
+    "recipe": "寿司",
+    "genre": "和",
+    "id_author": "As_sqr",
+    "thumbnail": "/media/images/cba00720-b1e1-44b6-99f8-a25302353cef.jpeg",
+    "create_date": "2021-06-26T03:21:13.861079Z",
+    "update_date": "2021-06-26T03:21:13.861098Z",
+    "next": []
+}
+```
 ## ページを編集するには
 Next.js ではファイルシステムによるパス指定を行うので，`pages/` 以下の URL のパスに対応した位置にある js ファイルにページの定義があります．例えば，`/create` であれば `pages/create.js` に定義があります．デザイン等は `styles/` 以下の css を参照していたり，`_document.js` に直書きしたりしていますが，tailwind-css や chakura-ui 等を用いるのも手だと思います．
 
