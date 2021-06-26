@@ -1,7 +1,5 @@
 import React from 'react';
-import { Editor, EditorState, Entity, getDefaultKeyBinding, RichUtils, AtomicBlockUtils, convertToRaw } from 'draft-js';
-import { stateToHTML } from 'draft-js-export-html';
-import { stateFromHTML } from 'draft-js-import-html';
+import { Editor, EditorState, Entity, getDefaultKeyBinding, RichUtils, AtomicBlockUtils, convertToRaw, convertFromRaw } from 'draft-js';
 import createImagePlugin from '@draft-js-plugins/image';
 import { Button, TextField, Grid } from '@material-ui/core';
 
@@ -10,7 +8,7 @@ class RichEditorExample extends React.Component {
     super(props);
 
     if( this.props.default ) {
-      const state = stateFromHTML(this.props.default);
+      const state = convertFromRaw(JSON.parse(this.props.default));
 
       this.state = {editorState: EditorState.createWithContent(state), editorEnable: false, imagePlugin: createImagePlugin()};
     } else {
@@ -108,7 +106,7 @@ class RichEditorExample extends React.Component {
         className += ' RichEditor-hidePlaceholder';
       }
     } else {
-      this.props.setContent(stateToHTML(contentState));
+      this.props.setContent(JSON.stringify(convertToRaw(contentState)));
     }
 
     return (
@@ -209,13 +207,16 @@ class StyleButton extends React.Component {
   }
 }
 
-function mediaBlockRenderer(block) {
-  if (block.getType() === 'atomic') {
+function mediaBlockRenderer(block, flag) {
+  if (!flag && block.getType() === 'atomic') {
     return {
       component: Media,
       editable: false
     };
   }
+
+  console.log(block);
+
   return null;
 }
 

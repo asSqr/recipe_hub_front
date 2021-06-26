@@ -9,6 +9,8 @@ import Link from 'next/link';
 import styles from '../styles/Home.module.css';
 import RichEditorExample from './markdown'
 import { Container } from '@material-ui/core';
+import { convertFromRaw } from 'draft-js';
+import { stateToHTML } from 'draft-js-export-html';
 
 const useStyles = makeStyles({
   root: {
@@ -86,7 +88,7 @@ const RecipeItem = (props) => {
         <div className="markdown-body">
           <div
             className={classes.title}
-            dangerouslySetInnerHTML={{__html: `${unescapeHtml(recipe)}`,}}
+            dangerouslySetInnerHTML={{__html: `${unescapeHtml(stateToHTML(convertFromRaw(JSON.parse(recipe))))}`,}}
           />
         </div>
       </CardContent>
