@@ -22,18 +22,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const normalCardStyle = makeStyles({
+const normalCardStyle = makeStyles((theme) => ({
   root: {
-    width: 500
+    [theme.breakpoints.down('xs')]: {
+      minWidth: 0,
+    },
+    minWidth: 500,
+    maxWidth: 500,
   },
-})
+}))
 
-const pickupCardStyle = makeStyles({
+const pickupCardStyle = makeStyles((theme) => ({
   root: {
-    width: 500,
+    [theme.breakpoints.down('xs')]: {
+      minWidth: 0,
+    },
+    minWidth: 500,
+    maxWidth: 500,
     backgroundColor: 'skyblue'
   },
-})
+}))
 
 export const TreeComponent = (tree) => {
 
