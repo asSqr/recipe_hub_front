@@ -13,6 +13,7 @@ import Avatar from '@material-ui/core/Avatar';
 import { red } from '@material-ui/core/colors';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import { format } from 'date-fns'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,8 +47,8 @@ const RecipeMenu = (props) => {
   const onMediaFallback = event => event.target.src = "/noimage_transparent.png";
   
   // 日付の正規化
-  var dateRaw = create_date
-  var date = dateRaw.substr(0,10)
+  var dateRaw = new Date(create_date)
+  var date = format(dateRaw, 'yyyy/MM/dd', { timeZone: 'Asia/Tokyo' })
 
   // 名前の頭文字
   var authorRaw = id_author
