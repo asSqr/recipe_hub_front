@@ -26,8 +26,14 @@ export default function Tree() {
     f();
   }, [id_recipe]);
 
+  const styling = {
+    backgroundImage: 'url("https://raw.githubusercontent.com/asSqr/recipe_hub_front/feature/recipes/public/tomato.jpg")', //あとで"/tomato.jpg"に戻す
+    width:"100%",
+    marginTop: '2rem'
+  }
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container} style={styling}>
       <main className={styles.main}>
         <h1 className={styles.title}>
           木構造
