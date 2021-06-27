@@ -39,7 +39,7 @@ export default function Tree() {
           木構造
         </h1>
         <p>{id_recipe}</p>
-        <ul>
+        <ul className="construction">
           <TreeComponent key={tree.id} source={id_recipe} {...tree} />
         </ul>
         <Grid container alignItems="center" justify="center">
