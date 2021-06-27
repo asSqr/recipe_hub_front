@@ -9,7 +9,8 @@ import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import { red } from '@material-ui/core/colors';
-import Link from 'next/link'
+import Link from 'next/link';
+import { format } from 'date-fns';
 
 const useStyles = makeStyles((theme) => ({
   media: {
@@ -60,7 +61,7 @@ export const TreeComponent = (tree) => {
   const onMediaFallback = event => event.target.src = "/noimage_transparent.png";
   let avatarChar = tree.hasOwnProperty('id_author') ? tree.id_author.substr(0, 1) : "";
   let mediaURL = typeof tree.thumbnail !== "undefined" ? tree.thumbnail : "/noimage_transparent.png";
-  let dateString = typeof tree.update_date !== "undefined" ? new Date(tree.update_date).toLocaleDateString() : "unknown";
+  let dateString = typeof tree.update_date !== "undefined" ? format(new Date(tree.update_date), 'yyyy/MM/dd', { timeZone: 'Asia/Tokyo' }) : "unknown";
 
   return (
     <li>

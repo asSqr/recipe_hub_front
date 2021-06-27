@@ -13,7 +13,7 @@ import Avatar from '@material-ui/core/Avatar';
 import { red } from '@material-ui/core/colors';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import { format } from 'date-fns'
+import { format } from 'date-fns';
 
 const useStyles = makeStyles((theme) => ({
   root: {
