@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { useRouter } from "next/router";
+import Router from "next/router";
 import firebase from '../firebase/firebase';
 
 const Header = () => {
