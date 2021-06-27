@@ -3,6 +3,9 @@ import { useRouter } from 'next/router';
 import { fetchTree } from '/utils/api_request';
 import { useEffect, useState } from 'react';
 import { TreeComponent } from '../../components/TreeComponent'
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Link from 'next/link'
 
 export default function Tree() {
   const [tree, setTree] = useState({});
@@ -12,9 +15,9 @@ export default function Tree() {
 
   useEffect(() => {
     const f = async () => {
-      if( !id_recipe )
+      if (!id_recipe)
         return;
-      
+
       const { data } = await fetchTree(id_recipe);
 
       setTree(data);
@@ -23,16 +26,38 @@ export default function Tree() {
     f();
   }, [id_recipe]);
 
+  const styling = {
+    backgroundImage: 'url("https://raw.githubusercontent.com/asSqr/recipe_hub_front/feature/recipes/public/tomato.jpg")', //あとで"/tomato.jpg"に戻す
+    width:"100%",
+    marginTop: '2rem'
+  }
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container} style={styling}>
       <main className={styles.main}>
         <h1 className={styles.title}>
           木構造
         </h1>
         <p>{id_recipe}</p>
-        <ul>
-          <TreeComponent {...tree} />
+        <ul className="construction">
+          <TreeComponent key={tree.id} source={id_recipe} {...tree} />
         </ul>
+        <Grid container alignItems="center" justify="center">
+          <Grid item xs={6} style={{textAlign: "center"}}>
+            <Link href={`/recipe/${id_recipe}`}>
+              <Button variant="contained" color="primary">
+                レシピに戻る
+              </Button>
+            </Link>
+          </Grid>
+          <Grid item xs={6} style={{textAlign: "center"}}>
+            <Link href={`/recipes`}>
+              <Button variant="contained" color="primary">
+                レシピ一覧
+              </Button>
+            </Link>
+          </Grid>
+        </Grid>
       </main>
     </div>
   )
