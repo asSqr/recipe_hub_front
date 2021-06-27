@@ -9,6 +9,7 @@ import AddIcon from '@material-ui/icons/Add';
 import SearchIcon from '@material-ui/icons/Search';
 import LocalDiningIcon from '@material-ui/icons/LocalDining';
 import { urlObjectKeys } from 'next/dist/next-server/lib/utils';
+import Header from '../components/Header';
 
 export default function Recipes() {
 
@@ -59,6 +60,9 @@ export default function Recipes() {
   }, []);
 
   return (
+    <>
+      <Header />
+      
       <main className={styles.main} > 
 
         {/* タイトル */}
@@ -142,5 +146,6 @@ export default function Recipes() {
         </Container>    
 
       </main>
+    </>
   )
 }

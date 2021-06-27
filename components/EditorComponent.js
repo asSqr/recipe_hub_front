@@ -7,7 +7,7 @@ import RichEditorExample from '../components/markdown';
 import RecipeItem from '../components/preview';
 import { useRouter } from 'next/router';
 
-export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_recipe }) {
+export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_recipe, user }) {
   const nameRef = React.createRef();
   const [recipe, setRecipe] = useState('');
   const [recipeFrom, setRecipeFrom] = useState(null);
@@ -69,7 +69,8 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
     data.append('name', name);
     data.append('recipe', recipe);
     data.append('title', title);
-    data.append('id_author', 'id_author');
+    data.append('id_author', user.user_name);
+    data.append('author_photo_url', user.photo_url);
     data.append('genre', genre);
     
     if( initObj )

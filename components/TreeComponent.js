@@ -96,9 +96,17 @@ export const TreeComponent = (tree) => {
                   </Typography>
                   <Box display="flex" flexDirection="row" alignItems="center">
                     <Box>
-                      <Avatar className={classes.avatar}>
-                        {avatarChar}
-                      </Avatar>
+                    {
+                      tree.author_photo_url && tree.author_photo_url.length > 0 ? 
+                        (
+                          <Avatar alt="author" className={classes.avatar} src={tree.author_photo_url} />
+                        ) :
+                        (
+                          <Avatar className={classes.avatar}>
+                            {avatarChar}
+                          </Avatar>
+                        )
+                    }
                     </Box>
                     <Box style={{ marginLeft: "0.5rem" }}>
                       <Typography variant="body1" color="textSecondary" component="text">

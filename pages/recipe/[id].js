@@ -6,6 +6,8 @@ import React, { useEffect, useState } from 'react';
 import { fetchRecipe, deleteRecipe, postFork } from '../../utils/api_request';
 // import RecipeItem from '../../components/RecipeItem';
 import RecipeItem from '../../components/preview';
+import Auth from '../../components/Auth';
+import Header from '../../components/Header';
 
 export default function Recipe() {
   const nameRef = React.createRef();
@@ -15,6 +17,8 @@ export default function Recipe() {
   const router = useRouter();
 
   const { id: id_recipe } = router.query;
+  
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const f = async () => {
@@ -24,6 +28,11 @@ export default function Recipe() {
       const { data } = await fetchRecipe(id_recipe);
 
       setRecipe(data);
+
+      setUser(JSON.parse(localStorage.getItem('user')));
+
+      console.log(JSON.parse(localStorage.getItem('user')));
+      console.log(user);
     };
 
     f();
@@ -34,8 +43,9 @@ export default function Recipe() {
       return;
     
     const { data: { id } } = await postFork({
-      id_user: 'id_user',
-      id_repo: id_recipe
+      id_user: user.user_name,
+      id_repo: id_recipe,
+      author_photo_url: user.photo_url
     });
 
     router.push(`/edit/${id + 'z'}`);
@@ -54,6 +64,8 @@ export default function Recipe() {
 
   return (
     <div className={styles.container}>
+      <Auth />
+      <Header />
       <main className={styles.main}>
         <h1 className={styles.title}>
           レシピ

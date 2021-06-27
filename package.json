@@ -26,6 +26,7 @@
     "date-fns": "^2.22.1",
     "draft-js-import-html": "^1.4.1",
     "eslint": "7.28.0",
-    "eslint-config-next": "11.0.0"
+    "eslint-config-next": "11.0.0",
+    "firebase": "^8.6.8"
   }
 }

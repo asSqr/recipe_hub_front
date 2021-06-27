@@ -5,7 +5,8 @@ import { useEffect, useState } from 'react';
 import { TreeComponent } from '../../components/TreeComponent'
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import Link from 'next/link'
+import Link from 'next/link';
+import Header from '../../components/Header';
 
 export default function Tree() {
   const [tree, setTree] = useState(null);
@@ -33,7 +34,8 @@ export default function Tree() {
   }
 
   return (
-    <div className={styles.container}>
+    <>
+      <Header />
       <main className={styles.main}>
         <h1 className={styles.title}>
           レシピツリー
@@ -60,7 +62,7 @@ export default function Tree() {
             </Grid>
           </Grid>
       </main>
-    </div>
+    </>
   )
 
 }

@@ -41,7 +41,7 @@ const RecipeMenu = (props) => {
   const classes = useStyles();
 
   // データの展開
-  const { create_date, genre, id, id_author, id_fork_from, id_fork_to_list, name, recipe, show_link, thumbnail, title, update_date } = props; 
+  const { create_date, genre, id, id_author, id_fork_from, id_fork_to_list, name, recipe, show_link, thumbnail, title, update_date, author_photo_url } = props; 
 
   // 画像がなかった場合の処理
   const onMediaFallback = event => event.target.src = "/noimage_transparent.png";
@@ -60,9 +60,15 @@ const RecipeMenu = (props) => {
       {/* ヘッダー */}
       <CardHeader
         avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            {HeadId}
-          </Avatar>
+          author_photo_url && author_photo_url.length > 0 ? 
+            (
+              <Avatar alt="author" className={classes.avatar} src={author_photo_url} />
+            ) :
+            (
+              <Avatar aria-label="recipe" className={classes.avatar}>
+                {HeadId}
+              </Avatar>
+            )
         }
         // action={
         //   <IconButton aria-label="settings">
