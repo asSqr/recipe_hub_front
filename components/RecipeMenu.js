@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
+    backgroundColor: 'transparent',
     cursor: 'pointer'
   },
   avatar: {
@@ -42,8 +43,8 @@ const RecipeMenu = (props) => {
   const { create_date, genre, id, id_author, id_fork_from, id_fork_to_list, name, recipe, show_link, thumbnail, title, update_date } = props; 
 
   // 画像がなかった場合の処理
-  const onMediaFallback = event => event.target.src = "/noimage.png";
-
+  const onMediaFallback = event => event.target.src = "/noimage_transparent.png";
+  
   // 日付の正規化
   var dateRaw = create_date
   var date = dateRaw.substr(0,10)
@@ -75,7 +76,7 @@ const RecipeMenu = (props) => {
       <Link href={`/recipe/${id}`}>
         <CardMedia
           className={classes.media}
-          image= {thumbnail}
+          image={thumbnail ? thumbnail : '/noimage_transparent.png'}
           title={name}
           onError={onMediaFallback}
         />

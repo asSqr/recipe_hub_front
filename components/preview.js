@@ -24,7 +24,8 @@ const useStyles = makeStyles({
     height: 0,
     paddingTop: '56.25%', // 16:9
     marginTop: '20px',
-    marginBottom: '20px'
+    marginBottom: '20px',
+    backgroundColor: 'transparent'
   },
   bullet: {
     display: 'inline-block',
@@ -78,8 +79,8 @@ const RecipeItem = (props) => {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
 
-  const onMediaFallback = event => event.target.src = "/noimage.png";
-
+  const onMediaFallback = event => event.target.src = "/noimage_transparent.png";
+  
   return (
     <Card className={classes.menu}>
       <CardContent className={classes.content}>
@@ -100,7 +101,7 @@ const RecipeItem = (props) => {
         </Typography>
         <CardMedia
           className={classes.media}
-          image= {thumbnail}
+          image={thumbnail ? thumbnail : '/noimage_transparent.png'}
           title={name}
           onError={onMediaFallback}
         />

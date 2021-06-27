@@ -27,5 +27,5 @@ export const patchRecipe = async (id, param) => {
 }
 
 export const deleteRecipe = async id => {
-  return axios.delete(`${apiUrl}admin/v1/mrepository/${id}/`);
+  return axios.delete(`${apiUrl}api/v1/mrepository/${id}`);
 }

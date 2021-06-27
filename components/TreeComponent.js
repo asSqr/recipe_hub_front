@@ -102,11 +102,11 @@ export const TreeComponent = (tree) => {
           </Link>
         </CardActionArea>
       </Card>
-      <ul>
+      {tree.hasOwnProperty('next') && tree['next'].length > 0 && (<ul>
         {tree.hasOwnProperty('next') && tree['next'].map((item) => (
           <TreeComponent key={item.id} source={tree.source} {...item} />
         ))}
-      </ul>
+      </ul>)}
     </li>
   )
 }
