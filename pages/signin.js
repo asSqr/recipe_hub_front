@@ -6,7 +6,7 @@ import Header from '../components/Header';
 
 export default function SigninPage() {
   return (
-    <div className={styles.container}>
+    <div>
       <Auth />
       <Header />
       <UserForm isRegister={true} />

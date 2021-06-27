@@ -3,13 +3,13 @@ import 'firebase/firestore';
 import 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBONvX5084MQ89ww9hOzGmNty2cK4641ZQ",
-  authDomain: "recipe-hub-front.firebaseapp.com",
-  projectId: "recipe-hub-front",
-  storageBucket: "recipe-hub-front.appspot.com",
-  messagingSenderId: "356478040766",
-  appId: "1:356478040766:web:40b75f8bf9304627e87cef",
-  measurementId: "G-HXDTKZD5CE"
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSEGING_SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID,
+  measurementId: process.env.FIREBASE_MEASUREMENT_ID,
 };
 
 if( !firebase.apps.length )

@@ -108,7 +108,7 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
   // const getImageName = "image/"+{image.name}
 
   return (
-    <div className={styles.container}>
+    <div>
       <main className={styles.main}>
         <h1 className={styles.title}>
           {title}

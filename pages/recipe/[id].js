@@ -70,7 +70,7 @@ export default function Recipe() {
   }
 
   return (
-    <div className={styles.container}>
+    <div>
       <Auth />
       <Header />
       <main className={styles.main}>
