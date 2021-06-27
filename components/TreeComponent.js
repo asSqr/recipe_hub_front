@@ -58,8 +58,9 @@ export const TreeComponent = (tree) => {
   const cardClasses = (tree.id == tree.source) ? pickupCardStyle() : normalCardStyle();
   const classes = useStyles();
   const onMediaFallback = event => event.target.src = "/noimage_transparent.png";
-  let avatarChar = tree.hasOwnProperty('id_author') ? tree.id_author.substr(0,1) : "";
+  let avatarChar = tree.hasOwnProperty('id_author') ? tree.id_author.substr(0, 1) : "";
   let mediaURL = typeof tree.thumbnail !== "undefined" ? tree.thumbnail : "/noimage_transparent.png";
+  let dateString = typeof tree.update_date !== "undefined" ? new Date(tree.update_date).toLocaleDateString() : "unknown";
 
   return (
     <li>
@@ -84,6 +85,9 @@ export const TreeComponent = (tree) => {
                       </Typography>
                     </Box>
                   </Box>
+                  <Typography variant="body2" color="textSecondary" component="text">
+                    last updated: {dateString}
+                  </Typography>
                 </CardContent>
               </Grid>
               <Grid item xs={12} sm={4}>
