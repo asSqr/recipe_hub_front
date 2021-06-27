@@ -1,14 +1,17 @@
-import { Button, TextField, TextareaAutosize } from '@material-ui/core'
+import { Button, TextField, TextareaAutosize, Grid } from '@material-ui/core'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styles from '../../styles/Home.module.css'
 import React, { useEffect, useState } from 'react';
-import { fetchRecipe, postFork } from '../../utils/api_request';
-import RecipeItem from '../../components/RecipeItem';
+import { fetchRecipe, deleteRecipe, postFork } from '../../utils/api_request';
+// import RecipeItem from '../../components/RecipeItem';
+import RecipeItem from '../../components/preview';
 
 export default function Recipe() {
   const nameRef = React.createRef();
-  const [recipe, setRecipe] = useState({});
+  const titleRef = React.createRef();
+  const recipeRef = React.createRef();
+  const [recipe, setRecipe] = useState(null);
   const router = useRouter();
 
   const { id: id_recipe } = router.query;
@@ -26,14 +29,27 @@ export default function Recipe() {
     f();
   }, [id_recipe]);
 
-  const clickHandler = () => {
-    const name = nameRef.current.value;
-
-    postFork({
+  const clickHandler = async () => {
+    if( !recipe )
+      return;
+    
+    const { data: { id } } = await postFork({
       id_user: 'id_user',
-      id_repo: id_recipe,
-      name
-    })
+      id_repo: id_recipe
+    });
+
+    router.push(`/edit/${id}`);
+  }
+
+  const deleteHandler = async () => {
+    if( !recipe )
+      return;
+    
+    await deleteRecipe(
+      id_recipe
+    );
+
+    router.push(`/recipes`);
   }
 
   return (
@@ -43,33 +59,78 @@ export default function Recipe() {
           レシピ
         </h1>
 
-        <div style={{ margin: '4rem' }}>
-          <RecipeItem show_link={false} {...recipe} />
-        </div>
+        {recipe && (<div style={{ margin: '4rem' }}>
+          <RecipeItem key={id_recipe} show_link={false} {...recipe} />
+        </div>)}
 
-        <form style={{ margin: '2rem' }} noValidate autoComplete="off">
-          <TextField
+        <form style={{ margin: '2rem', flexDirection: 'row', justifyContent: 'center', }} noValidate autoComplete="off">
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center">
+          {/* <TextField
             id="standard-basic"
             label="レシピ名"
-            inputRef={nameRef}
-            style={{marginTop: '2rem', marginButtom: '2rem'}}
+            inputRef={titleRef}
+            color="primary"
+            focused
+            style={{marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
           /> <br />
-          <Button 
-            variant="contained"
+          <TextField
+            id="standard-basic"
+            label="レシピ"
+            inputRef={recipeRef}
             color="primary"
-            onClick={clickHandler}
-            style={{marginTop: '2rem', marginButtom: '2rem'}}
-          >
-            レシピ Fork
-          </Button>
+            focused
+            style={{marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
+          /> <br />
+          <TextField
+            id="standard-basic"
+            label="料理名"
+            inputRef={nameRef}
+            color="primary"
+            focused
+            style={{marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
+          /> <br /> */}
+            <Button 
+              variant="contained"
+              color="primary"
+              onClick={clickHandler}
+              style={{marginLeft: '2rem'}}
+            >
+              レシピ Fork
+            </Button>
+            <Button 
+              variant="contained"
+              color="primary"
+              onClick={deleteHandler}
+              style={{marginLeft: '2rem'}}
+            >
+              レシピ削除
+            </Button>
+          </Grid>
         </form>
-        <Link href="/recipes"><Button 
-            variant="contained"
-            color="primary"
-            style={{margin: '4rem'}}
-          >
-          レシピ一覧へ
-        </Button></Link>
+        <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center">
+          <Link href={`/edit/${id_recipe}`}><Button 
+              variant="contained"
+              color="primary"
+              style={{margin: '2rem'}}
+            >
+            レシピ編集画面へ
+          </Button></Link>
+          <Link href="/recipes"><Button 
+              variant="contained"
+              color="primary"
+              style={{margin: '2rem'}}
+            >
+            レシピ一覧へ
+          </Button></Link>
+        </Grid>
       </main>
     </div>
   )
