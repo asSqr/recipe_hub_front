@@ -29,7 +29,7 @@ export default function Tree() {
   const styling = {
     backgroundImage: 'url("https://raw.githubusercontent.com/asSqr/recipe_hub_front/feature/recipes/public/tomato.jpg")', //あとで"/tomato.jpg"に戻す
     width:"100%",
-    marginTop: '2rem'
+    marginTop: '6rem'
   }
 
   return (
@@ -38,7 +38,6 @@ export default function Tree() {
         <h1 className={styles.title}>
           レシピツリー
         </h1>
-        <p>{id_recipe}</p>
         <div style={styling}>
           {tree && (<ul className="construction">
             <TreeComponent key={tree.id} source={id_recipe} {...tree} />
