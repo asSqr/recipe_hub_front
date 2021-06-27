@@ -38,7 +38,7 @@ export default function Recipe() {
       id_repo: id_recipe
     });
 
-    router.push(`/edit/${id}`);
+    router.push(`/edit/${id + 'z'}`);
   }
 
   const deleteHandler = async () => {
@@ -49,7 +49,7 @@ export default function Recipe() {
       id_recipe
     );
 
-    router.push(`/recipes`);
+    router.push(`/`);
   }
 
   return (
@@ -99,7 +99,7 @@ export default function Recipe() {
               onClick={clickHandler}
               style={{marginLeft: '2rem'}}
             >
-              レシピ Fork
+              派生レシピを作る
             </Button>
             <Button 
               variant="contained"
@@ -123,12 +123,19 @@ export default function Recipe() {
             >
             レシピ編集画面へ
           </Button></Link>
-          <Link href="/recipes"><Button 
+          <Link href="/"><Button 
               variant="contained"
               color="primary"
               style={{margin: '2rem'}}
             >
             レシピ一覧へ
+          </Button></Link>
+          <Link href={`/tree/${id_recipe}`}><Button 
+              variant="contained"
+              color="primary"
+              style={{margin: '2rem'}}
+            >
+            レシピツリー画面へ
           </Button></Link>
         </Grid>
       </main>

@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import Link from 'next/link'
 
 export default function Tree() {
-  const [tree, setTree] = useState({});
+  const [tree, setTree] = useState(null);
 
   const router = useRouter();
   const { id: id_recipe } = router.query;
@@ -33,31 +33,33 @@ export default function Tree() {
   }
 
   return (
-    <div className={styles.container} style={styling}>
+    <div className={styles.container}>
       <main className={styles.main}>
         <h1 className={styles.title}>
-          木構造
+          レシピツリー
         </h1>
         <p>{id_recipe}</p>
-        <ul className="construction">
-          <TreeComponent key={tree.id} source={id_recipe} {...tree} />
-        </ul>
-        <Grid container alignItems="center" justify="center">
-          <Grid item xs={6} style={{textAlign: "center"}}>
-            <Link href={`/recipe/${id_recipe}`}>
-              <Button variant="contained" color="primary">
-                レシピに戻る
-              </Button>
-            </Link>
+        <div style={styling}>
+          {tree && (<ul className="construction">
+            <TreeComponent key={tree.id} source={id_recipe} {...tree} />
+          </ul>)}
+        </div>
+        <Grid container alignItems="center" justify="center" style={{margin: '2rem'}}>
+            <Grid item xs={6} style={{textAlign: "center"}}>
+              <Link href={`/recipe/${id_recipe}`}>
+                <Button variant="contained" color="primary">
+                  レシピに戻る
+                </Button>
+              </Link>
+            </Grid>
+            <Grid item xs={6} style={{textAlign: "center"}}>
+              <Link href={`/`}>
+                <Button variant="contained" color="primary">
+                  レシピ一覧
+                </Button>
+              </Link>
+            </Grid>
           </Grid>
-          <Grid item xs={6} style={{textAlign: "center"}}>
-            <Link href={`/recipes`}>
-              <Button variant="contained" color="primary">
-                レシピ一覧
-              </Button>
-            </Link>
-          </Grid>
-        </Grid>
       </main>
     </div>
   )

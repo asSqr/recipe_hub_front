@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
+    cursor: 'pointer'
   },
   avatar: {
     backgroundColor: red[500],
@@ -83,6 +84,7 @@ const RecipeMenu = (props) => {
       {/* 本文 */}
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
+        レシピタイトル:{title}<br></br>
         料理名:{name}<br></br>
         ジャンル:{genre}<br></br>         
         </Typography>
@@ -90,7 +92,7 @@ const RecipeMenu = (props) => {
 
       {/* ボタン */}
       <BottomNavigation showLabels>
-        <BottomNavigationAction className={classes.hover} label="木構造" href = {`/tree/${id}`}　icon={<AccountTreeIcon />} />
+        <BottomNavigationAction className={classes.hover} label="レシピツリー" href = {`/tree/${id}`}　icon={<AccountTreeIcon />} />
         <BottomNavigationAction className={classes.hover} label="レシピ" href = {`/recipe/${id}`}　icon={<MenuBookIcon />} />
       </BottomNavigation>
 

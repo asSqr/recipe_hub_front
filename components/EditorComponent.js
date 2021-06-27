@@ -2,12 +2,12 @@ import { Button, TextField, TextareaAutosize, Grid } from '@material-ui/core'
 import Link from 'next/link';
 import styles from '../styles/Home.module.css'
 import React, { useEffect, useState } from 'react';
-import { fetchRecipe } from '../utils/api_request';
+import { fetchRecipe, deleteRecipe } from '../utils/api_request';
 import RichEditorExample from '../components/markdown';
 import RecipeItem from '../components/preview';
 import { useRouter } from 'next/router';
 
-export default function Editor({ apiFunc, title, action, initObj }) {
+export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_recipe }) {
   const nameRef = React.createRef();
   const [recipe, setRecipe] = useState('');
   const [recipeFrom, setRecipeFrom] = useState(null);
@@ -74,7 +74,16 @@ export default function Editor({ apiFunc, title, action, initObj }) {
     else
       await apiFunc(data);
 
-    router.push(`/recipes`);
+    router.push(`/`);
+  }
+
+  const cancelHandler = async () => {
+    if( !id_recipe )
+      return;
+    console.log(id_recipe)
+    await deleteRecipe(id_recipe);
+
+    router.push('/');
   }
 
   // const getImageName = "image/"+{image.name}
@@ -87,7 +96,7 @@ export default function Editor({ apiFunc, title, action, initObj }) {
         </h1>
         {recipeFrom && (
           <div style={{ margin: '4rem' }}>
-            <p style={{ margin: '0.5rem' }}>フォーク元レシピ</p>
+            <p style={{ margin: '0.5rem' }}>派生元レシピ</p>
             <RecipeItem show_link={false} {...recipeFrom} />
           </div>
         )}
@@ -158,13 +167,24 @@ export default function Editor({ apiFunc, title, action, initObj }) {
           </Button>
         </form>
 
-        <Link href="/recipes"><Button 
-            variant="contained"
-            color="primary"
-            style={{margin: '4rem'}}
-          >
-          レシピ一覧へ
-        </Button></Link>
+        <Grid style={{marginRight: '2rem'}}>
+          <Link href="/"><Button 
+              variant="contained"
+              color="primary"
+              style={{margin: '2rem'}}
+            >
+            レシピ一覧へ
+          </Button></Link>
+          {forkFlag && (
+            <Button 
+              variant="contained"
+              color="primary"
+              onClick={cancelHandler}
+            >
+              キャンセル
+            </Button>
+          )}
+        </Grid>
       </main>
     </div>
   )
