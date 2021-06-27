@@ -133,7 +133,7 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
           /> <br />
           <TextField
             id="standard-basic"
-            label="ジャンル (和食・洋食・中華 のいずれかを入力してください)"
+            label="ジャンル (和食・洋食・中華)"
             inputRef={genreRef}
             color="primary"
             focused
