@@ -15,6 +15,7 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
   const genreRef = React.createRef();
   const [image, setImage] = useState(null);
   const [imgData, setImgData] = useState(null);
+  const [genreError, setGenreError] = useState(false);
 
   const router = useRouter();
 
@@ -86,6 +87,20 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
     router.push('/');
   }
 
+  const validateGenre = str => {
+    const genreString = ["和食", "洋食", "中華"];
+
+    return genreString.indexOf(str) != -1;
+  };
+
+  const handleChange = () => {
+    const genre = genreRef.current.value;
+
+    console.log(genre);
+
+    setGenreError(!validateGenre(genre));
+  }
+
   // const getImageName = "image/"+{image.name}
 
   return (
@@ -112,16 +127,19 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
             label="料理名"
             inputRef={nameRef}
             color="primary"
+            inputProps={{ maxLength: 100 }}
             focused
             style={{width: '300px', marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
           /> <br />
           <TextField
             id="standard-basic"
-            label="ジャンル"
+            label="ジャンル (和食・洋食・中華 のいずれかを入力してください)"
             inputRef={genreRef}
             color="primary"
             focused
             style={{width: '300px', marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
+            error={genreError}
+            onChange={handleChange}
           /> <br />
           <TextField
             id="standard-basic"
@@ -129,6 +147,7 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
             inputRef={titleRef}
             color="primary"
             focused
+            inputProps={{ maxLength: 100 }}
             style={{width: '300px', marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
           /> 
           <br />
