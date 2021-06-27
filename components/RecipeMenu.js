@@ -41,7 +41,7 @@ const RecipeMenu = (props) => {
   const classes = useStyles();
 
   // データの展開
-  const { create_date, genre, id, id_author, id_fork_from, id_fork_to_list, name, recipe, show_link, thumbnail, title, update_date, author_photo_url } = props; 
+  const { create_date, genre, id, author_name, id_fork_from, id_fork_to_list, name, recipe, show_link, thumbnail, title, update_date, author_photo_url } = props; 
 
   // 画像がなかった場合の処理
   const onMediaFallback = event => event.target.src = "/noimage_transparent.png";
@@ -51,7 +51,7 @@ const RecipeMenu = (props) => {
   var date = format(dateRaw, 'yyyy/MM/dd', { timeZone: 'Asia/Tokyo' })
 
   // 名前の頭文字
-  var authorRaw = id_author
+  var authorRaw = author_name
   var HeadId = authorRaw.substr(0,1)
 
   return (
@@ -75,7 +75,7 @@ const RecipeMenu = (props) => {
         //     <MoreVertIcon />
         //   </IconButton>
         // }
-        title={id_author}
+        title={author_name}
         subheader={date}
         />
    

@@ -69,7 +69,8 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
     data.append('name', name);
     data.append('recipe', recipe);
     data.append('title', title);
-    data.append('id_author', user.user_name);
+    data.append('author_name', user.user_name);
+    data.append('id_author', user.id);
     data.append('author_photo_url', user.photo_url);
     data.append('genre', genre);
     

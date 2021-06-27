@@ -43,8 +43,9 @@ export default function Recipe() {
       return;
     
     const { data: { id } } = await postFork({
-      id_user: user.user_name,
+      id_user: user.id,
       id_repo: id_recipe,
+      author_name: user.user_name,
       author_photo_url: user.photo_url
     });
 

@@ -124,14 +124,14 @@ export default function Recipes() {
         <Container style={styling}>
           <Grid container justify="center" spacing={4}>
             {recipes && recipes.map((recipe, idx) => {
-              const { create_date, genre, id, id_author, id_fork_from, id_fork_to_list, name, recipe_detail, show_link, thumbnail, title, update_date } = recipe;
+              const { create_date, genre, id, author_name, id_fork_from, id_fork_to_list, name, recipe_detail, show_link, thumbnail, title, update_date } = recipe;
             
               if (state.wa == false && genre == "和食" ||
               state.you == false && genre == "洋食"||
               state.chu == false && genre == "中華"){
                 return
               }
-              else if (name.match(dish) || id_author.match(dish)|| dish == ""){
+              else if (name.match(dish) || author_name.match(dish)|| dish == ""){
                 return (
                   <div key={idx} style={{ margin: '2rem' }}>
                     <RecipeMenu show_link={true} {...recipe} />

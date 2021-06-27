@@ -58,12 +58,12 @@ export const TreeComponent = (tree) => {
   const cardClasses = (tree.id == tree.source) ? pickupCardStyle() : normalCardStyle();
   const classes = useStyles();
   const onMediaFallback = event => event.target.src = "/noimage_transparent.png";
-  let avatarChar = tree.hasOwnProperty('id_author') ? tree.id_author.substr(0, 1) : "";
+  let avatarChar = tree.hasOwnProperty('author_name') ? tree.author_name.substr(0, 1) : "";
   let mediaURL = typeof tree.thumbnail !== "undefined" ? tree.thumbnail : "/noimage_transparent.png";
   let dateString = typeof tree.update_date !== "undefined" ? format(new Date(tree.update_date), 'yyyy/MM/dd', { timeZone: 'Asia/Tokyo' }) : "unknown";
 
   useEffect(() => {
-    const elems = document.querySelectorAll('li:not(:only-child)');
+    const elems = document.querySelectorAll('li:not(:last-child)');
 
     for( const el of elems ) {
       el.parentNode.classList.add('ul-border');
@@ -110,7 +110,7 @@ export const TreeComponent = (tree) => {
                     </Box>
                     <Box style={{ marginLeft: "0.5rem" }}>
                       <Typography variant="body1" color="textSecondary" component="text">
-                        {tree.id_author}
+                        {tree.author_name}
                       </Typography>
                     </Box>
                   </Box>
