@@ -33,7 +33,8 @@ const useStyles = makeStyles((theme) => ({
 const normalCardStyle = makeStyles((theme) => ({
   root: {
     [theme.breakpoints.down('xs')]: {
-      minWidth: 0,
+      minWidth: 200,
+      maxWidth: 200,
     },
     minWidth: 500,
     maxWidth: 500,
@@ -43,7 +44,8 @@ const normalCardStyle = makeStyles((theme) => ({
 const pickupCardStyle = makeStyles((theme) => ({
   root: {
     [theme.breakpoints.down('xs')]: {
-      minWidth: 0,
+      minWidth: 200,
+      maxWidth: 200,
     },
     minWidth: 500,
     maxWidth: 500,
@@ -65,7 +67,7 @@ export const TreeComponent = (tree) => {
         <CardActionArea component="div">
           <Link href={`/recipe/${tree.id}`}>
             <Grid container spacing={1} alignItems="center">
-              <Grid item xs={8}>
+              <Grid item xs={12} sm={8}>
                 <CardContent className={classes.cardcontent}>
                   <Typography variant="h5" component="h2">
                     {tree.title}
@@ -84,7 +86,7 @@ export const TreeComponent = (tree) => {
                   </Box>
                 </CardContent>
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={12} sm={4}>
                 <CardMedia
                   className={classes.media}
                   image={mediaURL}
