@@ -33,7 +33,8 @@ const useStyles = makeStyles((theme) => ({
 const normalCardStyle = makeStyles((theme) => ({
   root: {
     [theme.breakpoints.down('xs')]: {
-      minWidth: 0,
+      minWidth: 200,
+      maxWidth: 200,
     },
     minWidth: 500,
     maxWidth: 500,
@@ -43,7 +44,8 @@ const normalCardStyle = makeStyles((theme) => ({
 const pickupCardStyle = makeStyles((theme) => ({
   root: {
     [theme.breakpoints.down('xs')]: {
-      minWidth: 0,
+      minWidth: 200,
+      maxWidth: 200,
     },
     minWidth: 500,
     maxWidth: 500,
@@ -56,8 +58,9 @@ export const TreeComponent = (tree) => {
   const cardClasses = (tree.id == tree.source) ? pickupCardStyle() : normalCardStyle();
   const classes = useStyles();
   const onMediaFallback = event => event.target.src = "/noimage_transparent.png";
-  let avatarChar = tree.hasOwnProperty('id_author') ? tree.id_author.substr(0,1) : "";
+  let avatarChar = tree.hasOwnProperty('id_author') ? tree.id_author.substr(0, 1) : "";
   let mediaURL = typeof tree.thumbnail !== "undefined" ? tree.thumbnail : "/noimage_transparent.png";
+  let dateString = typeof tree.update_date !== "undefined" ? new Date(tree.update_date).toLocaleDateString() : "unknown";
 
   return (
     <li>
@@ -65,7 +68,7 @@ export const TreeComponent = (tree) => {
         <CardActionArea component="div">
           <Link href={`/recipe/${tree.id}`}>
             <Grid container spacing={1} alignItems="center">
-              <Grid item xs={8}>
+              <Grid item xs={12} sm={8}>
                 <CardContent className={classes.cardcontent}>
                   <Typography variant="h5" component="h2">
                     {tree.title}
@@ -82,9 +85,12 @@ export const TreeComponent = (tree) => {
                       </Typography>
                     </Box>
                   </Box>
+                  <Typography variant="body2" color="textSecondary" component="text">
+                    last updated: {dateString}
+                  </Typography>
                 </CardContent>
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={12} sm={4}>
                 <CardMedia
                   className={classes.media}
                   image={mediaURL}
