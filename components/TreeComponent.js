@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -55,13 +55,33 @@ const pickupCardStyle = makeStyles((theme) => ({
 }))
 
 export const TreeComponent = (tree) => {
-
   const cardClasses = (tree.id == tree.source) ? pickupCardStyle() : normalCardStyle();
   const classes = useStyles();
   const onMediaFallback = event => event.target.src = "/noimage_transparent.png";
   let avatarChar = tree.hasOwnProperty('id_author') ? tree.id_author.substr(0, 1) : "";
   let mediaURL = typeof tree.thumbnail !== "undefined" ? tree.thumbnail : "/noimage_transparent.png";
   let dateString = typeof tree.update_date !== "undefined" ? format(new Date(tree.update_date), 'yyyy/MM/dd', { timeZone: 'Asia/Tokyo' }) : "unknown";
+
+  useEffect(() => {
+    const elems = document.querySelectorAll('li:not(:only-child)');
+
+    for( const el of elems ) {
+      el.parentNode.classList.add('ul-border');
+      const styleElem = el.parentNode.appendChild(document.createElement("style"));
+      styleElem.innerHTML = `.ul-border:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 5vw;
+  width: 0;
+  height: auto;
+    
+  border-left: 5px solid black;
+}`;
+    }
+  }, []);
 
   return (
     <li>

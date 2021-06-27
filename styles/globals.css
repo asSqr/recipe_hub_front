@@ -23,18 +23,6 @@ body {
   margin-left: 10vw;
 }
   
-.construction ul:before {  
-  content: "";
-  display: block;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 3.5vw;
-  border-left: 5px solid black;
-}
-  
 .construction ul li {  
   position: relative;
   margin: 2.5vw 0 2.5vw 5vw;
@@ -51,17 +39,8 @@ body {
   height: 10vw;
 }
 
-.construction ul:before {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 5vw;
-  width: 0;
-  height: auto;
-    
-  border-left: 5px solid black;
+.ul-border {
+
 }
 
 .construction ul li:before {  

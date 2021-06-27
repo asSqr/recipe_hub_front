@@ -157,17 +157,17 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
               setContent={setRecipe}
             />
           </div>
+        </form>
+
+        <Grid>
           <Button 
             variant="contained"
             color="primary"
             onClick={clickHandler}
-            style={{marginTop: '2rem', marginButtom: '2rem'}}
+            style={{margin: '2rem'}}
           >
             {action}
           </Button>
-        </form>
-
-        <Grid style={{marginRight: '2rem'}}>
           {!forkFlag && (<Link href="/"><Button 
               variant="contained"
               color="primary"
@@ -180,7 +180,7 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
               variant="contained"
               color="primary"
               onClick={cancelHandler}
-              style={{marginBottom: '2rem'}}
+              style={{margin: '2rem'}}
             >
               キャンセル
             </Button>
