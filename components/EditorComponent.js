@@ -168,18 +168,19 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
         </form>
 
         <Grid style={{marginRight: '2rem'}}>
-          <Link href="/"><Button 
+          {!forkFlag && (<Link href="/"><Button 
               variant="contained"
               color="primary"
               style={{margin: '2rem'}}
             >
             レシピ一覧へ
-          </Button></Link>
+          </Button></Link>)}
           {forkFlag && (
             <Button 
               variant="contained"
               color="primary"
               onClick={cancelHandler}
+              style={{marginBottom: '2rem'}}
             >
               キャンセル
             </Button>
