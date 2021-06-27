@@ -37,6 +37,8 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
 
         setRecipeFrom(data);
       }
+
+      setGenreError(!validateGenre(initObj.genre));
     }
 
     f();
