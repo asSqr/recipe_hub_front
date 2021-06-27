@@ -8,8 +8,6 @@ export default function SignoutPage() {
       if( user ) {
         console.log(user);
 
-        localStorage.setItem('user', null);
-
         firebase.auth()
           .signOut()
           .then(() => {

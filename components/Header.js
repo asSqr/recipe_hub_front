@@ -1,15 +1,21 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useRouter } from "next/router";
+import firebase from '../firebase/firebase';
 
 const Header = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem('user')));
+    firebase.auth().onAuthStateChanged(user => {
+      if( user ) {
+        console.log(user);
 
-    console.log(JSON.parse(localStorage.getItem('user')));
-    console.log(user);
+        setUser({ user_name: user.displayName, photo_url: user.photoURL, id: user.uid });
+      } else {
+        Router.push('/login'); 
+      }
+    })
   }, []);
 
   return (

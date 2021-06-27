@@ -8,6 +8,7 @@ import { fetchRecipe, deleteRecipe, postFork } from '../../utils/api_request';
 import RecipeItem from '../../components/preview';
 import Auth from '../../components/Auth';
 import Header from '../../components/Header';
+import firebase from '../../firebase/firebase';
 
 export default function Recipe() {
   const nameRef = React.createRef();
@@ -29,10 +30,15 @@ export default function Recipe() {
 
       setRecipe(data);
 
-      setUser(JSON.parse(localStorage.getItem('user')));
+      firebase.auth().onAuthStateChanged(user => {
+        if( user ) {
+          console.log(user);
 
-      console.log(JSON.parse(localStorage.getItem('user')));
-      console.log(user);
+          setUser({ user_name: user.displayName, photo_url: user.photoURL, id: user.uid });
+        } else {
+          Router.push('/login'); 
+        }
+      })
     };
 
     f();
