@@ -120,14 +120,14 @@ export default function Recipe() {
             >
               派生レシピを作る
             </Button>
-            <Button 
+            {user && recipe && user.id === recipe.id_author && (<Button 
               variant="contained"
               color="primary"
               onClick={deleteHandler}
               style={{marginLeft: '2rem'}}
             >
               レシピ削除
-            </Button>
+            </Button>)}
           </Grid>
         </form>
         <Grid
