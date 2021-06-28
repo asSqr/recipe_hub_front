@@ -1,6 +1,6 @@
 import Editor from '../../components/EditorComponent';
 import { fetchRecipe, patchRecipe, deleteRecipe } from '../../utils/api_request';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import styles from '../../styles/Home.module.css';
 import Auth from '../../components/Auth';
@@ -29,17 +29,17 @@ export default function EditRecipe() {
         setIdRepo(id_recipe.slice(0, id_recipe.length-1));
       }
 
-      console.log(id_recipe.endsWith('z') ? id_recipe.slice(0, id_recipe.length-1) : id_recipe);
-
       const { data } = await fetchRecipe(id_recipe.endsWith('z') ? id_recipe.slice(0, id_recipe.length-1) : id_recipe);
 
       setRecipe(data);
 
       firebase.auth().onAuthStateChanged(user => {
         if( user ) {
-          console.log(user);
-
           setUser({ user_name: user.displayName, photo_url: user.photoURL, id: user.uid });
+
+          if( data.id_author !== user.uid ) {
+            Router.push('/');
+          }
         }
       })
     };

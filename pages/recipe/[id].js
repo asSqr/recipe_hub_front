@@ -32,8 +32,6 @@ export default function Recipe() {
 
       firebase.auth().onAuthStateChanged(user => {
         if( user ) {
-          console.log(user);
-
           setUser({ user_name: user.displayName, photo_url: user.photoURL, id: user.uid });
         }
       })

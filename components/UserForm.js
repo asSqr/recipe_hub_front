@@ -9,8 +9,6 @@ const UserForm = ({ isRegister }) => {
   const passwordRef = useRef(null);
   
   const login = async () => {
-    console.log(userNameRef.current.value, passwordRef.current.value);
-
     firebase.auth().signInWithEmailAndPassword(userNameRef.current.value, passwordRef.current.value)
         .then(res => {
           Router.push('/');
@@ -21,8 +19,6 @@ const UserForm = ({ isRegister }) => {
   };
 
   const authenticate = async () => {
-    console.log('start')
-
     if( isRegister ) {
       firebase.auth().createUserWithEmailAndPassword(userNameRef.current.value, passwordRef.current.value)
         .then(res => {

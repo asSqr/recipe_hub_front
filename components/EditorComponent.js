@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchRecipe, deleteRecipe } from '../utils/api_request';
 import RichEditorExample from '../components/markdown';
 import RecipeItem from '../components/preview';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 
 export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_recipe, user }) {
   const nameRef = React.createRef();
@@ -56,11 +56,15 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
   }
 
   const clickHandler = async () => {
+    if( recipeFrom && user && recipeFrom.id_author !== user.id ) {
+      Router.push('/');
+
+      return;
+    }
+
     const name = nameRef.current.value;
     const title = titleRef.current.value;
     const genre = genreRef.current.value;
-
-    console.log(recipe);
 
     const data = new FormData()
     if( image )
@@ -85,7 +89,7 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
   const cancelHandler = async () => {
     if( !id_recipe )
       return;
-    console.log(id_recipe)
+
     await deleteRecipe(id_recipe);
 
     router.push('/');
@@ -99,8 +103,6 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
 
   const handleChange = () => {
     const genre = genreRef.current.value;
-
-    console.log(genre);
 
     setGenreError(!validateGenre(genre));
   }

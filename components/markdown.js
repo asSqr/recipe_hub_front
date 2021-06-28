@@ -40,14 +40,12 @@ class RichEditorExample extends React.Component {
   insertImage() {
     const url = this.urlRef.current.value;
 
-    console.log(url);
-
     const entityKey = Entity.create( 'image', 'IMMUTABLE', { src: url } );
 
     const { editorState } = this.state;
     const newState = AtomicBlockUtils.insertAtomicBlock(editorState, entityKey, ' ');
 
-    console.log(convertToRaw(editorState.getCurrentContent()), convertToRaw(newState.getCurrentContent()), Entity.get(entityKey));
+    // console.log(convertToRaw(editorState.getCurrentContent()), convertToRaw(newState.getCurrentContent()), Entity.get(entityKey));
 
     this.onChange(newState);
   };
@@ -214,8 +212,6 @@ function mediaBlockRenderer(block, flag) {
       editable: false
     };
   }
-
-  console.log(block);
 
   return null;
 }

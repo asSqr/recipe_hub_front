@@ -6,8 +6,6 @@ export default function SignoutPage() {
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
       if( user ) {
-        console.log(user);
-
         firebase.auth()
           .signOut()
           .then(() => {

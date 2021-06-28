@@ -6,7 +6,7 @@ const Auth = () => {
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
       if( user ) {
-        console.log(user);
+        // console.log(user);
       } else {
         Router.push('/login'); 
       }
