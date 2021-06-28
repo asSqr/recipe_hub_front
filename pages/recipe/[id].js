@@ -35,8 +35,6 @@ export default function Recipe() {
           console.log(user);
 
           setUser({ user_name: user.displayName, photo_url: user.photoURL, id: user.uid });
-        } else {
-          Router.push('/login'); 
         }
       })
     };
@@ -135,13 +133,13 @@ export default function Recipe() {
             direction="row"
             justify="center"
             alignItems="center">
-          <Link href={`/edit/${id_recipe}`}><Button 
+          {user && recipe && user.id === recipe.id_author && (<Link href={`/edit/${id_recipe}`}><Button 
               variant="contained"
               color="primary"
               style={{margin: '2rem'}}
             >
             レシピ編集画面へ
-          </Button></Link>
+          </Button></Link>)}
           <Link href="/"><Button 
               variant="contained"
               color="primary"

@@ -12,8 +12,6 @@ const Header = () => {
         console.log(user);
 
         setUser({ user_name: user.displayName, photo_url: user.photoURL, id: user.uid });
-      } else {
-        Router.push('/login'); 
       }
     })
   }, []);
