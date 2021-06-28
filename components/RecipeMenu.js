@@ -75,8 +75,8 @@ const RecipeMenu = (props) => {
         //     <MoreVertIcon />
         //   </IconButton>
         // }
-        title={author_name}
-        subheader={date}
+        title={<Link href={`/recipe/${id}`}><h3 style={{margin: 0, cursor: 'pointer'}}>{title}</h3></Link>}
+        subheader={<>{author_name}<br />{date}</>}
         />
    
       {/* 写真 */}
@@ -92,7 +92,6 @@ const RecipeMenu = (props) => {
       {/* 本文 */}
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-        レシピタイトル:{title}<br></br>
         料理名:{name}<br></br>
         ジャンル:{genre}<br></br>         
         </Typography>

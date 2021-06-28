@@ -51,7 +51,15 @@ export default function Recipes() {
   // レシピの取得
   useEffect(() => {
     const f = async () => {
-      const { data } = await fetchRecipes();
+      let { data } = await fetchRecipes();
+
+      const compFunc = (obj1, obj2) => {
+        const d1 = new Date(obj1.create_date);
+        const d2 = new Date(obj2.create_date);
+        return d2-d1;
+      };
+
+      data = data.sort(compFunc);
 
       setRecipes(data);
     };
