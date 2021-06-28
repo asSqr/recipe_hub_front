@@ -41,7 +41,7 @@ export default function Recipe() {
   }, [id_recipe]);
 
   const clickHandler = async () => {
-    if( !recipe )
+    if( !recipe || !user )
       return;
     
     const { data: { id } } = await postFork({
@@ -67,7 +67,6 @@ export default function Recipe() {
 
   return (
     <div>
-      <Auth />
       <Header />
       <main className={styles.main}>
         <h1 className={styles.title}>
@@ -108,14 +107,14 @@ export default function Recipe() {
             focused
             style={{marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
           /> <br /> */}
-            <Button 
+            {user && (<Button 
               variant="contained"
               color="primary"
               onClick={clickHandler}
               style={{marginLeft: '2rem'}}
             >
               派生レシピを作る
-            </Button>
+            </Button>)}
             {user && recipe && user.id === recipe.id_author && (<Button 
               variant="contained"
               color="primary"
