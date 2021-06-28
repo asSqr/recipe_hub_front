@@ -6,8 +6,9 @@ import { Button, TextField, Grid } from '@material-ui/core'
 import { sleep } from '../utils/utils';
 
 const UserForm = ({ isRegister }) => {
-  const userNameRef = useRef(null);
+  const emailRef = useRef(null);
   const passwordRef = useRef(null);
+  const userNameRef = useRef(null);
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
@@ -18,7 +19,7 @@ const UserForm = ({ isRegister }) => {
   }, []);
   
   const login = async () => {
-    firebase.auth().signInWithEmailAndPassword(userNameRef.current.value, passwordRef.current.value)
+    firebase.auth().signInWithEmailAndPassword(emailRef.current.value, passwordRef.current.value)
         .then(res => {
           Router.push('/');
         })
@@ -28,13 +29,22 @@ const UserForm = ({ isRegister }) => {
   };
 
   const authenticate = async () => {
+    console.log('authenticate');
+    console.log(emailRef.current.value, passwordRef.current.value);
+
     if( isRegister ) {
-      firebase.auth().createUserWithEmailAndPassword(userNameRef.current.value, passwordRef.current.value)
+      firebase.auth().createUserWithEmailAndPassword(emailRef.current.value, passwordRef.current.value)
         .then(res => {
+          const user = firebase.auth().currentUser;
+          
+          user.updateProfile({
+            displayName: userNameRef.current.value
+          });
+
           Router.push('/');
         })
         .catch(error => {
-          
+          console.log(error);
         });
     } else {
       await login();
@@ -73,6 +83,16 @@ const UserForm = ({ isRegister }) => {
         <Grid container justify="center" spacing={2}>
           <TextField
             id="standard-basic"
+            label="Email"
+            inputRef={emailRef}
+            color="primary"
+            inputProps={{ maxLength: 100 }}
+            focused
+            style={{width: '300px', marginTop: '2rem'}}
+            onChange={keyHandler}
+          /> <br />
+          <TextField
+            id="standard-basic"
             label="ユーザー名"
             inputRef={userNameRef}
             color="primary"
@@ -86,8 +106,10 @@ const UserForm = ({ isRegister }) => {
             label="パスワード"
             inputRef={passwordRef}
             color="primary"
+            inputProps={{ maxLength: 100 }}
             focused
             style={{width: '300px', margin: '2rem'}}
+            type="password"
             onChange={keyHandler}
           /> <br />
           <Button 

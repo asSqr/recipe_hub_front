@@ -9,7 +9,8 @@ const Header = () => {
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
       if( user ) {
-        setUser({ user_name: user.displayName, photo_url: user.photoURL, id: user.uid });
+        console.log(user);
+        setUser({ user_name: user.displayName || user.email, photo_url: user.photoURL, id: user.uid });
       }
     })
   }, []);

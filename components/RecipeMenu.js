@@ -50,9 +50,7 @@ const RecipeMenu = (props) => {
   var dateRaw = new Date(create_date)
   var date = format(dateRaw, 'yyyy/MM/dd', { timeZone: 'Asia/Tokyo' })
 
-  // 名前の頭文字
-  var authorRaw = author_name
-  var HeadId = authorRaw.substr(0,1)
+  const headID = author_name.substr(0,1);
 
   return (
     <Card className={classes.root}>
@@ -60,13 +58,13 @@ const RecipeMenu = (props) => {
       {/* ヘッダー */}
       <CardHeader
         avatar={
-          author_photo_url && author_photo_url.length > 0 ? 
+          author_photo_url && author_photo_url.length > 0 && author_photo_url !== 'null' ? 
             (
-              <Avatar alt="author" className={classes.avatar} src={author_photo_url} />
+              <Avatar alt="author" src={author_photo_url} />
             ) :
             (
-              <Avatar aria-label="recipe" className={classes.avatar}>
-                {HeadId}
+              <Avatar className={classes.avatar}>
+                {headID}
               </Avatar>
             )
         }
