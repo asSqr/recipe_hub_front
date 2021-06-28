@@ -39,6 +39,7 @@ const UserForm = ({ isRegister }) => {
         Router.push('/');
       })
       .catch(error => {
+        console.log(error);
       })
   };
 

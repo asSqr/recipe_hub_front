@@ -7,7 +7,6 @@ import Header from '../components/Header';
 export default function SigninPage() {
   return (
     <div>
-      <Auth />
       <Header />
       <UserForm isRegister={true} />
     </div>
