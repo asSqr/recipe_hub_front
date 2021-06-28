@@ -1,12 +1,21 @@
 import Head from 'next/head';
 import Router from 'next/router';
 import firebase from '../firebase/firebase';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { Button, TextField, Grid } from '@material-ui/core'
+import { sleep } from '../utils/utils';
 
 const UserForm = ({ isRegister }) => {
   const userNameRef = useRef(null);
   const passwordRef = useRef(null);
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(user => {
+      if( user ) {
+        Router.push('/'); 
+      }
+    })
+  }, []);
   
   const login = async () => {
     firebase.auth().signInWithEmailAndPassword(userNameRef.current.value, passwordRef.current.value)
@@ -36,7 +45,9 @@ const UserForm = ({ isRegister }) => {
     firebase.auth()
       .signInWithPopup(provider)
       .then(async res => {
-        Router.push('/');
+        if( res.user ) {
+          Router.push('/');
+        }
       })
       .catch(error => {
         console.log(error);
