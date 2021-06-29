@@ -62,7 +62,7 @@ export async function getServerSideProps({ query }) {
 
   const recipe = data;
 
-  await sleep(1000);
+  // await sleep(1000);
 
   return { props: { recipe, id_repo, forkFlag, id_recipe } }
 }

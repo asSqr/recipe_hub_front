@@ -162,7 +162,7 @@ export async function getServerSideProps({ query }) {
 
   data = data.sort(compFunc);
 
-  await sleep(1000);
+  // await sleep(1000);
 
   return { props: { recipes: data } }
 }

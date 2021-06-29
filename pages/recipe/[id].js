@@ -157,7 +157,7 @@ export async function getServerSideProps({ query }) {
 
   const { data } = await fetchRecipe(id_recipe);
 
-  await sleep(1000);
+  // await sleep(1000);
 
   return { props: { recipe: data, id_recipe } }
 }

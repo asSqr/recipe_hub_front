@@ -67,7 +67,7 @@ export async function getServerSideProps({ query }) {
 
   const { data } = await fetchTree(id_recipe);
 
-  await sleep(1000);
+  // await sleep(1000);
 
   return { props: { tree: data, id_recipe } }
 }
