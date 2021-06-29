@@ -79,7 +79,7 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
     data.append('genre', genre);
     
     if( initObj )
-      await apiFunc(initObj.id, data);
+      await apiFunc(id_recipe, data);
     else
       await apiFunc(data);
 

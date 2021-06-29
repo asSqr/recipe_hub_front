@@ -53,7 +53,7 @@ export default function EditRecipe() {
       <Header />
       {recipe && user && (
         <main className={styles.main} > 
-          <Editor apiFunc={patchRecipe} title="レシピを編集" action={forkFlag ? "レシピ作成" : "レシピ更新"} initObj={recipe} forkFlag={forkFlag} id_recipe={idRepo} user={user} />
+          <Editor apiFunc={patchRecipe} title="レシピを編集" action={forkFlag ? "レシピ作成" : "レシピ更新"} initObj={recipe} forkFlag={forkFlag} id_recipe={id_recipe.endsWith('z') ? id_recipe.slice(0, id_recipe.length-1) : id_recipe} user={user} />
         </main>
       )}
     </>
