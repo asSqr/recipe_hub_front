@@ -73,7 +73,7 @@ const RecipeMenu = (props) => {
         //     <MoreVertIcon />
         //   </IconButton>
         // }
-        title={<Link href={`/recipe/${id}`}><h3 style={{margin: 0, cursor: 'pointer'}}>{title}</h3></Link>}
+        title={<Link href={`/recipe/${id}`}><a><h3 style={{ margin: 0 }}>{title}</h3></a></Link>}
         subheader={<>{author_name}<br />{date}</>}
         />
    
