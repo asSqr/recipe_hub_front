@@ -9,3 +9,46 @@ body {
 * {
   box-sizing: border-box;
 }
+
+
+.construction{
+  list-style-type: none;
+}
+  
+.construction ul {  
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  position: relative;
+  margin-left: 10vw;
+}
+  
+.construction ul li {  
+  position: relative;
+  margin: 2.5vw 0 2.5vw 5vw;
+  padding: 0;
+}
+
+.construction ul li:first-child:before {
+  top: -2.5vw;
+  height: 6.1vw;
+}
+
+.construction ul li:before {
+  top: -6.5vw;
+  height: 10vw;
+}
+
+.ul-border {
+
+}
+
+.construction ul li:before {  
+  content: "";
+  display: block;
+  position: absolute;
+  left: -5vw;
+  width: 4.7vw;
+  border-bottom: 5px solid black;
+  border-left: 5px solid black;
+}

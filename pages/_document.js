@@ -1,6 +1,4 @@
 import Document, { Head, Main, NextScript } from 'next/document'
-import Image from 'next/image'
-import Link from 'next/link';
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -18,20 +16,17 @@ export default class MyDocument extends Document {
           <style>{`.container {
   min-height: 100vh;
   padding: 0 0.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   height: 100vh;
 }
 
 .main {
-  padding: 5rem 0;
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 6rem;
+  letter-spacing: 1px;
 }
 
 .footer {
@@ -162,25 +157,38 @@ export default class MyDocument extends Document {
   text-shadow: rgba(255, 255, 255, 0.8) 1px 0 5px;
 }
 
-.wrapper {
-  margin-top: 200px;
-  letter-spacing: 1px;
+.menu {
+  display: flex;
+  justify-content: flex-end;
+  width: 40%;
+  color: white;
+}
+
+.menu-item {
+  margin-right: 40px;
+  margin-top: auto;
+  margin-bottom: auto;
+  vertical-align: middle;
+}
+
+.menu-item-user {
+  margin-right: 40px;
+  margin-top: auto;
+  margin-bottom: auto;
+  vertical-align: middle;
+  width: max-content;
+}
+
+.menu-item-user img {
+  width: 32px;
+  border-radius: 30px;
+  margin-right: 10px;
 }
 `}</style>
         </Head>
         <body>
-          <div className="header">
-            <h1>
-              <Link href="/"><a>Recipe Hub</a></Link>
-            </h1>
-            <h1>
-              <Link href="/"><a>Github for Cooking</a></Link>
-            </h1>
-          </div>
-          <div className='wrapper'>
-            <Main />
-            <NextScript />
-          </div>
+          <Main />
+          <NextScript />
         </body>
       </html>
     )
