@@ -6,6 +6,9 @@ import React, { useEffect, useState } from 'react';
 import { fetchRecipe, deleteRecipe, postFork } from '../../utils/api_request';
 // import RecipeItem from '../../components/RecipeItem';
 import RecipeItem from '../../components/preview';
+import Auth from '../../components/Auth';
+import Header from '../../components/Header';
+import firebase from '../../firebase/firebase';
 
 export default function Recipe() {
   const nameRef = React.createRef();
@@ -15,6 +18,8 @@ export default function Recipe() {
   const router = useRouter();
 
   const { id: id_recipe } = router.query;
+  
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const f = async () => {
@@ -24,21 +29,29 @@ export default function Recipe() {
       const { data } = await fetchRecipe(id_recipe);
 
       setRecipe(data);
+
+      firebase.auth().onAuthStateChanged(user => {
+        if( user ) {
+          setUser({ user_name: user.displayName || 'ユーザー名なし', photo_url: user.photoURL, id: user.uid });
+        }
+      })
     };
 
     f();
   }, [id_recipe]);
 
   const clickHandler = async () => {
-    if( !recipe )
+    if( !recipe || !user )
       return;
     
     const { data: { id } } = await postFork({
-      id_user: 'id_user',
-      id_repo: id_recipe
+      id_user: user.id,
+      id_repo: id_recipe,
+      author_name: user.user_name,
+      author_photo_url: user.photo_url
     });
 
-    router.push(`/edit/${id}`);
+    router.push(`/edit/${id + 'z'}`);
   }
 
   const deleteHandler = async () => {
@@ -49,11 +62,12 @@ export default function Recipe() {
       id_recipe
     );
 
-    router.push(`/recipes`);
+    router.push(`/`);
   }
 
   return (
-    <div className={styles.container}>
+    <div>
+      <Header />
       <main className={styles.main}>
         <h1 className={styles.title}>
           レシピ
@@ -93,22 +107,22 @@ export default function Recipe() {
             focused
             style={{marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
           /> <br /> */}
-            <Button 
+            {user && (<Button 
               variant="contained"
               color="primary"
               onClick={clickHandler}
               style={{marginLeft: '2rem'}}
             >
-              レシピ Fork
-            </Button>
-            <Button 
+              派生レシピを作る
+            </Button>)}
+            {user && recipe && user.id === recipe.id_author && (<Button 
               variant="contained"
               color="primary"
               onClick={deleteHandler}
               style={{marginLeft: '2rem'}}
             >
               レシピ削除
-            </Button>
+            </Button>)}
           </Grid>
         </form>
         <Grid
@@ -116,19 +130,26 @@ export default function Recipe() {
             direction="row"
             justify="center"
             alignItems="center">
-          <Link href={`/edit/${id_recipe}`}><Button 
+          {user && recipe && user.id === recipe.id_author && (<Link href={`/edit/${id_recipe}`}><Button 
               variant="contained"
               color="primary"
               style={{margin: '2rem'}}
             >
             レシピ編集画面へ
-          </Button></Link>
-          <Link href="/recipes"><Button 
+          </Button></Link>)}
+          <Link href="/"><Button 
               variant="contained"
               color="primary"
               style={{margin: '2rem'}}
             >
             レシピ一覧へ
+          </Button></Link>
+          <Link href={`/tree/${id_recipe}`}><Button 
+              variant="contained"
+              color="primary"
+              style={{margin: '2rem'}}
+            >
+            レシピツリー画面へ
           </Button></Link>
         </Grid>
       </main>

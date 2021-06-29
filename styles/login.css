@@ -1,0 +1,193 @@
+@import url("font-awesome/css/font-awesome.min.css");
+
+.login-body {
+	background: #f3f3f3;
+	color: #444;
+	font-family: 'Roboto', sans-serif;
+	font-size: 14px;
+	-webkit-text-transform: uppercase;
+	-moz-text-transform: uppercase;
+	-ms-text-transform: uppercase;
+	-o-text-transform: uppercase;
+	text-transform: uppercase;
+}
+.login {
+	width: 450px;
+	background: #fff;
+	border: 1px;
+	-webkit-box-shadow: 0px 0px 1px #ccc;
+	-moz-box-shadow: 0px 0px 1px #ccc;
+	box-shadow: 0px 0px 1px #ccc;
+	padding: 20px 25px;
+	margin: 10px auto;
+	position: relative;
+}
+.login h2 {
+	font-weight: bold;
+	padding: 10px 0 20px 0;
+	text-align: center;
+}
+hr{
+	border: 0;
+	border-top: 1px solid #eee;
+	margin: 0;
+	margin-bottom: 15px;
+}
+.login label {
+	font-size: 17px;
+	display: block;
+	margin: 7px 0;
+}
+.login label span {
+  color: #f00;
+  margin-left: 3px;
+}
+.login #username,
+.login #password {
+	width: 100%;
+	padding: 12px;
+	background: #fff;
+	border: 1px solid rgba(85, 85, 85, 0.20);
+	-webkit-border-radius: 1px;
+	-moz-border-radius: 1px;
+	border-radius: 1px;
+	margin-bottom: 15px;
+	font-size: 15px;
+}
+.login #username:focus,
+.login #password:focus {
+	border: 1px solid rgba(237, 8, 77, 0.25);
+}
+.box-remember {
+	position: relative;
+}
+#remember {
+	display: none;
+}
+
+.remember {
+	width: 12px;
+	height: 12px;
+	background: #fff;
+	-webkit-box-shadow: 0 0 1px rgba(85, 85, 85, 1);
+	-moz-box-shadow: 0 0 1px rgba(85, 85, 85, 1);
+	box-shadow: 0 0 1px rgba(85, 85, 85, 1);
+	display: inline-block;
+	margin: 0;
+	position: absolute;
+	top: -5px;
+}
+.active-remember {
+	background: #ed084d;
+	border: 2px solid #fff;
+}
+.box-remember span {
+	margin-left: 17px;
+	font-family: 'Exo',sans-serif;
+	font-size: 12px;
+}
+.submit-logo {
+	padding: 12px 10px;
+  cursor: pointer;
+	color: #fff;
+	background: #ed084d;
+	width: 100%;
+	margin: 10px 0;
+	border: 0 none;
+	font-family: 'Roboto',sans-serif;
+	-webkit-text-transform: uppercase;
+	-moz-text-transform: uppercase;
+	-ms-text-transform: uppercase;
+	-o-text-transform: uppercase;
+	text-transform: uppercase;
+	font-size: 17px;
+	-webkit-border-radius: 1px;
+	-moz-border-radius: 1px;
+	border-radius: 1px;
+	-webkit-transition: all 0.4s ease-in-out;
+	-moz-transition: all 0.4s ease-in-out;
+	-o-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+  text-align: center;
+}
+.submit-logo:hover {
+	background: #333;
+	color: #fff;
+}
+.login-span {
+	font-family: 'Exo',sans-serif;
+	font-size: 12px;
+	margin-top: 7px;
+	margin-bottom: 7px;
+}
+.login a{
+	color: rgba(200, 40, 40, 1.0);
+	text-decoration: none;
+}
+.login a:hover{
+	color: #333;
+	text-decoration: none;
+}
+.or {
+	text-align: center;
+	font-family: 'Roboto',sans-serif;
+	display: block;
+	font-size: 20px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.login-facebook,
+.login-twitter,
+.login-google,
+.login-github {
+	width: 100%;
+	padding: 15px 17px;
+	color: #eee;
+	margin: 7px 0;
+	-webkit-border-radius: 1px;
+	-moz-border-radius: 1px;
+	border-radius: 1px;
+	cursor: pointer;
+}
+.login-facebook:hover,
+.login-twitter:hover,
+.login-google:hover,
+.login-github:hover {
+	color: #fff;
+}
+.login-twitter {
+	background: #55acee;
+  margin: 1rem 0 1rem 0;
+}
+.login-github {
+  background: #171515;
+  margin: 1rem 0 1rem 0;
+}
+.login-google {
+  background: #f00;
+  margin: 1rem 0 1rem 0;
+}
+.login-facebook{
+	background: #3b5998;
+  margin: 1rem 0 1rem 0;
+}
+.login-facebook span,
+.login-twitter span,
+.login-google span,
+.login-github span {
+	font-weight: normal;
+	font-size: 17px;
+	-webkit-text-transform: capitalize;
+	-moz-text-transform: capitalize;
+	-ms-text-transform: capitalize;
+	-o-text-transform: capitalize;
+	text-transform: capitalize;
+}
+.login-facebook i,
+.login-twitter i,
+.login-google i,
+.login-github i {
+  width: 32px;
+	margin-right: 10px;
+	font-size: 17px;
+}

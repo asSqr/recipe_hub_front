@@ -2,12 +2,12 @@ import { Button, TextField, TextareaAutosize, Grid } from '@material-ui/core'
 import Link from 'next/link';
 import styles from '../styles/Home.module.css'
 import React, { useEffect, useState } from 'react';
-import { fetchRecipe } from '../utils/api_request';
+import { fetchRecipe, deleteRecipe } from '../utils/api_request';
 import RichEditorExample from '../components/markdown';
 import RecipeItem from '../components/preview';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 
-export default function Editor({ apiFunc, title, action, initObj }) {
+export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_recipe, user }) {
   const nameRef = React.createRef();
   const [recipe, setRecipe] = useState('');
   const [recipeFrom, setRecipeFrom] = useState(null);
@@ -15,6 +15,7 @@ export default function Editor({ apiFunc, title, action, initObj }) {
   const genreRef = React.createRef();
   const [image, setImage] = useState(null);
   const [imgData, setImgData] = useState(null);
+  const [genreError, setGenreError] = useState(false);
 
   const router = useRouter();
 
@@ -36,6 +37,8 @@ export default function Editor({ apiFunc, title, action, initObj }) {
 
         setRecipeFrom(data);
       }
+
+      setGenreError(!validateGenre(initObj.genre));
     }
 
     f();
@@ -53,11 +56,15 @@ export default function Editor({ apiFunc, title, action, initObj }) {
   }
 
   const clickHandler = async () => {
+    if( recipeFrom && user && recipeFrom.id_author !== user.id ) {
+      Router.push('/');
+
+      return;
+    }
+
     const name = nameRef.current.value;
     const title = titleRef.current.value;
     const genre = genreRef.current.value;
-
-    console.log(recipe);
 
     const data = new FormData()
     if( image )
@@ -66,7 +73,9 @@ export default function Editor({ apiFunc, title, action, initObj }) {
     data.append('name', name);
     data.append('recipe', recipe);
     data.append('title', title);
-    data.append('id_author', 'id_author');
+    data.append('author_name', user.user_name);
+    data.append('id_author', user.id);
+    data.append('author_photo_url', user.photo_url);
     data.append('genre', genre);
     
     if( initObj )
@@ -74,20 +83,41 @@ export default function Editor({ apiFunc, title, action, initObj }) {
     else
       await apiFunc(data);
 
-    router.push(`/recipes`);
+    router.push(`/`);
+  }
+
+  const cancelHandler = async () => {
+    if( !id_recipe )
+      return;
+
+    await deleteRecipe(id_recipe);
+
+    router.push('/');
+  }
+
+  const validateGenre = str => {
+    const genreString = ["和食", "洋食", "中華"];
+
+    return genreString.indexOf(str) != -1;
+  };
+
+  const handleChange = () => {
+    const genre = genreRef.current.value;
+
+    setGenreError(!validateGenre(genre));
   }
 
   // const getImageName = "image/"+{image.name}
 
   return (
-    <div className={styles.container}>
+    <div>
       <main className={styles.main}>
         <h1 className={styles.title}>
           {title}
         </h1>
         {recipeFrom && (
           <div style={{ margin: '4rem' }}>
-            <p style={{ margin: '0.5rem' }}>フォーク元レシピ</p>
+            <p style={{ margin: '0.5rem' }}>派生元レシピ</p>
             <RecipeItem show_link={false} {...recipeFrom} />
           </div>
         )}
@@ -103,16 +133,19 @@ export default function Editor({ apiFunc, title, action, initObj }) {
             label="料理名"
             inputRef={nameRef}
             color="primary"
+            inputProps={{ maxLength: 100 }}
             focused
             style={{width: '300px', marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
           /> <br />
           <TextField
             id="standard-basic"
-            label="ジャンル"
+            label="ジャンル (和食・洋食・中華)"
             inputRef={genreRef}
             color="primary"
             focused
             style={{width: '300px', marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
+            error={genreError}
+            onChange={handleChange}
           /> <br />
           <TextField
             id="standard-basic"
@@ -120,6 +153,7 @@ export default function Editor({ apiFunc, title, action, initObj }) {
             inputRef={titleRef}
             color="primary"
             focused
+            inputProps={{ maxLength: 100 }}
             style={{width: '300px', marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
           /> 
           <br />
@@ -148,23 +182,35 @@ export default function Editor({ apiFunc, title, action, initObj }) {
               setContent={setRecipe}
             />
           </div>
+        </form>
+
+        <Grid>
           <Button 
             variant="contained"
             color="primary"
             onClick={clickHandler}
-            style={{marginTop: '2rem', marginButtom: '2rem'}}
+            style={{margin: '2rem'}}
           >
             {action}
           </Button>
-        </form>
-
-        <Link href="/recipes"><Button 
-            variant="contained"
-            color="primary"
-            style={{margin: '4rem'}}
-          >
-          レシピ一覧へ
-        </Button></Link>
+          {!forkFlag && (<Link href="/"><Button 
+              variant="contained"
+              color="primary"
+              style={{margin: '2rem'}}
+            >
+            レシピ一覧へ
+          </Button></Link>)}
+          {forkFlag && (
+            <Button 
+              variant="contained"
+              color="primary"
+              onClick={cancelHandler}
+              style={{margin: '2rem'}}
+            >
+              キャンセル
+            </Button>
+          )}
+        </Grid>
       </main>
     </div>
   )

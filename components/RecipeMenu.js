@@ -13,6 +13,7 @@ import Avatar from '@material-ui/core/Avatar';
 import { red } from '@material-ui/core/colors';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import { format } from 'date-fns';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,6 +22,8 @@ const useStyles = makeStyles((theme) => ({
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
+    backgroundColor: 'transparent',
+    cursor: 'pointer'
   },
   avatar: {
     backgroundColor: red[500],
@@ -38,18 +41,16 @@ const RecipeMenu = (props) => {
   const classes = useStyles();
 
   // データの展開
-  const { create_date, genre, id, id_author, id_fork_from, id_fork_to_list, name, recipe, show_link, thumbnail, title, update_date } = props; 
+  const { create_date, genre, id, author_name, id_fork_from, id_fork_to_list, name, recipe, show_link, thumbnail, title, update_date, author_photo_url } = props; 
 
   // 画像がなかった場合の処理
-  const onMediaFallback = event => event.target.src = "/noimage.png";
-
+  const onMediaFallback = event => event.target.src = "/noimage_transparent.png";
+  
   // 日付の正規化
-  var dateRaw = create_date
-  var date = dateRaw.substr(0,10)
+  var dateRaw = new Date(create_date)
+  var date = format(dateRaw, 'yyyy/MM/dd', { timeZone: 'Asia/Tokyo' })
 
-  // 名前の頭文字
-  var authorRaw = id_author
-  var HeadId = authorRaw.substr(0,1)
+  const headID = author_name.substr(0,1);
 
   return (
     <Card className={classes.root}>
@@ -57,24 +58,30 @@ const RecipeMenu = (props) => {
       {/* ヘッダー */}
       <CardHeader
         avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            {HeadId}
-          </Avatar>
+          author_photo_url && author_photo_url.length > 0 && author_photo_url !== 'null' ? 
+            (
+              <Avatar alt="author" src={author_photo_url} />
+            ) :
+            (
+              <Avatar className={classes.avatar}>
+                {headID}
+              </Avatar>
+            )
         }
         // action={
         //   <IconButton aria-label="settings">
         //     <MoreVertIcon />
         //   </IconButton>
         // }
-        title={id_author}
-        subheader={date}
+        title={<Link href={`/recipe/${id}`}><h3 style={{margin: 0, cursor: 'pointer'}}>{title}</h3></Link>}
+        subheader={<>{author_name}<br />{date}</>}
         />
    
       {/* 写真 */}
       <Link href={`/recipe/${id}`}>
         <CardMedia
           className={classes.media}
-          image= {thumbnail}
+          image={thumbnail ? thumbnail : '/noimage_transparent.png'}
           title={name}
           onError={onMediaFallback}
         />
@@ -90,7 +97,7 @@ const RecipeMenu = (props) => {
 
       {/* ボタン */}
       <BottomNavigation showLabels>
-        <BottomNavigationAction className={classes.hover} label="木構造" href = {`/tree/${id}`}　icon={<AccountTreeIcon />} />
+        <BottomNavigationAction className={classes.hover} label="レシピツリー" href = {`/tree/${id}`}　icon={<AccountTreeIcon />} />
         <BottomNavigationAction className={classes.hover} label="レシピ" href = {`/recipe/${id}`}　icon={<MenuBookIcon />} />
       </BottomNavigation>
 

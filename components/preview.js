@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Link from 'next/link';
@@ -18,6 +19,13 @@ const useStyles = makeStyles({
     height: '20rem',
     textAlign: 'center',
     position: 'relative'
+  },
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9
+    marginTop: '20px',
+    marginBottom: '20px',
+    backgroundColor: 'transparent'
   },
   bullet: {
     display: 'inline-block',
@@ -66,21 +74,37 @@ const unescapeHtml = target => {
 };
 
 const RecipeItem = (props) => {
-  const { id, name, recipe, id_fork_from, show_link } = props;
+  const { id, name, recipe, title, show_link, thumbnail } = props;
 
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
 
+  const onMediaFallback = event => event.target.src = "/noimage_transparent.png";
+  
   return (
     <Card className={classes.menu}>
       <CardContent className={classes.content}>
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
+      <Typography className={classes.title} color="textSecondary" gutterBottom>
           レシピ名
         </Typography>
         <Typography variant="h5" component="h2">
-          {name}
+          {title}
+        </Typography> <br />
+        <Typography className={classes.title} color="textSecondary" gutterBottom>
+          料理名
         </Typography>
-        <br /> 
+        <Typography variant="h5" component="h2">
+          {name}
+        </Typography> <br />
+        <Typography className={classes.title} color="textSecondary" gutterBottom>
+          サムネイル
+        </Typography>
+        <CardMedia
+          className={classes.media}
+          image={thumbnail ? thumbnail : '/noimage_transparent.png'}
+          title={name}
+          onError={onMediaFallback}
+        />
         <br />
         <Typography className={classes.title} color="textSecondary" gutterBottom>
           レシピ
