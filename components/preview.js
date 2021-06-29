@@ -42,7 +42,7 @@ const useStyles = makeStyles({
     marginRight: 'auto',
   },
   menu: {
-    backgroundImage: 'url("https://raw.githubusercontent.com/asSqr/recipe_hub_front/feature/recipes/public/tomato.jpg")',
+    backgroundImage: 'url("/tomato.jpg")',
     width: '60rem',
   },
   content: {

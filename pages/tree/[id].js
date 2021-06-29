@@ -11,27 +11,17 @@ import Head from 'next/head';
 import { appOrigin } from '../../utils/constants';
 import Meta from '../../components/Meta';
 
-export default function Tree() {
-  const [tree, setTree] = useState(null);
-
-  const router = useRouter();
-  const { id: id_recipe } = router.query;
-
+export default function Tree({ tree, id_recipe }) {
   useEffect(() => {
     const f = async () => {
-      if (!id_recipe)
-        return;
 
-      const { data } = await fetchTree(id_recipe);
-
-      setTree(data);
     };
 
     f();
-  }, [id_recipe]);
+  }, []);
 
   const styling = {
-    backgroundImage: 'url("https://raw.githubusercontent.com/asSqr/recipe_hub_front/feature/recipes/public/tomato.jpg")', //あとで"/tomato.jpg"に戻す
+    backgroundImage: 'url("/tomato.jpg")', //あとで"/tomato.jpg"に戻す
     width:"100%",
     marginTop: '6rem'
   }
@@ -68,5 +58,12 @@ export default function Tree() {
       </main>
     </>
   )
+}
 
+export async function getServerSideProps({ query }) {
+  const { id: id_recipe } = query;
+
+  const { data } = await fetchTree(id_recipe);
+
+  return { props: { tree: data, id_recipe } }
 }

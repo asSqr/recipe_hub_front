@@ -14,11 +14,7 @@ import { urlObjectKeys } from 'next/dist/next-server/lib/utils';
 import Header from '../components/Header';
 import Meta from '../components/Meta';
 
-export default function Recipes() {
-
-  // レシピ一覧のstate
-  const [recipes, setRecipes] = useState([]);
-
+export default function Recipes({ recipes }) {
   // 和洋中の検索ステータス
   const [state, setState] = React.useState({
     wa: true,
@@ -54,17 +50,7 @@ export default function Recipes() {
   // レシピの取得
   useEffect(() => {
     const f = async () => {
-      let { data } = await fetchRecipes();
 
-      const compFunc = (obj1, obj2) => {
-        const d1 = new Date(obj1.create_date);
-        const d2 = new Date(obj2.create_date);
-        return d2-d1;
-      };
-
-      data = data.sort(compFunc);
-
-      setRecipes(data);
     };
 
     f();
@@ -161,4 +147,18 @@ export default function Recipes() {
       </main>
     </>
   )
+}
+
+export async function getServerSideProps({ query }) {
+  let { data } = await fetchRecipes();
+
+  const compFunc = (obj1, obj2) => {
+    const d1 = new Date(obj1.create_date);
+    const d2 = new Date(obj2.create_date);
+    return d2-d1;
+  };
+
+  data = data.sort(compFunc);
+
+  return { props: { recipes: data } }
 }

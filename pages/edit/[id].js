@@ -10,37 +10,18 @@ import Head from 'next/head';
 import { appOrigin } from '../../utils/constants';
 import Meta from '../../components/Meta';
 
-export default function EditRecipe() {
-  const [recipe, setRecipe] = useState(null);
-  const [forkFlag, setForkFlag] = useState(false);
+export default function EditRecipe({ recipe, id_repo, forkFlag, id_recipe }) {
   const router = useRouter();
-
-  let { id: id_recipe } = router.query;
-
-  const [idRepo, setIdRepo] = useState(id_recipe);
 
   const [user, setUser] = useState(null);
 
   useEffect(() => {
     const f = async () => {
-      if( !id_recipe )
-        return;
-
-      if( id_recipe.endsWith('z') ) {
-        setForkFlag(true);
-
-        setIdRepo(id_recipe.slice(0, id_recipe.length-1));
-      }
-
-      const { data } = await fetchRecipe(id_recipe.endsWith('z') ? id_recipe.slice(0, id_recipe.length-1) : id_recipe);
-
-      setRecipe(data);
-
       firebase.auth().onAuthStateChanged(user => {
         if( user ) {
           setUser({ user_name: user.displayName || 'ユーザー名なし', photo_url: user.photoURL, id: user.uid });
 
-          if( data.id_author !== user.uid ) {
+          if( recipe.id_author !== user.uid ) {
             Router.push('/');
           }
         }
@@ -48,7 +29,7 @@ export default function EditRecipe() {
     };
 
     f();
-  }, [id_recipe]);
+  }, []);
 
   return (
     <>
@@ -57,9 +38,28 @@ export default function EditRecipe() {
       <Header />
       {recipe && user && (
         <main className={styles.main} > 
-          <Editor apiFunc={patchRecipe} title="レシピを編集" action={forkFlag ? "レシピ作成" : "レシピ更新"} initObj={recipe} forkFlag={forkFlag} id_recipe={idRepo} user={user} />
+          <Editor apiFunc={patchRecipe} title="レシピを編集" action={forkFlag ? "レシピ作成" : "レシピ更新"} initObj={recipe} forkFlag={forkFlag} id_recipe={id_repo} user={user} />
         </main>
       )}
     </>
   );
 };
+
+export async function getServerSideProps({ query }) {
+  const { id: id_recipe } = query;
+
+  let forkFlag = false;
+  let id_repo = id_recipe;
+
+  if( id_recipe.endsWith('z') ) {
+    forkFlag = true;
+
+    id_repo = id_recipe.slice(0, id_recipe.length-1);
+  }
+
+  const { data } = await fetchRecipe(id_recipe.endsWith('z') ? id_recipe.slice(0, id_recipe.length-1) : id_recipe);
+
+  const recipe = data;
+
+  return { props: { recipe, id_repo, forkFlag, id_recipe } }
+}
