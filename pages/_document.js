@@ -12,6 +12,7 @@ import { ServerStyleSheet } from 'styled-components'
 import { ServerStyleSheets as MaterialServerStyleSheets } from '@material-ui/core'
 
 import { appOrigin } from '../utils/constants';
+import Footer from '../components/Footer';
 
 export default class MyDocument extends NextDocument {
   static async getInitialProps(
@@ -229,6 +230,7 @@ export default class MyDocument extends NextDocument {
         </Head>
         <body>
           <Main />
+          <Footer />
           <NextScript />
         </body>
       </Html>

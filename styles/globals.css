@@ -52,3 +52,41 @@ body {
   border-bottom: 5px solid black;
   border-left: 5px solid black;
 }
+
+footer {
+  margin-top: 4rem;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  color: #ffffff;
+  background-color: #303030;
+  font-size: 14px;
+  text-align: center;
+  position: relative;
+}
+
+footer a, footer a:visited { color: #525252; }
+footer a:hover, footer a:focus { color: #fff; }
+
+/* copyright */
+footer .copyright {
+   margin: 0;
+   padding: 0;
+}
+footer .copyright li {
+   display: inline-block;
+   margin: 0;
+   padding: 0;
+   line-height: 24px;
+}
+.ie footer .copyright li {
+  display: inline;
+}
+footer .copyright li:before {
+   content: "\2022";
+   padding-left: 10px;
+   padding-right: 10px;
+   color: #095153;
+}
+footer .copyright  li:first-child:before {
+   display: none;
+}
