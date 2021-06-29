@@ -15,6 +15,7 @@ import Header from '../components/Header';
 import Meta from '../components/Meta';
 import tomatoImg from '../public/tomato.jpg';
 import { sleep } from '../utils/utils';
+import firebase from '../firebase/firebase';
 
 export default function Recipes({ recipes, user }) {
   // 和洋中の検索ステータス
