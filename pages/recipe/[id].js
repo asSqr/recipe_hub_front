@@ -71,7 +71,7 @@ export default function Recipe() {
     <div>
       <Head>
         <meta property="og:url" content={`${appOrigin}/recipe/${id_recipe}`} />
-        <meta property="og:image" content={recipe && recipe.thumbnail ? recipe.thumbnail : '/noimage_transparent.png'} />
+        <meta property="og:image" content={recipe && recipe.thumbnail ? recipe.thumbnail : `${appOrigin}/noimage_transparent.png`} />
         <meta property="og:site_name" content="Recipe Hub" />
         <meta property="og:title" content="Recipe Hub" />
         <meta property="og:description" content="Recipe Hub (Github for Cooking)" />

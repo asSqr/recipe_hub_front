@@ -13,7 +13,7 @@ export default class MyDocument extends Document {
         <Head>
           <title>Recipe Hub</title>
           <meta property="og:url" content={`${appOrigin}`} />
-          <meta property="og:image" content={'/tomato.jpg'} />
+          <meta property="og:image" content={`${appOrigin}/tomato.jpg`} />
           <meta property="og:site_name" content="Recipe Hub" />
           <meta property="og:title" content="Recipe Hub" />
           <meta property="og:description" content="Recipe Hub (Github for Cooking)" />
