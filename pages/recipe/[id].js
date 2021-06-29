@@ -1,5 +1,6 @@
 import { Button, TextField, TextareaAutosize, Grid } from '@material-ui/core'
 import Link from 'next/link';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import styles from '../../styles/Home.module.css'
 import React, { useEffect, useState } from 'react';
@@ -9,6 +10,7 @@ import RecipeItem from '../../components/preview';
 import Auth from '../../components/Auth';
 import Header from '../../components/Header';
 import firebase from '../../firebase/firebase';
+import { appOrigin } from '../../utils/constants';
 
 export default function Recipe() {
   const nameRef = React.createRef();
@@ -67,6 +69,15 @@ export default function Recipe() {
 
   return (
     <div>
+      <Head>
+        <meta property="og:url" content={`${appOrigin}/recipe/${id_recipe}`} />
+        <meta property="og:image" content={recipe && recipe.thumbnail ? recipe.thumbnail : '/noimage_transparent.png'} />
+        <meta property="og:site_name" content="Recipe Hub" />
+        <meta property="og:title" content="Recipe Hub" />
+        <meta property="og:description" content="Recipe Hub (Github for Cooking)" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:creator" content="Team 3 Apology" />
+      </Head>
       <Header />
       <main className={styles.main}>
         <h1 className={styles.title}>

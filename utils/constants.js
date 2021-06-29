@@ -1,0 +1,1 @@
+export const appOrigin = 'https://recipe-hub.vercel.app';
