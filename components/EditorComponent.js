@@ -56,12 +56,6 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
   }
 
   const clickHandler = async () => {
-    if( recipeFrom && user && recipeFrom.id_author !== user.id ) {
-      Router.push('/');
-
-      return;
-    }
-
     const name = nameRef.current.value;
     const title = titleRef.current.value;
     const genre = genreRef.current.value;
