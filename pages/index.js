@@ -16,7 +16,7 @@ import Meta from '../components/Meta';
 import tomatoImg from '../public/tomato.jpg';
 import { sleep } from '../utils/utils';
 
-export default function Recipes({ recipes }) {
+export default function Recipes({ recipes, user }) {
   // 和洋中の検索ステータス
   const [state, setState] = React.useState({
     wa: true,
@@ -62,7 +62,7 @@ export default function Recipes({ recipes }) {
     <>
       <Meta image_url={`${appOrigin}/tomato.jpg`} />
 
-      <Header />
+      <Header {...user} />
       
       <main className={styles.main} > 
 
@@ -162,7 +162,13 @@ export async function getServerSideProps({ query }) {
 
   data = data.sort(compFunc);
 
-  // await sleep(1000);
+  let userObj = null;
 
-  return { props: { recipes: data } }
+  firebase.auth().onAuthStateChanged(user => {
+    if( user ) {
+      userObj = { user_name: user.displayName || 'ユーザー名なし', photo_url: user.photoURL, id: user.uid };
+    }
+  })
+
+  return { props: { recipes: data, user: userObj } }
 }

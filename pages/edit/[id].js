@@ -11,32 +11,14 @@ import { appOrigin } from '../../utils/constants';
 import Meta from '../../components/Meta';
 import { sleep } from '../../utils/utils';
 
-export default function EditRecipe({ recipe, id_repo, forkFlag, id_recipe }) {
+export default function EditRecipe({ recipe, id_repo, forkFlag, id_recipe, user }) {
   const router = useRouter();
-
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const f = async () => {
-      firebase.auth().onAuthStateChanged(user => {
-        if( user ) {
-          setUser({ user_name: user.displayName || 'ユーザー名なし', photo_url: user.photoURL, id: user.uid });
-
-          if( recipe.id_author !== user.uid ) {
-            Router.push('/');
-          }
-        }
-      })
-    };
-
-    f();
-  }, []);
 
   return (
     <>
       <Meta image_url={`${appOrigin}/tomato.jpg`} />
       <Auth />
-      <Header />
+      <Header  {...user} />
       {recipe && user && (
         <main className={styles.main} > 
           <Editor apiFunc={patchRecipe} title="レシピを編集" action={forkFlag ? "レシピ作成" : "レシピ更新"} initObj={recipe} forkFlag={forkFlag} id_recipe={id_repo} user={user} />
@@ -62,7 +44,13 @@ export async function getServerSideProps({ query }) {
 
   const recipe = data;
 
-  // await sleep(1000);
+  let userObj = null;
 
-  return { props: { recipe, id_repo, forkFlag, id_recipe } }
+  firebase.auth().onAuthStateChanged(user => {
+    if( user ) {
+      userObj = { user_name: user.displayName || 'ユーザー名なし', photo_url: user.photoURL, id: user.uid };
+    }
+  })
+
+  return { props: { recipe, id_repo, forkFlag, id_recipe, user: userObj } }
 }

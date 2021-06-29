@@ -3,16 +3,20 @@ import { useEffect, useState } from 'react';
 import Router from "next/router";
 import firebase from '../firebase/firebase';
 
-const Header = () => {
+const Header = userObj => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(user => {
-      if( user ) {
-        console.log(user);
-        setUser({ user_name: user.displayName || user.email, photo_url: user.photoURL, id: user.uid });
-      }
-    })
+    if( !userObj ) {
+      firebase.auth().onAuthStateChanged(user => {
+        if( user ) {
+          console.log(user);
+          setUser({ user_name: user.displayName || 'ユーザー名なし', photo_url: user.photoURL, id: user.uid });
+        }
+      })
+    } else {
+      setUser(userObj);
+    }
   }, []);
 
   return (
