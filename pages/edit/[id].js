@@ -6,6 +6,9 @@ import styles from '../../styles/Home.module.css';
 import Auth from '../../components/Auth';
 import Header from '../../components/Header';
 import firebase from '../../firebase/firebase';
+import Head from 'next/head';
+import { appOrigin } from '../../utils/constants';
+import Meta from '../../components/Meta';
 
 export default function EditRecipe() {
   const [recipe, setRecipe] = useState(null);
@@ -49,6 +52,7 @@ export default function EditRecipe() {
 
   return (
     <>
+      <Meta image_url={`${appOrigin}/tomato.jpg`} />
       <Auth />
       <Header />
       {recipe && user && (

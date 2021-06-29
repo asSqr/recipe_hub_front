@@ -7,6 +7,9 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Link from 'next/link';
 import Header from '../../components/Header';
+import Head from 'next/head';
+import { appOrigin } from '../../utils/constants';
+import Meta from '../../components/Meta';
 
 export default function Tree() {
   const [tree, setTree] = useState(null);
@@ -35,6 +38,7 @@ export default function Tree() {
 
   return (
     <>
+      <Meta image_url={`${appOrigin}/tomato.jpg`} />
       <Header />
       <main className={styles.main}>
         <h1 className={styles.title}>

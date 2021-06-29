@@ -1,5 +1,7 @@
 import {Icon, FormGroup, TextField, Button, Checkbox, Switch, Container, Grid, ButtonGroup} from '@material-ui/core'
 import Link from 'next/link';
+import Head from 'next/head';
+import { appOrigin } from '../utils/constants';
 import styles from '../styles/Home.module.css'
 import React, { useEffect, useState } from 'react';
 import { fetchRecipes } from '../utils/api_request';
@@ -10,6 +12,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import LocalDiningIcon from '@material-ui/icons/LocalDining';
 import { urlObjectKeys } from 'next/dist/next-server/lib/utils';
 import Header from '../components/Header';
+import Meta from '../components/Meta';
 
 export default function Recipes() {
 
@@ -69,6 +72,8 @@ export default function Recipes() {
 
   return (
     <>
+      <Meta image_url={`${appOrigin}/tomato.jpg`} />
+
       <Header />
       
       <main className={styles.main} > 

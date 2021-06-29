@@ -10,6 +10,7 @@ import RecipeItem from '../../components/preview';
 import Auth from '../../components/Auth';
 import Header from '../../components/Header';
 import firebase from '../../firebase/firebase';
+import Meta from '../../components/Meta';
 import { appOrigin } from '../../utils/constants';
 
 export default function Recipe() {
@@ -69,15 +70,7 @@ export default function Recipe() {
 
   return (
     <div>
-      <Head>
-        <meta property="og:url" content={`${appOrigin}/recipe/${id_recipe}`} />
-        <meta property="og:image" content={recipe && recipe.thumbnail ? recipe.thumbnail : `${appOrigin}/noimage_transparent.png`} />
-        <meta property="og:site_name" content="Recipe Hub" />
-        <meta property="og:title" content="Recipe Hub" />
-        <meta property="og:description" content="Recipe Hub (Github for Cooking)" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:creator" content="Team 3 Apology" />
-      </Head>
+      <Meta image_url={recipe && recipe.thumbnail ? recipe.thumbnail : `${appOrigin}/noimage_transparent.png`} />
       <Header />
       <main className={styles.main}>
         <h1 className={styles.title}>
