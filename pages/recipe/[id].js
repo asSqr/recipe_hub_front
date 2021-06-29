@@ -13,26 +13,16 @@ import firebase from '../../firebase/firebase';
 import Meta from '../../components/Meta';
 import { appOrigin } from '../../utils/constants';
 
-export default function Recipe() {
+export default function Recipe({ recipe, id_recipe }) {
   const nameRef = React.createRef();
   const titleRef = React.createRef();
   const recipeRef = React.createRef();
-  const [recipe, setRecipe] = useState(null);
   const router = useRouter();
 
-  const { id: id_recipe } = router.query;
-  
   const [user, setUser] = useState(null);
 
   useEffect(() => {
     const f = async () => {
-      if( !id_recipe )
-        return;
-
-      const { data } = await fetchRecipe(id_recipe);
-
-      setRecipe(data);
-
       firebase.auth().onAuthStateChanged(user => {
         if( user ) {
           setUser({ user_name: user.displayName || 'ユーザー名なし', photo_url: user.photoURL, id: user.uid });
@@ -41,7 +31,7 @@ export default function Recipe() {
     };
 
     f();
-  }, [id_recipe]);
+  }, []);
 
   const clickHandler = async () => {
     if( !recipe || !user )
@@ -159,4 +149,12 @@ export default function Recipe() {
       </main>
     </div>
   )
+}
+
+export async function getServerSideProps({ query }) {
+  const { id: id_recipe } = query;
+
+  const { data } = await fetchRecipe(id_recipe);
+
+  return { props: { recipe: data, id_recipe } }
 }
