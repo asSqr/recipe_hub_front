@@ -13,6 +13,8 @@ import LocalDiningIcon from '@material-ui/icons/LocalDining';
 import { urlObjectKeys } from 'next/dist/next-server/lib/utils';
 import Header from '../components/Header';
 import Meta from '../components/Meta';
+import tomatoImg from '../public/tomato.jpg';
+import { sleep } from '../utils/utils';
 
 export default function Recipes({ recipes }) {
   // 和洋中の検索ステータス
@@ -42,7 +44,7 @@ export default function Recipes({ recipes }) {
 
   // https://www.ac-illust.com/main/detail.php?id=2616215&word=カトラリーフレーム※png背景透明&searchId=3954786678
   const styling = {
-    backgroundImage: 'url("/tomato.jpg")',
+    backgroundImage: `url(${tomatoImg})`,
     width:"100%",
     marginTop: '2rem'
 }
@@ -159,6 +161,8 @@ export async function getServerSideProps({ query }) {
   };
 
   data = data.sort(compFunc);
+
+  await sleep(1000);
 
   return { props: { recipes: data } }
 }

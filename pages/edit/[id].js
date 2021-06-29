@@ -9,6 +9,7 @@ import firebase from '../../firebase/firebase';
 import Head from 'next/head';
 import { appOrigin } from '../../utils/constants';
 import Meta from '../../components/Meta';
+import { sleep } from '../../utils/utils';
 
 export default function EditRecipe({ recipe, id_repo, forkFlag, id_recipe }) {
   const router = useRouter();
@@ -60,6 +61,8 @@ export async function getServerSideProps({ query }) {
   const { data } = await fetchRecipe(id_recipe.endsWith('z') ? id_recipe.slice(0, id_recipe.length-1) : id_recipe);
 
   const recipe = data;
+
+  await sleep(1000);
 
   return { props: { recipe, id_repo, forkFlag, id_recipe } }
 }

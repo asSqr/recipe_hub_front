@@ -12,6 +12,7 @@ import Header from '../../components/Header';
 import firebase from '../../firebase/firebase';
 import Meta from '../../components/Meta';
 import { appOrigin } from '../../utils/constants';
+import { sleep } from '../../utils/utils';
 
 export default function Recipe({ recipe, id_recipe }) {
   const nameRef = React.createRef();
@@ -155,6 +156,8 @@ export async function getServerSideProps({ query }) {
   const { id: id_recipe } = query;
 
   const { data } = await fetchRecipe(id_recipe);
+
+  await sleep(1000);
 
   return { props: { recipe: data, id_recipe } }
 }

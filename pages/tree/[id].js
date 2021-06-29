@@ -10,6 +10,8 @@ import Header from '../../components/Header';
 import Head from 'next/head';
 import { appOrigin } from '../../utils/constants';
 import Meta from '../../components/Meta';
+import tomatoImg from '../../public/tomato.jpg';
+import { sleep } from '../../utils/utils';
 
 export default function Tree({ tree, id_recipe }) {
   useEffect(() => {
@@ -21,7 +23,7 @@ export default function Tree({ tree, id_recipe }) {
   }, []);
 
   const styling = {
-    backgroundImage: 'url("/tomato.jpg")', //あとで"/tomato.jpg"に戻す
+    backgroundImage: `url(${tomatoImg})`, //あとで"/tomato.jpg"に戻す
     width:"100%",
     marginTop: '6rem'
   }
@@ -64,6 +66,8 @@ export async function getServerSideProps({ query }) {
   const { id: id_recipe } = query;
 
   const { data } = await fetchTree(id_recipe);
+
+  await sleep(1000);
 
   return { props: { tree: data, id_recipe } }
 }

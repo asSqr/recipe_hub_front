@@ -14,6 +14,7 @@ import { red } from '@material-ui/core/colors';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import { format } from 'date-fns';
+import noImage from '../public/noimage_transparent.png';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,7 +45,7 @@ const RecipeMenu = (props) => {
   const { create_date, genre, id, author_name, id_fork_from, id_fork_to_list, name, recipe, show_link, thumbnail, title, update_date, author_photo_url } = props; 
 
   // 画像がなかった場合の処理
-  const onMediaFallback = event => event.target.src = "/noimage_transparent.png";
+  const onMediaFallback = event => event.target.src = noImage;
   
   // 日付の正規化
   var dateRaw = new Date(create_date)
@@ -81,7 +82,7 @@ const RecipeMenu = (props) => {
       <Link href={`/recipe/${id}`}>
         <CardMedia
           className={classes.media}
-          image={thumbnail ? thumbnail : '/noimage_transparent.png'}
+          image={thumbnail ? thumbnail : noImage}
           title={name}
           onError={onMediaFallback}
         />

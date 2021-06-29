@@ -12,6 +12,8 @@ import RichEditorExample from './markdown'
 import { Container } from '@material-ui/core';
 import { convertFromRaw } from 'draft-js';
 import { stateToHTML } from 'draft-js-export-html';
+import tomatoImg from '../public/tomato.jpg';
+import noImage from '../public/noimage_transparent.png';
 
 const useStyles = makeStyles({
   root: {
@@ -42,7 +44,7 @@ const useStyles = makeStyles({
     marginRight: 'auto',
   },
   menu: {
-    backgroundImage: 'url("/tomato.jpg")',
+    backgroundImage: `url(${tomatoImg})`,
     width: '60rem',
   },
   content: {
@@ -79,7 +81,7 @@ const RecipeItem = (props) => {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
 
-  const onMediaFallback = event => event.target.src = "/noimage_transparent.png";
+  const onMediaFallback = event => event.target.src = noImage;
   
   return (
     <Card className={classes.menu}>
@@ -101,7 +103,7 @@ const RecipeItem = (props) => {
         </Typography>
         <CardMedia
           className={classes.media}
-          image={thumbnail ? thumbnail : '/noimage_transparent.png'}
+          image={thumbnail ? thumbnail : noImage}
           title={name}
           onError={onMediaFallback}
         />

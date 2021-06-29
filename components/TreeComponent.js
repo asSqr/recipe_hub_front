@@ -11,6 +11,7 @@ import Box from '@material-ui/core/Box';
 import { red } from '@material-ui/core/colors';
 import Link from 'next/link';
 import { format } from 'date-fns';
+import noImage from '../public/noimage_transparent.png';
 
 const useStyles = makeStyles((theme) => ({
   media: {
@@ -57,9 +58,9 @@ const pickupCardStyle = makeStyles((theme) => ({
 export const TreeComponent = (tree) => {
   const cardClasses = (tree.id == tree.source) ? pickupCardStyle() : normalCardStyle();
   const classes = useStyles();
-  const onMediaFallback = event => event.target.src = "/noimage_transparent.png";
+  const onMediaFallback = event => event.target.src = noImage;
   let avatarChar = tree.hasOwnProperty('author_name') ? tree.author_name.substr(0, 1) : "";
-  let mediaURL = typeof tree.thumbnail !== "undefined" ? tree.thumbnail : "/noimage_transparent.png";
+  let mediaURL = typeof tree.thumbnail !== "undefined" ? tree.thumbnail : noImage;
   let dateString = typeof tree.update_date !== "undefined" ? format(new Date(tree.update_date), 'yyyy/MM/dd', { timeZone: 'Asia/Tokyo' }) : "unknown";
 
   useEffect(() => {
