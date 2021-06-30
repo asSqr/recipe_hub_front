@@ -12,7 +12,7 @@ const Header = () => {
   }, []);
 
   return (
-    <div className="header">
+    <div className="header" style={{backgroundColor: "#00c853"}}>
       <Link href="/">
         <h1>
           <Link href="/"><a>Recipe Hub (Github for Cooking)</a></Link>

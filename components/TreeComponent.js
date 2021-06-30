@@ -51,7 +51,7 @@ const pickupCardStyle = makeStyles((theme) => ({
     },
     minWidth: 500,
     maxWidth: 500,
-    backgroundColor: 'skyblue'
+    backgroundColor: '#fff59d'
   },
 }))
 
