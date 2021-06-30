@@ -1,5 +1,7 @@
 import {Icon, FormGroup, TextField, Button, Checkbox, Switch, Container, Grid, ButtonGroup} from '@material-ui/core'
 import Link from 'next/link';
+import Head from 'next/head';
+import { appOrigin } from '../utils/constants';
 import styles from '../styles/Home.module.css'
 import React, { useEffect, useState } from 'react';
 import { fetchRecipes } from '../utils/api_request';
@@ -8,14 +10,38 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import AddIcon from '@material-ui/icons/Add';
 import SearchIcon from '@material-ui/icons/Search';
 import LocalDiningIcon from '@material-ui/icons/LocalDining';
+import { withStyles } from "@material-ui/core/styles";
 import { urlObjectKeys } from 'next/dist/next-server/lib/utils';
 import Header from '../components/Header';
+import Meta from '../components/Meta';
+import tomatoImg from '../public/tomato.jpg';
+import { sleep } from '../utils/utils';
+import firebase from '../firebase/firebase';
+import Footer from '../components/Footer';
 
-export default function Recipes() {
+const CheckboxCustom = withStyles({
+  root: {
+    "&$checked": {
+      "& .MuiIconButton-label": {
+        position: "relative",
+        zIndex: 0
+      },
+      "& .MuiIconButton-label:after": {
+        content: '""',
+        left: 4,
+        top: 4,
+        height: 15,
+        width: 15,
+        position: "absolute",
+        backgroundColor: "#260e04",
+        zIndex: -1
+      }
+    }
+  },
+  checked: {}
+})(Checkbox);
 
-  // レシピ一覧のstate
-  const [recipes, setRecipes] = useState([]);
-
+export default function Recipes({ recipes }) {
   // 和洋中の検索ステータス
   const [state, setState] = React.useState({
     wa: true,
@@ -43,25 +69,15 @@ export default function Recipes() {
 
   // https://www.ac-illust.com/main/detail.php?id=2616215&word=カトラリーフレーム※png背景透明&searchId=3954786678
   const styling = {
-    backgroundImage: 'url("/tomato.jpg")',
+    backgroundImage: `url(${tomatoImg})`,
     width:"100%",
     marginTop: '2rem'
-}
+  }
 
   // レシピの取得
   useEffect(() => {
     const f = async () => {
-      let { data } = await fetchRecipes();
 
-      const compFunc = (obj1, obj2) => {
-        const d1 = new Date(obj1.create_date);
-        const d2 = new Date(obj2.create_date);
-        return d2-d1;
-      };
-
-      data = data.sort(compFunc);
-
-      setRecipes(data);
     };
 
     f();
@@ -69,6 +85,8 @@ export default function Recipes() {
 
   return (
     <>
+      <Meta image_url={`${appOrigin}/tomato.jpg`} />
+
       <Header />
       
       <main className={styles.main} > 
@@ -93,15 +111,15 @@ export default function Recipes() {
           {/* 選択エリア */}
           <FormGroup row style={{marginTop: '5px', marginRight: '5px'}}>
             <FormControlLabel
-              control={<Checkbox checked={state.wa} onChange={handleChange} name = "wa" color="primary" />}
+              control={<CheckboxCustom checked={state.wa} onChange={handleChange} name = "wa" color="primary" />}
               label="和食"
             />
             <FormControlLabel
-              control={<Checkbox checked={state.you} onChange={handleChange} name = "you" color="primary" />}
+              control={<CheckboxCustom checked={state.you} onChange={handleChange} name = "you" color="primary" />}
               label="洋食"
             />
             <FormControlLabel
-              control={<Checkbox checked={state.chu} onChange={handleChange} name = "chu" color="primary" />}
+              control={<CheckboxCustom checked={state.chu} onChange={handleChange} name = "chu" color="primary" />}
               label="中華"
             />
             {/* <FormControlLabel
@@ -152,8 +170,23 @@ export default function Recipes() {
             })}
           </Grid>
         </Container>    
-
       </main>
+
+      <Footer />
     </>
   )
+}
+
+export async function getServerSideProps({ query }) {
+  let { data } = await fetchRecipes();
+
+  const compFunc = (obj1, obj2) => {
+    const d1 = new Date(obj1.create_date);
+    const d2 = new Date(obj2.create_date);
+    return d2-d1;
+  };
+
+  data = data.sort(compFunc);
+
+  return { props: { recipes: data } }
 }

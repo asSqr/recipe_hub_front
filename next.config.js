@@ -1,4 +1,6 @@
-module.exports = {
+const withImages = require('next-images')
+
+module.exports = withImages({
   reactStrictMode: true,
   module: {
     loaders: [
@@ -16,5 +18,12 @@ module.exports = {
     FIREBASE_MESSEGING_SENDER_ID: process.env.FIREBASE_MESSEGING_SENDER_ID,
     FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
     FIREBASE_MEASUREMENT_ID: process.env.FIREBASE_MEASUREMENT_ID,
-  }
-}
+  },
+  serverRuntimeConfig: {
+    PROJECT_ROOT: __dirname
+  },
+  images: {
+    disableStaticImages: true
+  },
+  fileExtensions: ["jpg", "jpeg", "png", "gif"]
+});

@@ -2,21 +2,18 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Router from "next/router";
 import firebase from '../firebase/firebase';
+import { useAuth } from '../utils/auth';
+import styles from '/styles/Home.module.css'
 
 const Header = () => {
-  const [user, setUser] = useState(null);
+  const { user } = useAuth();
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(user => {
-      if( user ) {
-        console.log(user);
-        setUser({ user_name: user.displayName || user.email, photo_url: user.photoURL, id: user.uid });
-      }
-    })
+    
   }, []);
 
   return (
-    <div className="header">
+    <div className={styles.header}>
       <Link href="/">
         <h1>
           <Link href="/"><a>Recipe Hub (Github for Cooking)</a></Link>

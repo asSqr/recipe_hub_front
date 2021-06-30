@@ -1,5 +1,6 @@
 import { Button, TextField, TextareaAutosize, Grid } from '@material-ui/core'
 import Link from 'next/link';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import styles from '../../styles/Home.module.css'
 import React, { useEffect, useState } from 'react';
@@ -9,36 +10,18 @@ import RecipeItem from '../../components/preview';
 import Auth from '../../components/Auth';
 import Header from '../../components/Header';
 import firebase from '../../firebase/firebase';
+import Meta from '../../components/Meta';
+import { appOrigin } from '../../utils/constants';
+import { useAuth } from '../../utils/auth';
+import Footer from '../../components/Footer';
 
-export default function Recipe() {
+export default function Recipe({ recipe, id_recipe }) {
   const nameRef = React.createRef();
   const titleRef = React.createRef();
   const recipeRef = React.createRef();
-  const [recipe, setRecipe] = useState(null);
   const router = useRouter();
 
-  const { id: id_recipe } = router.query;
-  
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const f = async () => {
-      if( !id_recipe )
-        return;
-
-      const { data } = await fetchRecipe(id_recipe);
-
-      setRecipe(data);
-
-      firebase.auth().onAuthStateChanged(user => {
-        if( user ) {
-          setUser({ user_name: user.displayName || 'ユーザー名なし', photo_url: user.photoURL, id: user.uid });
-        }
-      })
-    };
-
-    f();
-  }, [id_recipe]);
+  const { user } = useAuth();
 
   const clickHandler = async () => {
     if( !recipe || !user )
@@ -67,7 +50,8 @@ export default function Recipe() {
 
   return (
     <div>
-      <Header />
+      <Meta image_url={recipe && recipe.thumbnail ? recipe.thumbnail : `${appOrigin}/noimage_transparent.png`} title={recipe && `Recipe Hub -${recipe.title}-`} description={recipe && recipe.name} />
+      <Header user={user} />
       <main className={styles.main}>
         <h1 className={styles.title}>
           レシピ
@@ -153,6 +137,16 @@ export default function Recipe() {
           </Button></Link>
         </Grid>
       </main>
+
+      <Footer />
     </div>
   )
+}
+
+export async function getServerSideProps({ query }) {
+  const { id: id_recipe } = query;
+
+  const { data } = await fetchRecipe(id_recipe);
+
+  return { props: { recipe: data, id_recipe } }
 }

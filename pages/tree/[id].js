@@ -7,34 +7,31 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Link from 'next/link';
 import Header from '../../components/Header';
+import Head from 'next/head';
+import { appOrigin } from '../../utils/constants';
+import Meta from '../../components/Meta';
+import tomatoImg from '../../public/tomato.jpg';
+import { sleep } from '../../utils/utils';
+import Footer from '../../components/Footer';
 
-export default function Tree() {
-  const [tree, setTree] = useState(null);
-
-  const router = useRouter();
-  const { id: id_recipe } = router.query;
-
+export default function Tree({ tree, id_recipe }) {
   useEffect(() => {
     const f = async () => {
-      if (!id_recipe)
-        return;
 
-      const { data } = await fetchTree(id_recipe);
-
-      setTree(data);
     };
 
     f();
-  }, [id_recipe]);
+  }, []);
 
   const styling = {
-    backgroundImage: 'url("https://raw.githubusercontent.com/asSqr/recipe_hub_front/feature/recipes/public/tomato.jpg")', //あとで"/tomato.jpg"に戻す
+    backgroundImage: `url(${tomatoImg})`, //あとで"/tomato.jpg"に戻す
     width:"100%",
     marginTop: '6rem'
   }
 
   return (
     <>
+      <Meta image_url={`${appOrigin}/tomato.jpg`} />
       <Header />
       <main className={styles.main}>
         <h1 className={styles.title}>
@@ -62,7 +59,16 @@ export default function Tree() {
             </Grid>
           </Grid>
       </main>
+
+      <Footer />
     </>
   )
+}
 
+export async function getServerSideProps({ query }) {
+  const { id: id_recipe } = query;
+
+  const { data } = await fetchTree(id_recipe);
+
+  return { props: { tree: data, id_recipe } }
 }

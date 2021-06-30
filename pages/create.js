@@ -4,23 +4,22 @@ import Auth from '../components/Auth';
 import Header from '../components/Header';
 import { useEffect, useState } from 'react';
 import firebase from '../firebase/firebase';
+import Head from 'next/head';
+import { appOrigin } from '../utils/constants';
+import Meta from '../components/Meta';
+import { useAuth } from '../utils/auth';
+import Footer from '../components/Footer';
 
 export default function CreateRecipe() {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged(user => {
-      if( user ) {
-        setUser({ user_name: user.displayName || 'ユーザー名なし', photo_url: user.photoURL, id: user.uid });
-      }
-    })
-  }, []);
+  const { user } = useAuth();
 
   return (
     <>
-      <Auth />
+      <Meta image_url={`${appOrigin}/tomato.jpg`} />
+      <Auth user={user} />
       <Header />
       {user && (<Editor apiFunc={postRecipe} title="レシピを作る" action="レシピ作成" user={user} />)}
+      <Footer />
     </>
   );
 };

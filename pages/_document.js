@@ -1,17 +1,57 @@
-import Document, { Head, Main, NextScript } from 'next/document'
+import React from 'react'
+import NextDocument, {
+  Html,
+  Head,
+  Main,
+  NextScript,
+  DocumentContext,
+  DocumentInitialProps
+} from 'next/document'
+import { RenderPageResult } from 'next/dist/next-server/lib/utils'
+import { ServerStyleSheet } from 'styled-components'
+import { ServerStyleSheets as MaterialServerStyleSheets } from '@material-ui/core'
 
-export default class MyDocument extends Document {
-  static async getInitialProps(ctx) {
-    const initialProps = await Document.getInitialProps(ctx)
-    return { ...initialProps }
+import { appOrigin } from '../utils/constants';
+
+export default class MyDocument extends NextDocument {
+  static async getInitialProps(
+    ctx
+  ) {
+    const styledComponentsSheet = new ServerStyleSheet()
+    const materialUiSheets = new MaterialServerStyleSheets()
+    const originalRenderPage = ctx.renderPage
+
+    try {
+      ctx.renderPage = () =>
+        originalRenderPage({
+          enhanceApp: (App) => props => {
+            return styledComponentsSheet.collectStyles(
+              materialUiSheets.collect(<App {...props} />)
+            )
+          }
+        })
+
+      const initialProps = await NextDocument.getInitialProps(ctx)
+      
+      return {
+        ...initialProps,
+        styles: (
+          <React.Fragment key="styles">
+            {initialProps.styles}
+            {styledComponentsSheet.getStyleElement()}
+            {materialUiSheets.getStyleElement()}
+          </React.Fragment>
+        )
+      }
+    } finally {
+      styledComponentsSheet.seal()
+    }
   }
 
   render() {
     return (
-      <html>
+      <Html lang="ja-JP">
         <Head>
-          <title>Recipe Hub</title>
-          <meta name="description" content="Recipe Hub (Github for Cooking)" />
           <link rel="icon" href="/favicon.ico" />
           <style>{`.container {
   min-height: 100vh;
@@ -190,7 +230,7 @@ export default class MyDocument extends Document {
           <Main />
           <NextScript />
         </body>
-      </html>
+      </Html>
     )
   }
 }
