@@ -12,6 +12,7 @@ import { appOrigin } from '../../utils/constants';
 import Meta from '../../components/Meta';
 import tomatoImg from '../../public/tomato.jpg';
 import { sleep } from '../../utils/utils';
+import Footer from '../../components/Footer';
 
 export default function Tree({ tree, id_recipe }) {
   useEffect(() => {
@@ -58,6 +59,8 @@ export default function Tree({ tree, id_recipe }) {
             </Grid>
           </Grid>
       </main>
+
+      <Footer />
     </>
   )
 }

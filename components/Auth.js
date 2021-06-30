@@ -1,16 +1,15 @@
 import { useEffect } from 'react';
 import firebase from '../firebase/firebase';
 import Router from 'next/router';
+import { useAuth } from '../utils/auth';
 
 const Auth = () => {
+  const { user } = useAuth();
+
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(user => {
-      if( user ) {
-        // console.log(user);
-      } else {
-        Router.push('/login'); 
-      }
-    })
+    if( !user ) {
+      Router.push('/login'); 
+    }
   }, []);
 
   return (

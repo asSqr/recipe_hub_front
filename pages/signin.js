@@ -6,6 +6,7 @@ import Header from '../components/Header';
 import Head from 'next/head';
 import { appOrigin } from '../utils/constants';
 import Meta from '../components/Meta';
+import Footer from '../components/Footer';
 
 export default function SigninPage() {
   return (
@@ -13,6 +14,7 @@ export default function SigninPage() {
       <Meta image_url={`${appOrigin}/tomato.jpg`} />
       <Header />
       <UserForm isRegister={true} />
+      <Footer />
     </div>
   )
 }

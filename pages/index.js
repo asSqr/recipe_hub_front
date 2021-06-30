@@ -16,6 +16,7 @@ import Meta from '../components/Meta';
 import tomatoImg from '../public/tomato.jpg';
 import { sleep } from '../utils/utils';
 import firebase from '../firebase/firebase';
+import Footer from '../components/Footer';
 
 export default function Recipes({ recipes }) {
   // 和洋中の検索ステータス
@@ -146,8 +147,9 @@ export default function Recipes({ recipes }) {
             })}
           </Grid>
         </Container>    
-
       </main>
+
+      <Footer />
     </>
   )
 }

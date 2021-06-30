@@ -13,6 +13,7 @@ import firebase from '../../firebase/firebase';
 import Meta from '../../components/Meta';
 import { appOrigin } from '../../utils/constants';
 import { useAuth } from '../../utils/auth';
+import Footer from '../../components/Footer';
 
 export default function Recipe({ recipe, id_recipe }) {
   const nameRef = React.createRef();
@@ -136,6 +137,8 @@ export default function Recipe({ recipe, id_recipe }) {
           </Button></Link>
         </Grid>
       </main>
+
+      <Footer />
     </div>
   )
 }

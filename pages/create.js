@@ -8,6 +8,7 @@ import Head from 'next/head';
 import { appOrigin } from '../utils/constants';
 import Meta from '../components/Meta';
 import { useAuth } from '../utils/auth';
+import Footer from '../components/Footer';
 
 export default function CreateRecipe() {
   const { user } = useAuth();
@@ -18,6 +19,7 @@ export default function CreateRecipe() {
       <Auth />
       <Header />
       {user && (<Editor apiFunc={postRecipe} title="レシピを作る" action="レシピ作成" user={user} />)}
+      <Footer />
     </>
   );
 };
