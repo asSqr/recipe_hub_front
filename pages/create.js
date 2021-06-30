@@ -16,7 +16,7 @@ export default function CreateRecipe() {
   return (
     <>
       <Meta image_url={`${appOrigin}/tomato.jpg`} />
-      <Auth />
+      <Auth user={user} />
       <Header />
       {user && (<Editor apiFunc={postRecipe} title="レシピを作る" action="レシピ作成" user={user} />)}
       <Footer />
