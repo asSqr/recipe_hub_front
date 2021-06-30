@@ -134,7 +134,7 @@ export default function Recipes({ recipes }) {
 
           {/* 検索メニュー */}
           <Grid>
-            <TextField label="料理名,ユーザー名" type="text"
+            <TextField label="レシピ名, 料理名, ユーザー名" type="text"
               name="料理名ユーザー名検索"
               onChange={e => setTmpDish(e.target.value)}
               color="primary" 
