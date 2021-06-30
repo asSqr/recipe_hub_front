@@ -7,7 +7,7 @@ const Meta = ({ image_url, title, description }) => {
       <title>{title || 'Recipe Hub'}</title>
       <meta property="og:url" content={`${appOrigin}`} />
       <meta property="og:image" content={image_url} />
-      <meta property="og:site_name" content="Recipe Hub" />
+      <meta property="og:site_name" content={title || "Recipe Hub"} />
       <meta property="og:title" content={title || "Recipe Hub"} />
       <meta property="og:description" content={"Recipe Hub (Github for Cooking)"} />
       <meta name="twitter:card" content="summary_large_image" />
