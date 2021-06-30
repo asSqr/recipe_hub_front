@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Router from "next/router";
 import firebase from '../firebase/firebase';
 import { useAuth } from '../utils/auth';
+import styles from '/styles/Home.module.css'
 
 const Header = () => {
   const { user } = useAuth();
@@ -12,7 +13,7 @@ const Header = () => {
   }, []);
 
   return (
-    <div className="header">
+    <div className={styles.header}>
       <Link href="/">
         <h1>
           <Link href="/"><a>Recipe Hub (Github for Cooking)</a></Link>
