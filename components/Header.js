@@ -2,21 +2,13 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Router from "next/router";
 import firebase from '../firebase/firebase';
+import { useAuth } from '../utils/auth';
 
-const Header = userObj => {
-  const [user, setUser] = useState(null);
+const Header = () => {
+  const { user } = useAuth();
 
   useEffect(() => {
-    if( !userObj ) {
-      firebase.auth().onAuthStateChanged(user => {
-        if( user ) {
-          console.log(user);
-          setUser({ user_name: user.displayName || 'ユーザー名なし', photo_url: user.photoURL, id: user.uid });
-        }
-      })
-    } else {
-      setUser(userObj);
-    }
+    
   }, []);
 
   return (

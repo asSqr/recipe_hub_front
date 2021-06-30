@@ -53,7 +53,6 @@ export default class MyDocument extends NextDocument {
     return (
       <Html lang="ja-JP">
         <Head>
-          <title>Recipe Hub</title>
           <link rel="icon" href="/favicon.ico" />
           <style>{`.container {
   min-height: 100vh;

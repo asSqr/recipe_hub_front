@@ -14,6 +14,8 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 
 import theme from '../styles/theme'
 
+import { AuthProvider } from '../utils/auth';
+
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
     const jssStyles = document.querySelector('#jss-server-side')
@@ -23,15 +25,17 @@ function MyApp({ Component, pageProps }) {
   }, [])
 
   return (
-    <StylesProvider injectFirst>
-      <MaterialUIThemeProvider theme={theme}>
-        <StyledComponentsThemeProvider theme={theme}>
-          <CssBaseline />
-          <Component {...pageProps} />
-        </StyledComponentsThemeProvider>
-      </MaterialUIThemeProvider>
-    </StylesProvider>
+    <AuthProvider>
+      <StylesProvider injectFirst>
+        <MaterialUIThemeProvider theme={theme}>
+          <StyledComponentsThemeProvider theme={theme}>
+            <CssBaseline />
+            <Component {...pageProps} />
+          </StyledComponentsThemeProvider>
+        </MaterialUIThemeProvider>
+      </StylesProvider>
+    </AuthProvider>
   )
 }
 
-export default MyApp
+export default MyApp;

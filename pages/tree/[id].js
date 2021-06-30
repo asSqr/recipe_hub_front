@@ -13,7 +13,7 @@ import Meta from '../../components/Meta';
 import tomatoImg from '../../public/tomato.jpg';
 import { sleep } from '../../utils/utils';
 
-export default function Tree({ tree, id_recipe, user }) {
+export default function Tree({ tree, id_recipe }) {
   useEffect(() => {
     const f = async () => {
 
@@ -31,7 +31,7 @@ export default function Tree({ tree, id_recipe, user }) {
   return (
     <>
       <Meta image_url={`${appOrigin}/tomato.jpg`} />
-      <Header {...user} />
+      <Header />
       <main className={styles.main}>
         <h1 className={styles.title}>
           レシピツリー
@@ -67,13 +67,5 @@ export async function getServerSideProps({ query }) {
 
   const { data } = await fetchTree(id_recipe);
 
-  let userObj = null;
-
-  firebase.auth().onAuthStateChanged(user => {
-    if( user ) {
-      userObj = { user_name: user.displayName || 'ユーザー名なし', photo_url: user.photoURL, id: user.uid };
-    }
-  })
-
-  return { props: { tree: data, id_recipe, user: userObj } }
+  return { props: { tree: data, id_recipe } }
 }

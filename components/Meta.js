@@ -4,6 +4,7 @@ import { appOrigin } from '../utils/constants';
 const Meta = ({ image_url }) => {
   return (
     <Head>
+      <title>Recipe Hub</title>
       <meta property="og:url" content={`${appOrigin}`} />
       <meta property="og:image" content={image_url} />
       <meta property="og:site_name" content="Recipe Hub" />

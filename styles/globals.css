@@ -90,3 +90,12 @@ footer .copyright li:before {
 footer .copyright  li:first-child:before {
    display: none;
 }
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  text-decoration: underline;
+}

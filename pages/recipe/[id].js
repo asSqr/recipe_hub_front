@@ -12,13 +12,15 @@ import Header from '../../components/Header';
 import firebase from '../../firebase/firebase';
 import Meta from '../../components/Meta';
 import { appOrigin } from '../../utils/constants';
-import { sleep } from '../../utils/utils';
+import { useAuth } from '../../utils/auth';
 
-export default function Recipe({ user, recipe, id_recipe }) {
+export default function Recipe({ recipe, id_recipe }) {
   const nameRef = React.createRef();
   const titleRef = React.createRef();
   const recipeRef = React.createRef();
   const router = useRouter();
+
+  const { user } = useAuth();
 
   const clickHandler = async () => {
     if( !recipe || !user )
@@ -48,7 +50,7 @@ export default function Recipe({ user, recipe, id_recipe }) {
   return (
     <div>
       <Meta image_url={recipe && recipe.thumbnail ? recipe.thumbnail : `${appOrigin}/noimage_transparent.png`} />
-      <Header {...user} />
+      <Header user={user} />
       <main className={styles.main}>
         <h1 className={styles.title}>
           レシピ
@@ -143,13 +145,5 @@ export async function getServerSideProps({ query }) {
 
   const { data } = await fetchRecipe(id_recipe);
 
-  let userObj = null;
-
-  firebase.auth().onAuthStateChanged(user => {
-    if( user ) {
-      userObj = { user_name: user.displayName || 'ユーザー名なし', photo_url: user.photoURL, id: user.uid };
-    }
-  })
-
-  return { props: { recipe: data, id_recipe, user: userObj } }
+  return { props: { recipe: data, id_recipe } }
 }
