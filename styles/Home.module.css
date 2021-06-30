@@ -17,6 +17,27 @@
   background-color: #fff8e1;
 }
 
+.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  box-shadow: 0 10px 15px rgba(10, 10, 10, 0.3);
+  display: flex;
+  justify-content: space-between;
+  z-index: 100;
+  padding-left: 20px;
+  background-color: #FFC000
+}
+
+.header h1 {
+  color: #5d4037;
+}
+
+.header span {
+  color: #5d4037;
+}
+
 .footer {
   width: 100%;
   height: 100px;
