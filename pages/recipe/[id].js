@@ -49,7 +49,7 @@ export default function Recipe({ recipe, id_recipe }) {
 
   return (
     <div>
-      <Meta image_url={recipe && recipe.thumbnail ? recipe.thumbnail : `${appOrigin}/noimage_transparent.png`} />
+      <Meta image_url={recipe && recipe.thumbnail ? recipe.thumbnail : `${appOrigin}/noimage_transparent.png`} title={recipe && `Recipe Hub -${recipe.title}-`} description={recipe && recipe.name} />
       <Header user={user} />
       <main className={styles.main}>
         <h1 className={styles.title}>
