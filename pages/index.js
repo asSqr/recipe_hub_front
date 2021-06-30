@@ -157,7 +157,7 @@ export default function Recipes({ recipes }) {
               state.chu == false && genre == "中華"){
                 return
               }
-              else if (name.match(dish) || author_name.match(dish)|| dish == ""){
+              else if (title.match(dish) || name.match(dish) || author_name.match(dish)|| dish == ""){
                 return (
                   <div key={idx} style={{ margin: '2rem' }}>
                     <RecipeMenu show_link={true} {...recipe} />
