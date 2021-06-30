@@ -10,6 +10,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import AddIcon from '@material-ui/icons/Add';
 import SearchIcon from '@material-ui/icons/Search';
 import LocalDiningIcon from '@material-ui/icons/LocalDining';
+import { withStyles } from "@material-ui/core/styles";
 import { urlObjectKeys } from 'next/dist/next-server/lib/utils';
 import Header from '../components/Header';
 import Meta from '../components/Meta';
@@ -17,6 +18,28 @@ import tomatoImg from '../public/tomato.jpg';
 import { sleep } from '../utils/utils';
 import firebase from '../firebase/firebase';
 import Footer from '../components/Footer';
+
+const CheckboxCustom = withStyles({
+  root: {
+    "&$checked": {
+      "& .MuiIconButton-label": {
+        position: "relative",
+        zIndex: 0
+      },
+      "& .MuiIconButton-label:after": {
+        content: '""',
+        left: 4,
+        top: 4,
+        height: 15,
+        width: 15,
+        position: "absolute",
+        backgroundColor: "#260e04",
+        zIndex: -1
+      }
+    }
+  },
+  checked: {}
+})(Checkbox);
 
 export default function Recipes({ recipes }) {
   // 和洋中の検索ステータス
@@ -88,15 +111,15 @@ export default function Recipes({ recipes }) {
           {/* 選択エリア */}
           <FormGroup row style={{marginTop: '5px', marginRight: '5px'}}>
             <FormControlLabel
-              control={<Checkbox checked={state.wa} onChange={handleChange} name = "wa" color="primary" />}
+              control={<CheckboxCustom checked={state.wa} onChange={handleChange} name = "wa" color="primary" />}
               label="和食"
             />
             <FormControlLabel
-              control={<Checkbox checked={state.you} onChange={handleChange} name = "you" color="primary" />}
+              control={<CheckboxCustom checked={state.you} onChange={handleChange} name = "you" color="primary" />}
               label="洋食"
             />
             <FormControlLabel
-              control={<Checkbox checked={state.chu} onChange={handleChange} name = "chu" color="primary" />}
+              control={<CheckboxCustom checked={state.chu} onChange={handleChange} name = "chu" color="primary" />}
               label="中華"
             />
             {/* <FormControlLabel
