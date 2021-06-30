@@ -56,8 +56,10 @@ const pickupCardStyle = makeStyles((theme) => ({
 }))
 
 export const TreeComponent = (tree) => {
-  const cardClasses = (tree.id == tree.source) ? pickupCardStyle() : normalCardStyle();
   const classes = useStyles();
+  const pickupCardClasses = pickupCardStyle();
+  const normalCardClasses = normalCardStyle();
+  const cardClasses = (tree.id == tree.source) ? pickupCardClasses : normalCardClasses;
   const onMediaFallback = event => event.target.src = noImage;
   let avatarChar = tree.hasOwnProperty('author_name') ? tree.author_name.substr(0, 1) : "";
   let mediaURL = typeof tree.thumbnail !== "undefined" ? tree.thumbnail : noImage;
