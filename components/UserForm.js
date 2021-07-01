@@ -2,8 +2,9 @@ import Head from 'next/head';
 import Router from 'next/router';
 import firebase from '../firebase/firebase';
 import { useRef, useEffect } from 'react';
-import { Button, TextField, Grid } from '@material-ui/core'
+import { Button, Grid } from '@material-ui/core'
 import { sleep } from '../utils/utils';
+import CustomTextField from '../styles/CustomTextField';
 
 const UserForm = ({ isRegister }) => {
   const emailRef = useRef(null);
@@ -81,7 +82,7 @@ const UserForm = ({ isRegister }) => {
         <h2>{isRegister ? 'アカウントを登録' : 'アカウントにログイン'}</h2>
         <hr />
         <Grid container justify="center" spacing={2}>
-          <TextField
+          <CustomTextField
             id="standard-basic"
             label="Email"
             inputRef={emailRef}
@@ -91,7 +92,7 @@ const UserForm = ({ isRegister }) => {
             style={{width: '300px', marginTop: '2rem'}}
             onChange={keyHandler}
           /> <br />
-          <TextField
+          <CustomTextField
             id="standard-basic"
             label="ユーザー名"
             inputRef={userNameRef}
@@ -101,7 +102,7 @@ const UserForm = ({ isRegister }) => {
             style={{width: '300px', marginTop: '2rem'}}
             onChange={keyHandler}
           /> <br />
-          <TextField
+          <CustomTextField
             id="standard-basic"
             label="パスワード"
             inputRef={passwordRef}

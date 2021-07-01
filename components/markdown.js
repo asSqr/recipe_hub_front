@@ -1,7 +1,8 @@
 import React from 'react';
 import { Editor, EditorState, Entity, getDefaultKeyBinding, RichUtils, AtomicBlockUtils, convertToRaw, convertFromRaw } from 'draft-js';
 import createImagePlugin from '@draft-js-plugins/image';
-import { Button, TextField, Grid } from '@material-ui/core';
+import { Button, Grid } from '@material-ui/core';
+import CustomTextField from '../styles/CustomTextField';
 
 class RichEditorExample extends React.Component {
   constructor(props) {
@@ -123,7 +124,7 @@ class RichEditorExample extends React.Component {
                 editorState={editorState}
                 onToggle={this.toggleInlineStyle}
               />
-              <TextField
+              <CustomTextField
                 id="standard-basic"
                 label="挿入するURL"
                 inputRef={this.urlRef}

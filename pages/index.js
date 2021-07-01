@@ -1,4 +1,4 @@
-import {Icon, FormGroup, TextField, Button, Checkbox, Switch, Container, Grid, ButtonGroup} from '@material-ui/core'
+import {Icon, FormGroup, Button, Checkbox, Switch, Container, Grid, ButtonGroup} from '@material-ui/core'
 import Link from 'next/link';
 import Head from 'next/head';
 import { appOrigin } from '../utils/constants';
@@ -18,6 +18,7 @@ import tomatoImg from '../public/tomato.jpg';
 import { sleep } from '../utils/utils';
 import firebase from '../firebase/firebase';
 import Footer from '../components/Footer';
+import CustomTextField from '../styles/CustomTextField';
 
 const CheckboxCustom = withStyles({
   root: {
@@ -72,6 +73,10 @@ export default function Recipes({ recipes }) {
     backgroundImage: `url(${tomatoImg})`,
     width:"100%",
     marginTop: '2rem'
+  }
+
+  const textFieldStyle = {
+    width: '16rem'
   }
 
   // レシピの取得
@@ -134,7 +139,8 @@ export default function Recipes({ recipes }) {
 
           {/* 検索メニュー */}
           <Grid>
-            <TextField label="レシピ名, 料理名, ユーザー名" type="text"
+            <CustomTextField label="レシピ名, 料理名, ユーザー名" type="text"
+              style={textFieldStyle}
               name="料理名ユーザー名検索"
               onChange={e => setTmpDish(e.target.value)}
               color="primary" 

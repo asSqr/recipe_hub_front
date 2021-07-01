@@ -1,4 +1,4 @@
-import { Button, TextField, TextareaAutosize, Grid } from '@material-ui/core'
+import { Button, TextareaAutosize, Grid } from '@material-ui/core'
 import Link from 'next/link';
 import styles from '../styles/Home.module.css'
 import React, { useEffect, useState } from 'react';
@@ -6,6 +6,7 @@ import { fetchRecipe, deleteRecipe } from '../utils/api_request';
 import RichEditorExample from '../components/markdown';
 import RecipeItem from '../components/preview';
 import Router, { useRouter } from 'next/router';
+import CustomTextField from '../styles/CustomTextField';
 
 export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_recipe, user }) {
   const nameRef = React.createRef();
@@ -125,7 +126,7 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
             justify="center"
             alignItems="center">
           <Grid style={{marginRight: '10rem'}}>
-          <TextField
+          <CustomTextField
             id="standard-basic"
             label="料理名"
             inputRef={nameRef}
@@ -134,7 +135,7 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
             focused
             style={{width: '300px', marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
           /> <br />
-          <TextField
+          <CustomTextField
             id="standard-basic"
             label="ジャンル (和食・洋食・中華)"
             inputRef={genreRef}
@@ -144,7 +145,7 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
             error={genreError}
             onChange={handleChange}
           /> <br />
-          <TextField
+          <CustomTextField
             id="standard-basic"
             label="レシピ名"
             inputRef={titleRef}
@@ -156,8 +157,8 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
           <br />
           </Grid>
           <div style={{display: 'flex', flexDirection: 'column', marginLeft: '5rem', marginTop: '2rem'}}>
-            <img src={imgData} style={{width: '300px', height: '200px', marginTop: '2rem', border: 'double 5px #3f51b5'}} />
-            <label htmlFor="file" style={{marginRight: '2rem', marginTop: '2rem',  marginBottom: '1rem', color: '#3f51b5'}}>サムネイル画像を追加して下さい</label>
+            <img src={imgData} style={{width: '300px', height: '200px', marginTop: '2rem', border: 'double 5px #FFC000'}} />
+            <label htmlFor="file" style={{marginRight: '2rem', marginTop: '2rem',  marginBottom: '1rem', color: '#9c786c'}}>サムネイル画像を追加して下さい</label>
             <input id="img" type="file" accept="image/*,.png,.jpg,.jpeg,.gif" onChange={(e) => getImage(e)} />  
           </div>
           </Grid>
