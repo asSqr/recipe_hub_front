@@ -22,12 +22,16 @@ const useStyles = makeStyles({
     textAlign: 'center',
     position: 'relative'
   },
+  wrapper: {
+    overflowX: 'scroll',
+    width: '100vw'
+  },
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
     marginTop: '20px',
     marginBottom: '20px',
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   bullet: {
     display: 'inline-block',
@@ -46,7 +50,7 @@ const useStyles = makeStyles({
   menu: {
     backgroundImage: `url(${tomatoImg})`,
     width: '60rem',
-    maxWidth: '100%'
+    display: 'inline-block'
   },
   content: {
     backgroundColor: 'white',
@@ -85,54 +89,56 @@ const RecipeItem = (props) => {
   const onMediaFallback = event => event.target.src = noImage;
   
   return (
-    <Card className={classes.menu}>
-      <CardContent className={classes.content}>
-      <Typography className={classes.title} color="textSecondary" gutterBottom>
-          レシピ名
-        </Typography>
-        <Typography variant="h5" component="h2">
-          {title}
-        </Typography> <br />
+    <div className={classes.wrapper}>
+      <Card className={classes.menu}>
+        <CardContent className={classes.content}>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
-          料理名
-        </Typography>
-        <Typography variant="h5" component="h2">
-          {name}
-        </Typography> <br />
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
-          サムネイル
-        </Typography>
-        <CardMedia
-          className={classes.media}
-          image={thumbnail ? thumbnail : noImage}
-          title={name}
-          onError={onMediaFallback}
-        />
-        <br />
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
-          レシピ
-        </Typography>
-        <div className="markdown-body">
-          <div
-            className={classes.title}
-            dangerouslySetInnerHTML={{__html: `${unescapeHtml(stateToHTML(convertFromRaw(JSON.parse(recipe))))}`,}}
+            レシピ名
+          </Typography>
+          <Typography variant="h5" component="h2">
+            {title}
+          </Typography> <br />
+          <Typography className={classes.title} color="textSecondary" gutterBottom>
+            料理名
+          </Typography>
+          <Typography variant="h5" component="h2">
+            {name}
+          </Typography> <br />
+          <Typography className={classes.title} color="textSecondary" gutterBottom>
+            サムネイル
+          </Typography>
+          <CardMedia
+            className={classes.media}
+            image={thumbnail ? thumbnail : noImage}
+            title={name}
+            onError={onMediaFallback}
           />
-        </div>
-      </CardContent>
-      
-      {show_link ?
-        <Link href={`/recipe/${id}`}>
-          <Button 
-            variant="contained"
-            color="primary"
-            className={classes.footer}
-          >
-            レシピページへ
-          </Button>
-        </Link>
-      : 
-        <></>}
-    </Card>
+          <br />
+          <Typography className={classes.title} color="textSecondary" gutterBottom>
+            レシピ
+          </Typography>
+          <div className="markdown-body">
+            <div
+              className={classes.title}
+              dangerouslySetInnerHTML={{__html: `${unescapeHtml(stateToHTML(convertFromRaw(JSON.parse(recipe))))}`,}}
+            />
+          </div>
+        </CardContent>
+        
+        {show_link ?
+          <Link href={`/recipe/${id}`}>
+            <Button 
+              variant="contained"
+              color="primary"
+              className={classes.footer}
+            >
+              レシピページへ
+            </Button>
+          </Link>
+        : 
+          <></>}
+      </Card>
+    </div>
   );
 };
 

@@ -41,10 +41,6 @@ const useStyles = makeStyles((theme) => ({
 
 const normalCardStyle = makeStyles((theme) => ({
   root: {
-    [theme.breakpoints.down('xs')]: {
-      minWidth: '200px',
-      maxWidth: '200px',
-    },
     minWidth: '290px',
     maxWidth: '290px',
     minHeight: '360px',
@@ -69,10 +65,6 @@ const normalCardStyle = makeStyles((theme) => ({
 
 const pickupCardStyle = makeStyles((theme) => ({
   root: {
-    [theme.breakpoints.down('xs')]: {
-      minWidth: '200px',
-      maxWidth: '200px',
-    },
     minWidth: '290px',
     maxWidth: '290px',
     minHeight: '360px',

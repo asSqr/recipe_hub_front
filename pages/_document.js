@@ -182,7 +182,6 @@ export default class MyDocument extends NextDocument {
   justify-content: space-between;
   z-index: 100;
   padding-left: 20px;
-  padding-right: 20px;
   vertical-align: center;
 }
 
@@ -209,6 +208,21 @@ export default class MyDocument extends NextDocument {
   margin-top: auto;
   margin-bottom: auto;
   vertical-align: middle;
+}
+
+@media screen and (max-width: 750px) {
+  .menu-item {
+    margin-right: 0px;
+    min-width: 7rem;
+  }
+  span.menu-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .menu-item a {
+    text-align: center;
+  }
 }
 
 .menu-item-user {
