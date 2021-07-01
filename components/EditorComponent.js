@@ -170,7 +170,7 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
             ref={recipeRef}
             style={{marginTop: '2rem', marginButtom: '2rem'}}
           /> <br /> */}
-          <div style={{marginTop: '2rem', marginButtom: '2rem'}}>
+          <div style={{marginTop: '2rem', marginButtom: '2rem', overflowX: 'scroll'}}>
             <RichEditorExample 
               rowsMax={100}
               aria-label="maximum height"
