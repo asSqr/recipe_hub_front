@@ -112,8 +112,8 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
 
   const wrapperStyling = {
     display: 'block',
-    width: '2000px',
-    paddingLeft: '200vw'
+    width: '200vw',
+    paddingLeft: '10rem'
   };
 
   const blockStyling = {
