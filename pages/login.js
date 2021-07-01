@@ -12,9 +12,13 @@ export default function LoginPage() {
   return (
     <div>
       <Meta image_url={`${appOrigin}/tomato.jpg`} />
-      <Header />
-      <UserForm isRegister={false} />
-      <Footer />
+      <body className={styles.body}>
+        <Header />
+        <main className={styles.main}>
+          <UserForm isRegister={false} />
+        </main>
+        <Footer />
+      </body>
     </div>
   )
 }

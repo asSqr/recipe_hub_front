@@ -1,4 +1,4 @@
-import {Icon, FormGroup, TextField, Button, Checkbox, Switch, Container, Grid, ButtonGroup} from '@material-ui/core'
+import {Icon, FormGroup, Button, Checkbox, Switch, Container, Grid, ButtonGroup} from '@material-ui/core'
 import Link from 'next/link';
 import Head from 'next/head';
 import { appOrigin } from '../utils/constants';
@@ -18,6 +18,7 @@ import tomatoImg from '../public/tomato.jpg';
 import { sleep } from '../utils/utils';
 import firebase from '../firebase/firebase';
 import Footer from '../components/Footer';
+import CustomTextField from '../styles/CustomTextField';
 
 const CheckboxCustom = withStyles({
   root: {
@@ -74,6 +75,10 @@ export default function Recipes({ recipes }) {
     marginTop: '2rem'
   }
 
+  const textFieldStyle = {
+    width: '16rem'
+  }
+
   // レシピの取得
   useEffect(() => {
     const f = async () => {
@@ -86,43 +91,43 @@ export default function Recipes({ recipes }) {
   return (
     <>
       <Meta image_url={`${appOrigin}/tomato.jpg`} />
+      <body className={styles.body}>
+        <Header />
 
-      <Header />
-      
-      <main className={styles.main} > 
+        <main className={styles.main} >
 
-        {/* タイトル */}
-        <h1 className={styles.title}>
-          <LocalDiningIcon /> レシピ一覧 <LocalDiningIcon />
-        </h1>
+          {/* タイトル */}
+          <h1 className={styles.title}>
+            <LocalDiningIcon /> レシピ一覧 <LocalDiningIcon />
+          </h1>
 
-        {/* 新規作成 */}
-        <ButtonGroup container justify ='center' style={{margin: '2rem'}}>
-          <Button
-            variant="contained"
-            color="secondary"
-            endIcon={<AddIcon />}
-            href = '/create'
-          >新規作成
-          </Button>
-        </ButtonGroup>
+          {/* 新規作成 */}
+          <ButtonGroup container justify='center' style={{ margin: '2rem' }}>
+            <Button
+              variant="contained"
+              color="secondary"
+              endIcon={<AddIcon />}
+              href='/create'
+            >新規作成
+            </Button>
+          </ButtonGroup>
 
-        <Grid container justify="center" spacing={2}>
-          {/* 選択エリア */}
-          <FormGroup row style={{marginTop: '5px', marginRight: '5px'}}>
-            <FormControlLabel
-              control={<CheckboxCustom checked={state.wa} onChange={handleChange} name = "wa" color="primary" />}
-              label="和食"
-            />
-            <FormControlLabel
-              control={<CheckboxCustom checked={state.you} onChange={handleChange} name = "you" color="primary" />}
-              label="洋食"
-            />
-            <FormControlLabel
-              control={<CheckboxCustom checked={state.chu} onChange={handleChange} name = "chu" color="primary" />}
-              label="中華"
-            />
-            {/* <FormControlLabel
+          <Grid container justify="center" spacing={2}>
+            {/* 選択エリア */}
+            <FormGroup row style={{ marginTop: '5px', marginRight: '5px' }}>
+              <FormControlLabel
+                control={<CheckboxCustom checked={state.wa} onChange={handleChange} name="wa" color="primary" />}
+                label="和食"
+              />
+              <FormControlLabel
+                control={<CheckboxCustom checked={state.you} onChange={handleChange} name="you" color="primary" />}
+                label="洋食"
+              />
+              <FormControlLabel
+                control={<CheckboxCustom checked={state.chu} onChange={handleChange} name="chu" color="primary" />}
+                label="中華"
+              />
+              {/* <FormControlLabel
               control={<Checkbox checked={state.damy1} onChange={handleChange} name = "damy1" color="primary" />}
               label="ダミー1"
             />
@@ -130,49 +135,51 @@ export default function Recipes({ recipes }) {
               control={<Checkbox checked={state.damy2} onChange={handleChange} name = "damy2" color="primary" />}
               label="ダミー2"
             /> */}
-          </FormGroup>
+            </FormGroup>
 
-          {/* 検索メニュー */}
-          <Grid>
-            <TextField label="料理名,ユーザー名" type="text"
-              name="料理名ユーザー名検索"
-              onChange={e => setTmpDish(e.target.value)}
-              color="primary" 
-              focused
-              value={tmpDish} />
-            <Button variant="contained" color="primary"　onClick={addDish}　endIcon={<SearchIcon />}>
-              検索
-            </Button>
+            {/* 検索メニュー */}
+            <Grid>
+              <CustomTextField label="レシピ名, 料理名, ユーザー名" type="text"
+                style={textFieldStyle}
+                name="料理名ユーザー名検索"
+                onChange={e => setTmpDish(e.target.value)}
+                color="primary"
+                focused
+                value={tmpDish} />
+              <Button variant="contained" color="primary" onClick={addDish} endIcon={<SearchIcon />}>
+                検索
+              </Button>
+            </Grid>
           </Grid>
-        </Grid>
-       
-        {/* メニュー表示 */}
-        <Container style={styling}>
-          <Grid container justify="center" spacing={4}>
-            {recipes && recipes.map((recipe, idx) => {
-              const { create_date, genre, id, author_name, id_fork_from, id_fork_to_list, name, recipe_detail, show_link, thumbnail, title, update_date } = recipe;
-            
-              if (state.wa == false && genre == "和食" ||
-              state.you == false && genre == "洋食"||
-              state.chu == false && genre == "中華"){
-                return
-              }
-              else if (title.match(dish) || name.match(dish) || author_name.match(dish)|| dish == ""){
-                return (
-                  <div key={idx} style={{ margin: '2rem' }}>
-                    <RecipeMenu show_link={true} {...recipe} />
-                  </div>
-                );
-              }else{
-                return
-              }
 
-            })}
-          </Grid>
-        </Container>    
-      </main>
+          {/* メニュー表示 */}
+          <Container style={styling}>
+            <Grid container justify="center" spacing={4}>
+              {recipes && recipes.map((recipe, idx) => {
+                const { create_date, genre, id, author_name, id_fork_from, id_fork_to_list, name, recipe_detail, show_link, thumbnail, title, update_date } = recipe;
 
-      <Footer />
+                if (state.wa == false && genre == "和食" ||
+                  state.you == false && genre == "洋食" ||
+                  state.chu == false && genre == "中華") {
+                  return
+                }
+                else if (title.match(dish) || name.match(dish) || author_name.match(dish) || dish == "") {
+                  return (
+                    <div key={idx} style={{ margin: '2rem' }}>
+                      <RecipeMenu show_link={true} {...recipe} />
+                    </div>
+                  );
+                } else {
+                  return
+                }
+
+              })}
+            </Grid>
+          </Container>
+        </main>
+
+        <Footer />
+      </body>
     </>
   )
 }

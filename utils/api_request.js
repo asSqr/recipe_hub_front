@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const apiUrl = 'https://recipe-hub-back.herokuapp.com/';
+// export const apiUrl = 'http://localhost:8000/';
 
 export const fetchRecipes = async () => {
   return axios.get(`${apiUrl}admin/v1/mrepository/`);
