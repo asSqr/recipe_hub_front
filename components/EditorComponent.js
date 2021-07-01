@@ -185,7 +185,7 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
           /> <br /> */}
           <div style={{marginTop: '2rem', marginButtom: '2rem'}}>
             <RichEditorExample 
-              rowsMax={100}
+              rowsMax={10}
               aria-label="maximum height"
               placeholder="レシピを入力してください"
               defaultValue=""

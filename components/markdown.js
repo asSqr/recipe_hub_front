@@ -157,6 +157,7 @@ class RichEditorExample extends React.Component {
                 contentEditable={false}
                 handlePastedFiles={this.handlePastedFiles}
                 blockRendererFn={mediaBlockRenderer}
+                rowsMax={this.props.rowsMax}
               />
             </div>
           </div>)
