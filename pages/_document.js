@@ -227,7 +227,7 @@ export default class MyDocument extends NextDocument {
 @media screen and (max-width: 750px) {
   .menu-item {
     margin-right: 0;
-    min-width: 7rem;
+    width: 90px;
   }
   span.menu-item {
     display: flex;
