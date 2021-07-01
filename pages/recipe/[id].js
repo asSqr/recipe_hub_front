@@ -24,9 +24,9 @@ export default function Recipe({ recipe, id_recipe }) {
   const { user } = useAuth();
 
   const clickHandler = async () => {
-    if( !recipe || !user )
+    if (!recipe || !user)
       return;
-    
+
     const { data: { id } } = await postFork({
       id_user: user.id,
       id_repo: id_recipe,
@@ -38,9 +38,9 @@ export default function Recipe({ recipe, id_recipe }) {
   }
 
   const deleteHandler = async () => {
-    if( !recipe )
+    if (!recipe)
       return;
-    
+
     await deleteRecipe(
       id_recipe
     );
@@ -49,97 +49,99 @@ export default function Recipe({ recipe, id_recipe }) {
   }
 
   return (
-    <div>
+    <>
       <Meta image_url={recipe && recipe.thumbnail ? recipe.thumbnail : `${appOrigin}/noimage_transparent.png`} title={recipe && `Recipe Hub -${recipe.title}-`} description={recipe && recipe.name} />
-      <Header user={user} />
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          レシピ
-        </h1>
+      <body className={styles.body}>
+        <Header user={user} />
+        <main className={styles.main}>
+          <h1 className={styles.title}>
+            レシピ
+          </h1>
 
-        {recipe && (<div style={{ margin: '4rem' }}>
-          <RecipeItem key={id_recipe} show_link={false} {...recipe} />
-        </div>)}
+          {recipe && (<div style={{ margin: '4rem' }}>
+            <RecipeItem key={id_recipe} show_link={false} {...recipe} />
+          </div>)}
 
-        <form style={{ margin: '2rem', flexDirection: 'row', justifyContent: 'center', }} noValidate autoComplete="off">
+          <form style={{ margin: '2rem', flexDirection: 'row', justifyContent: 'center', }} noValidate autoComplete="off">
+            <Grid
+              container
+              direction="row"
+              justify="center"
+              alignItems="center">
+              {/* <TextField
+              id="standard-basic"
+              label="レシピ名"
+              inputRef={titleRef}
+              color="primary"
+              focused
+              style={{marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
+            /> <br />
+            <TextField
+              id="standard-basic"
+              label="レシピ"
+              inputRef={recipeRef}
+              color="primary"
+              focused
+              style={{marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
+            /> <br />
+            <TextField
+              id="standard-basic"
+              label="料理名"
+              inputRef={nameRef}
+              color="primary"
+              focused
+              style={{marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
+            /> <br /> */}
+              {user && (<Button
+                variant="contained"
+                color="primary"
+                onClick={clickHandler}
+                style={{ marginLeft: '2rem' }}
+              >
+                派生レシピを作る
+              </Button>)}
+              {user && recipe && user.id === recipe.id_author && (<Button
+                variant="contained"
+                color="primary"
+                onClick={deleteHandler}
+                style={{ marginLeft: '2rem' }}
+              >
+                レシピ削除
+              </Button>)}
+            </Grid>
+          </form>
           <Grid
             container
             direction="row"
             justify="center"
             alignItems="center">
-          {/* <TextField
-            id="standard-basic"
-            label="レシピ名"
-            inputRef={titleRef}
-            color="primary"
-            focused
-            style={{marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
-          /> <br />
-          <TextField
-            id="standard-basic"
-            label="レシピ"
-            inputRef={recipeRef}
-            color="primary"
-            focused
-            style={{marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
-          /> <br />
-          <TextField
-            id="standard-basic"
-            label="料理名"
-            inputRef={nameRef}
-            color="primary"
-            focused
-            style={{marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
-          /> <br /> */}
-            {user && (<Button 
+            {user && recipe && user.id === recipe.id_author && (<Link href={`/edit/${id_recipe}`}><Button
               variant="contained"
               color="primary"
-              onClick={clickHandler}
-              style={{marginLeft: '2rem'}}
+              style={{ margin: '2rem' }}
             >
-              派生レシピを作る
-            </Button>)}
-            {user && recipe && user.id === recipe.id_author && (<Button 
+              レシピ編集画面へ
+            </Button></Link>)}
+            <Link href="/"><Button
               variant="contained"
               color="primary"
-              onClick={deleteHandler}
-              style={{marginLeft: '2rem'}}
+              style={{ margin: '2rem' }}
             >
-              レシピ削除
-            </Button>)}
+              レシピ一覧へ
+            </Button></Link>
+            <Link href={`/tree/${id_recipe}`}><Button
+              variant="contained"
+              color="primary"
+              style={{ margin: '2rem' }}
+            >
+              レシピツリー画面へ
+            </Button></Link>
           </Grid>
-        </form>
-        <Grid
-            container
-            direction="row"
-            justify="center"
-            alignItems="center">
-          {user && recipe && user.id === recipe.id_author && (<Link href={`/edit/${id_recipe}`}><Button 
-              variant="contained"
-              color="primary"
-              style={{margin: '2rem'}}
-            >
-            レシピ編集画面へ
-          </Button></Link>)}
-          <Link href="/"><Button 
-              variant="contained"
-              color="primary"
-              style={{margin: '2rem'}}
-            >
-            レシピ一覧へ
-          </Button></Link>
-          <Link href={`/tree/${id_recipe}`}><Button 
-              variant="contained"
-              color="primary"
-              style={{margin: '2rem'}}
-            >
-            レシピツリー画面へ
-          </Button></Link>
-        </Grid>
-      </main>
+        </main>
 
-      <Footer />
-    </div>
+        <Footer />
+      </body>
+    </>
   )
 }
 
