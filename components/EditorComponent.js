@@ -7,6 +7,8 @@ import RichEditorExample from '../components/markdown';
 import RecipeItem from '../components/preview';
 import Router, { useRouter } from 'next/router';
 import CustomTextField from '../styles/CustomTextField';
+import CustomButton from '../styles/CustomButton';
+import { red } from '@material-ui/core/colors';
 
 export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_recipe, user }) {
   const nameRef = React.createRef();
@@ -190,14 +192,14 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
             レシピ一覧へ
           </Button></Link>)}
           {forkFlag && (
-            <Button 
+            <CustomButton 
               variant="contained"
-              color="primary"
+              themeColor={red}
               onClick={cancelHandler}
               style={{margin: '2rem'}}
             >
               キャンセル
-            </Button>
+            </CustomButton>
           )}
           <Button 
             variant="contained"

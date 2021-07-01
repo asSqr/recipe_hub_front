@@ -14,6 +14,8 @@ import Meta from '../../components/Meta';
 import { appOrigin } from '../../utils/constants';
 import { useAuth } from '../../utils/auth';
 import Footer from '../../components/Footer';
+import CustomButton from '../../styles/CustomButton';
+import { red } from '@material-ui/core/colors';
 
 export default function Recipe({ recipe, id_recipe }) {
   const nameRef = React.createRef();
@@ -91,14 +93,14 @@ export default function Recipe({ recipe, id_recipe }) {
                 </Link>
               )}
               {user && recipe && user.id === recipe.id_author && (
-                <Button
+                <CustomButton
                   variant="contained"
-                  color="primary"
+                  themeColor={red}
                   onClick={deleteHandler}
                   style={{ margin: '1rem', width: '12rem' }}
                 >
                   レシピ削除
-                </Button>
+                </CustomButton>
               )}
             </Grid>
           </form>
