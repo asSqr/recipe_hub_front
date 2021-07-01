@@ -28,7 +28,8 @@ const useStyles = makeStyles({
     width: '100vw',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    margin: 'auto'
   },
   media: {
     height: 0,

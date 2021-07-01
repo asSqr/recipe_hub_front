@@ -21,9 +21,7 @@ export default function CreateRecipe() {
       <body className={styles.body}>
         <Header />
         <main className={styles.main}>
-          <div style={{overflowX: 'scroll'}}>
-            {user && (<Editor apiFunc={postRecipe} title="レシピを作る" action="レシピ作成" user={user} />)}
-          </div>
+          {user && (<Editor apiFunc={postRecipe} title="レシピを作る" action="レシピ作成" user={user} />)}
         </main>
         <Footer />
       </body>
