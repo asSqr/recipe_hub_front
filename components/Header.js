@@ -7,10 +7,10 @@ import styles from '/styles/Home.module.css'
 
 // https://ryotarch.com/javascript/react/get-window-size-with-react-hooks/
 export const useWindowDimensions = () => {
-  if (typeof window === 'undefined')
-    return { width: 0, height: 0 };
-  
   const getWindowDimensions = () => {
+    if (typeof window === 'undefined')
+      return { width: 0, height: 0 };
+    
     const { innerWidth: width, innerHeight: height } = window;
     
     return {
@@ -22,6 +22,9 @@ export const useWindowDimensions = () => {
   const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
   
   useEffect(() => {
+    if (typeof window === 'undefined')
+      return;
+    
     const onResize = () => {
       setWindowDimensions(getWindowDimensions());
     }
