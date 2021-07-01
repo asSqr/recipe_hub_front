@@ -46,6 +46,7 @@ const useStyles = makeStyles({
   menu: {
     backgroundImage: `url(${tomatoImg})`,
     width: '60rem',
+    maxWidth: '100%'
   },
   content: {
     backgroundColor: 'white',

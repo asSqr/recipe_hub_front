@@ -42,13 +42,13 @@ const useStyles = makeStyles((theme) => ({
 const normalCardStyle = makeStyles((theme) => ({
   root: {
     [theme.breakpoints.down('xs')]: {
-      minWidth: 200,
-      maxWidth: 200,
+      minWidth: '200px',
+      maxWidth: '200px',
     },
-    minWidth: 290,
-    maxWidth: 290,
-    minHeight: 360,
-    maxHeight: 360,
+    minWidth: '290px',
+    maxWidth: '290px',
+    minHeight: '360px',
+    maxHeight: '360px',
 	  position: 'relative',
     display: 'inline-block',
     overflow: 'hidden'
@@ -70,13 +70,13 @@ const normalCardStyle = makeStyles((theme) => ({
 const pickupCardStyle = makeStyles((theme) => ({
   root: {
     [theme.breakpoints.down('xs')]: {
-      minWidth: 200,
-      maxWidth: 200,
+      minWidth: '200px',
+      maxWidth: '200px',
     },
-    minWidth: 290,
-    maxWidth: 290,
-    minHeight: 360,
-    maxHeight: 360,
+    minWidth: '290px',
+    maxWidth: '290px',
+    minHeight: '360px',
+    maxHeight: '360px',
     backgroundColor: '#fff59d',
 	  position: 'relative',
     display: 'inline-block',
