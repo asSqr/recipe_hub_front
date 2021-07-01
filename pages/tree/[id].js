@@ -14,6 +14,16 @@ import tomatoImg from '../../public/tomato.jpg';
 import { sleep } from '../../utils/utils';
 import Footer from '../../components/Footer';
 
+function treeWidth( tree ) {
+  let cnt = 0;
+
+  for( const child of tree.next ) {
+    cnt += treeWidth(child);
+  }
+
+  return cnt || 1;
+}
+
 export default function Tree({ tree, id_recipe }) {
   useEffect(() => {
     const f = async () => {
@@ -31,7 +41,7 @@ export default function Tree({ tree, id_recipe }) {
   };
 
   const treeStyling = {
-    width: `${50*Math.max(1, tree.next.length)}%`
+    width: `${(290+80)*Math.max(1, treeWidth(tree))}px`
   };
 
   return (
