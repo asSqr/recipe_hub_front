@@ -31,7 +31,7 @@ export default function Tree({ tree, id_recipe }) {
   };
 
   const treeStyling = {
-    width: `${50*Math.max(1, tree.next.length)-15}%`
+    width: `${50*Math.max(1, tree.next.length)}%`
   };
 
   return (
