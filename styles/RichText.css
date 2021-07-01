@@ -5,8 +5,8 @@
     font-size: 18px;
     line-height: 36px;
     padding: 15px;
-    max-width: 100vw;
-    overflow-x: scroll;
+    width: 1250px;
+    margin: auto;
 }
 
 .RichEditor-editor {
