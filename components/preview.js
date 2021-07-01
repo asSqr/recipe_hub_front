@@ -14,6 +14,7 @@ import { convertFromRaw } from 'draft-js';
 import { stateToHTML } from 'draft-js-export-html';
 import tomatoImg from '../public/tomato.jpg';
 import noImage from '../public/noimage_transparent.png';
+import { useWindowDimensions, widthThreshold } from '../utils/utils';
 
 const useStyles = makeStyles({
   root: {
@@ -35,6 +36,7 @@ const useStyles = makeStyles({
     marginTop: '20px',
     marginBottom: '20px',
     backgroundColor: 'transparent',
+    display: 'block'
   },
   bullet: {
     display: 'inline-block',
@@ -42,6 +44,7 @@ const useStyles = makeStyles({
     transform: 'scale(0.8)',
   },
   title: {
+    display: 'inline-block',
     fontSize: 14,
   },
   footer: {
@@ -53,15 +56,27 @@ const useStyles = makeStyles({
   menu: {
     backgroundImage: `url(${tomatoImg})`,
     width: '60rem',
-    display: 'inline-block'
+    display: 'inline-block',
+    overflowX: 'scroll'
   },
   content: {
     backgroundColor: 'white',
     width: '50rem',
     margin: 'auto',
     marginTop: '5rem',
-    marginBottom: '5rem'
+    marginBottom: '5rem',
+    overflowX: 'scroll'
   },
+});
+
+const useStylesMini = makeStyles({
+  menu: {
+    width: '2000px',
+    backgroundImage: `url(${tomatoImg})`,
+    width: '60rem',
+    display: 'inline-block',
+    overflowX: 'scroll'
+  }
 });
 
 const unescapeHtml = target => {
@@ -86,14 +101,17 @@ const unescapeHtml = target => {
 const RecipeItem = (props) => {
   const { id, name, recipe, title, show_link, thumbnail, is_fork } = props;
 
+  const { width } = useWindowDimensions();
+
   const classes = useStyles();
+  const classesMini = useStylesMini();
   const bull = <span className={classes.bullet}>•</span>;
 
   const onMediaFallback = event => event.target.src = noImage;
   
   return (
     <div className={classes.wrapper}>
-      <Card className={classes.menu}>
+      <Card className={width >= widthThreshold ? classes.menu : classesMini.menu}>
         <CardContent className={classes.content}>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
             {!is_fork ? 'レシピ名' : '派生元レシピ名'}
@@ -122,7 +140,7 @@ const RecipeItem = (props) => {
           </Typography>
           <div className="markdown-body">
             <div
-              className={classes.title}
+              className={width >= widthThreshold ? classes.title : classesMini.title}
               dangerouslySetInnerHTML={{__html: `${unescapeHtml(stateToHTML(convertFromRaw(JSON.parse(recipe))))}`,}}
             />
           </div>

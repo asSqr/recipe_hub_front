@@ -4,44 +4,11 @@ import Router from "next/router";
 import firebase from '../firebase/firebase';
 import { useAuth } from '../utils/auth';
 import styles from '/styles/Home.module.css'
-
-// https://ryotarch.com/javascript/react/get-window-size-with-react-hooks/
-export const useWindowDimensions = () => {
-  const getWindowDimensions = () => {
-    if (typeof window === 'undefined')
-      return { width: 0, height: 0 };
-    
-    const { innerWidth: width, innerHeight: height } = window;
-    
-    return {
-      width,
-      height
-    };
-  }
- 
-  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
-  
-  useEffect(() => {
-    if (typeof window === 'undefined')
-      return;
-    
-    const onResize = () => {
-      setWindowDimensions(getWindowDimensions());
-    }
-    
-    window.addEventListener('resize', onResize);
-
-    return () => window.removeEventListener('resize', onResize);
-  }, []);
-  
-  return windowDimensions;
-}
+import { widthThreshold, useWindowDimensions} from '../utils/utils';
 
 const Header = () => {
   const { user } = useAuth();
   const { width } = useWindowDimensions();
-
-  const widthThreshold = 750;
 
   useEffect(() => {
     
