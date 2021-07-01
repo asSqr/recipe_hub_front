@@ -108,8 +108,7 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
   // const getImageName = "image/"+{image.name}
 
   return (
-    <div>
-      <main className={styles.main}>
+    <>
         <h1 className={styles.title}>
           {title}
         </h1>
@@ -182,7 +181,7 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
           </div>
         </form>
 
-        <Grid>
+        <Grid container alignItems="center" justify="center">
           {!forkFlag && (<Link href="/"><Button 
               variant="contained"
               color="primary"
@@ -209,7 +208,6 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
             {action}
           </Button>
         </Grid>
-      </main>
-    </div>
+    </>
   )
 }
