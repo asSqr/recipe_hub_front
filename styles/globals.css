@@ -55,6 +55,7 @@ any siblings*/
 	display: none;
 }
 
+/* only-child の場合だけズレるのを修正 */
 .tree li:only-child {
   padding-left: 0;
   margin-left: -30px;
