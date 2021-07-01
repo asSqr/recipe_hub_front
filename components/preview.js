@@ -24,7 +24,10 @@ const useStyles = makeStyles({
   },
   wrapper: {
     overflowX: 'scroll',
-    width: '100vw'
+    width: '100vw',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   media: {
     height: 0,
@@ -81,7 +84,7 @@ const unescapeHtml = target => {
 };
 
 const RecipeItem = (props) => {
-  const { id, name, recipe, title, show_link, thumbnail } = props;
+  const { id, name, recipe, title, show_link, thumbnail, is_fork } = props;
 
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
@@ -93,7 +96,7 @@ const RecipeItem = (props) => {
       <Card className={classes.menu}>
         <CardContent className={classes.content}>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
-            レシピ名
+            {!is_fork ? 'レシピ名' : '派生元レシピ名'}
           </Typography>
           <Typography variant="h5" component="h2">
             {title}
@@ -115,7 +118,7 @@ const RecipeItem = (props) => {
           />
           <br />
           <Typography className={classes.title} color="textSecondary" gutterBottom>
-            レシピ
+            {!is_fork ? 'レシピ' : '派生元レシピ'}
           </Typography>
           <div className="markdown-body">
             <div

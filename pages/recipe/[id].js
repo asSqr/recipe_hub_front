@@ -61,7 +61,7 @@ export default function Recipe({ recipe, id_recipe }) {
           </h1>
 
           {recipe && (<div style={{ margin: '4rem' }}>
-            <RecipeItem key={id_recipe} show_link={false} {...recipe} />
+            <RecipeItem key={id_recipe} show_link={false} {...recipe} is_fork={false} />
           </div>)}
 
           <form style={{ margin: '2rem', flexDirection: 'row', justifyContent: 'center', }} noValidate autoComplete="off">

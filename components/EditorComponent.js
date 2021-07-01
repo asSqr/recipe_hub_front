@@ -116,8 +116,7 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
         </h1>
         {recipeFrom && (
           <div style={{ margin: '4rem' }}>
-            <p style={{ margin: '0.5rem' }}>派生元レシピ</p>
-            <RecipeItem show_link={false} {...recipeFrom} />
+            <RecipeItem show_link={false} {...recipeFrom} is_fork={true} />
           </div>
         )}
         <form style={{ margin: '2rem' }} noValidate autoComplete="off">
