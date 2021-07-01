@@ -21,13 +21,15 @@ export default function EditRecipe({ recipe, id_repo, forkFlag, id_recipe }) {
     <>
       <Meta image_url={`${appOrigin}/tomato.jpg`} />
       <Auth />
-      <Header />
-      {recipe && user && (
-        <main className={styles.main} > 
-          <Editor apiFunc={patchRecipe} title="レシピを編集" action={forkFlag ? "レシピ作成" : "レシピ更新"} initObj={recipe} forkFlag={forkFlag} id_recipe={id_recipe.endsWith('z') ? id_recipe.slice(0, id_recipe.length-1) : id_recipe} user={user} />
-        </main>
-      )}
-      <Footer />
+      <body className={styles.body}>
+        <Header />
+        {recipe && user && (
+          <main className={styles.main} >
+            <Editor apiFunc={patchRecipe} title="レシピを編集" action={forkFlag ? "レシピ作成" : "レシピ更新"} initObj={recipe} forkFlag={forkFlag} id_recipe={id_recipe.endsWith('z') ? id_recipe.slice(0, id_recipe.length - 1) : id_recipe} user={user} />
+          </main>
+        )}
+        <Footer />
+      </body>
     </>
   );
 };

@@ -12,9 +12,13 @@ export default function SigninPage() {
   return (
     <div>
       <Meta image_url={`${appOrigin}/tomato.jpg`} />
-      <Header />
-      <UserForm isRegister={true} />
-      <Footer />
+      <body className={styles.body}>
+        <Header />
+        <main className={styles.main}>
+          <UserForm isRegister={true} />
+        </main>
+        <Footer />
+      </body>
     </div>
   )
 }

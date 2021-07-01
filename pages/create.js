@@ -9,6 +9,7 @@ import { appOrigin } from '../utils/constants';
 import Meta from '../components/Meta';
 import { useAuth } from '../utils/auth';
 import Footer from '../components/Footer';
+import styles from '../styles/Home.module.css'
 
 export default function CreateRecipe() {
   const { user } = useAuth();
@@ -17,9 +18,13 @@ export default function CreateRecipe() {
     <>
       <Meta image_url={`${appOrigin}/tomato.jpg`} />
       <Auth user={user} />
-      <Header />
-      {user && (<Editor apiFunc={postRecipe} title="レシピを作る" action="レシピ作成" user={user} />)}
-      <Footer />
+      <body className={styles.body}>
+        <Header />
+        <main className={styles.main}>
+          {user && (<Editor apiFunc={postRecipe} title="レシピを作る" action="レシピ作成" user={user} />)}
+        </main>
+        <Footer />
+      </body>
     </>
   );
 };
