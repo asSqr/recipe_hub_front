@@ -67,72 +67,59 @@ export default function Recipe({ recipe, id_recipe }) {
               container
               direction="row"
               justify="center"
-              alignItems="center">
-              {/* <TextField
-              id="standard-basic"
-              label="レシピ名"
-              inputRef={titleRef}
-              color="primary"
-              focused
-              style={{marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
-            /> <br />
-            <TextField
-              id="standard-basic"
-              label="レシピ"
-              inputRef={recipeRef}
-              color="primary"
-              focused
-              style={{marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
-            /> <br />
-            <TextField
-              id="standard-basic"
-              label="料理名"
-              inputRef={nameRef}
-              color="primary"
-              focused
-              style={{marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
-            /> <br /> */}
-              {user && (<Button
-                variant="contained"
-                color="primary"
-                onClick={clickHandler}
-                style={{ marginLeft: '2rem' }}
-              >
-                派生レシピを作る
-              </Button>)}
-              {user && recipe && user.id === recipe.id_author && (<Button
-                variant="contained"
-                color="primary"
-                onClick={deleteHandler}
-                style={{ marginLeft: '2rem' }}
-              >
-                レシピ削除
-              </Button>)}
+              alignItems="center"
+            >
+              {user && (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={clickHandler}
+                  style={{ margin: '1rem', width: '12rem' }}
+                >
+                  派生レシピを作る
+                </Button>
+              )}
+              {user && recipe && user.id === recipe.id_author && (
+                <Link href={`/edit/${id_recipe}`}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    style={{ margin: '1rem', width: '12rem' }}
+                  >
+                    レシピ編集画面へ
+                  </Button>
+                </Link>
+              )}
+              {user && recipe && user.id === recipe.id_author && (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={deleteHandler}
+                  style={{ margin: '1rem', width: '12rem' }}
+                >
+                  レシピ削除
+                </Button>
+              )}
             </Grid>
           </form>
           <Grid
             container
             direction="row"
             justify="center"
-            alignItems="center">
-            {user && recipe && user.id === recipe.id_author && (<Link href={`/edit/${id_recipe}`}><Button
-              variant="contained"
-              color="primary"
-              style={{ margin: '2rem' }}
-            >
-              レシピ編集画面へ
-            </Button></Link>)}
+            alignItems="center"
+          >
             <Link href="/"><Button
-              variant="contained"
-              color="primary"
-              style={{ margin: '2rem' }}
-            >
-              レシピ一覧へ
-            </Button></Link>
+                variant="contained"
+                color="primary"
+                style={{ margin: '1rem', width: '12rem' }}
+              >
+                レシピ一覧へ
+              </Button>
+            </Link>
             <Link href={`/tree/${id_recipe}`}><Button
               variant="contained"
               color="primary"
-              style={{ margin: '2rem' }}
+              style={{ margin: '1rem', width: '12rem' }}
             >
               レシピツリー画面へ
             </Button></Link>

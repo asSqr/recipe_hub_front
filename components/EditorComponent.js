@@ -183,14 +183,6 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
         </form>
 
         <Grid>
-          <Button 
-            variant="contained"
-            color="primary"
-            onClick={clickHandler}
-            style={{margin: '2rem'}}
-          >
-            {action}
-          </Button>
           {!forkFlag && (<Link href="/"><Button 
               variant="contained"
               color="primary"
@@ -208,6 +200,14 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
               キャンセル
             </Button>
           )}
+          <Button 
+            variant="contained"
+            color="primary"
+            onClick={clickHandler}
+            style={{margin: '2rem'}}
+          >
+            {action}
+          </Button>
         </Grid>
       </main>
     </div>
