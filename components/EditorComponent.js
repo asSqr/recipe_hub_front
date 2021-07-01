@@ -113,7 +113,7 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
   const wrapperStyling = {
     display: 'block',
     width: '200vw',
-    paddingLeft: '10rem'
+    paddingLeft: '15rem'
   };
 
   const blockStyling = {
