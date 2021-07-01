@@ -55,6 +55,11 @@ any siblings*/
 	display: none;
 }
 
+.tree li:only-child {
+  padding-left: 0;
+  margin-left: -30px;
+}
+
 /*Remove space from the top of single children*/
 .tree li:only-child{ padding-top: 0;}
 
