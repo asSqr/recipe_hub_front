@@ -15,15 +15,21 @@ import noImage from '../public/noimage_transparent.png';
 
 const useStyles = makeStyles((theme) => ({
   media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
+    marginTop: 10,
+    marginBottom: 10,
+    width: 260,
+    height: 220,
     backgroundColor: 'transparent'
   },
   cardcontent: {
     padding: 16, // default value
     "&:last-child": {
       paddingBottom: 16 // default value is 24
-    }
+    },
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    height: 360
   },
   avatar: {
     width: theme.spacing(3),
@@ -38,9 +44,26 @@ const normalCardStyle = makeStyles((theme) => ({
       minWidth: 200,
       maxWidth: 200,
     },
-    minWidth: 500,
-    maxWidth: 500,
+    minWidth: 290,
+    maxWidth: 290,
+    minHeight: 360,
+    maxHeight: 360,
+	  position: 'relative',
+    display: 'inline-block',
+    overflow: 'hidden'
   },
+  ul: {
+    paddingTop: '40px',
+    position: 'relative'
+  },
+  li: {
+    paddingTop: '40px',
+    position: 'relative'
+  },
+  wrapper: {
+    marginTop: '-5px',
+    overflow: 'hidden'
+  }
 }))
 
 const pickupCardStyle = makeStyles((theme) => ({
@@ -49,9 +72,14 @@ const pickupCardStyle = makeStyles((theme) => ({
       minWidth: 200,
       maxWidth: 200,
     },
-    minWidth: 500,
-    maxWidth: 500,
-    backgroundColor: '#fff59d'
+    minWidth: 290,
+    maxWidth: 290,
+    minHeight: 360,
+    maxHeight: 360,
+    backgroundColor: '#fff59d',
+	  position: 'relative',
+    display: 'inline-block',
+    overflow: 'hidden'
   },
 }))
 
@@ -66,38 +94,27 @@ export const TreeComponent = (tree) => {
   let dateString = typeof tree.update_date !== "undefined" ? format(new Date(tree.update_date), 'yyyy/MM/dd', { timeZone: 'Asia/Tokyo' }) : "unknown";
 
   useEffect(() => {
-    const elems = document.querySelectorAll('li:not(:last-child)');
-
-    for( const el of elems ) {
-      el.parentNode.classList.add('ul-border');
-      const styleElem = el.parentNode.appendChild(document.createElement("style"));
-      styleElem.innerHTML = `.ul-border:before {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 5vw;
-  width: 0;
-  height: auto;
     
-  border-left: 5px solid black;
-}`;
-    }
   }, []);
 
   return (
-    <li>
+    <li className={cardClasses.li}>
       <Card variant="outlined" className={cardClasses.root}>
         <CardActionArea component="div">
           <Link href={`/recipe/${tree.id}`}>
-            <Grid container spacing={1} alignItems="center">
-              <Grid item xs={12} sm={8}>
-                <CardContent className={classes.cardcontent}>
-                  <Typography variant="h5" component="h2">
-                    {tree.title}
-                  </Typography>
-                  <Box display="flex" flexDirection="row" alignItems="center">
+            <Grid container alignItems="center">
+              <CardContent className={classes.cardcontent}>
+                <Typography variant="h5" component="h2">
+                  {tree.title}
+                </Typography>
+                <CardMedia
+                  className={classes.media}
+                  image={mediaURL}
+                  title={tree.title}
+                  onError={onMediaFallback}
+                />
+                <Box display="flex" flexDirection="column" justifyContent="flex-end">
+                  <Box display="flex" flexDirection="row" style={{ marginTop: "0.5rem" }}>
                     <Box>
                     {
                       tree.author_photo_url && tree.author_photo_url.length > 0 ? 
@@ -117,28 +134,22 @@ export const TreeComponent = (tree) => {
                       </Typography>
                     </Box>
                   </Box>
-                  <Typography variant="body2" color="textSecondary" component="text">
-                    last updated: {dateString}
-                  </Typography>
-                </CardContent>
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <CardMedia
-                  className={classes.media}
-                  image={mediaURL}
-                  title={tree.title}
-                  onError={onMediaFallback}
-                />
-              </Grid>
+                  <Box align="left" style={{ marginTop: "0.5rem", marginBottom: "0rem" }}>
+                    <Typography variant="body2" color="textSecondary" component="text">
+                      {dateString}
+                    </Typography>
+                  </Box>
+                </Box>
+              </CardContent>
             </Grid>
           </Link>
         </CardActionArea>
       </Card>
-      {tree.hasOwnProperty('next') && tree['next'].length > 0 && (<ul>
+      {tree.hasOwnProperty('next') && tree['next'].length > 0 && (<div className={cardClasses.wrapper}><ul className={cardClasses.ul}>
         {tree.hasOwnProperty('next') && tree['next'].map((item) => (
           <TreeComponent key={item.id} source={tree.source} {...item} />
         ))}
-      </ul>)}
+      </ul></div>)}
     </li>
   )
 }

@@ -26,8 +26,13 @@ export default function Tree({ tree, id_recipe }) {
   const styling = {
     backgroundImage: `url(${tomatoImg})`, //あとで"/tomato.jpg"に戻す
     width:"100%",
-    marginTop: '6rem'
-  }
+    marginTop: '6rem',
+    overflowX: 'scroll'
+  };
+
+  const treeStyling = {
+    width: `${50*Math.max(1, tree.next.length)-15}%`
+  };
 
   return (
     <>
@@ -39,9 +44,9 @@ export default function Tree({ tree, id_recipe }) {
             レシピツリー
           </h1>
           <div style={styling}>
-            {tree && (<ul className="construction">
+            {tree && (<div className="tree" style={treeStyling}><ul>
               <TreeComponent key={tree.id} source={id_recipe} {...tree} />
-            </ul>)}
+            </ul></div>)}
           </div>
           <Grid container alignItems="center" justify="center" style={{ margin: '2rem' }}>
             <Grid item xs={6} sm={4} md={3} style={{ textAlign: "center" }}>
