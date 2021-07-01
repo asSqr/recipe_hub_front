@@ -12,6 +12,7 @@ import { red } from '@material-ui/core/colors';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import noImage from '../public/noimage_transparent.png';
+import { truncate } from '../utils/utils';
 
 const useStyles = makeStyles((theme) => ({
   media: {
@@ -105,7 +106,7 @@ export const TreeComponent = (tree) => {
             <Grid container alignItems="center">
               <CardContent className={classes.cardcontent}>
                 <Typography variant="h5" component="h2">
-                  {tree.title}
+                  {truncate(tree.title, 20)}
                 </Typography>
                 <CardMedia
                   className={classes.media}

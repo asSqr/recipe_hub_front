@@ -15,6 +15,7 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import { format } from 'date-fns';
 import noImage from '../public/noimage_transparent.png';
+import { truncate } from '../utils/utils';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -74,7 +75,7 @@ const RecipeMenu = (props) => {
         //     <MoreVertIcon />
         //   </IconButton>
         // }
-        title={<Link href={`/recipe/${id}`}><a><h3 style={{ margin: 0 }}>{title}</h3></a></Link>}
+        title={<Link href={`/recipe/${id}`}><a><h3 style={{ margin: 0 }}>{truncate(title, 10)}</h3></a></Link>}
         subheader={<>{author_name}<br />{date}</>}
         />
    
@@ -91,7 +92,7 @@ const RecipeMenu = (props) => {
       {/* 本文 */}
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-        料理名:{name}<br></br>
+        料理名:{truncate(name, 12)}<br></br>
         ジャンル:{genre}<br></br>         
         </Typography>
       </CardContent>
