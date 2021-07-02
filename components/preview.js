@@ -16,7 +16,7 @@ import tomatoImg from '../public/tomato.jpg';
 import noImage from '../public/noimage_transparent.png';
 import { useWindowDimensions, widthThreshold } from '../utils/utils';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: '20rem',
     height: '20rem',
@@ -58,17 +58,19 @@ const useStyles = makeStyles({
     backgroundImage: `url(${tomatoImg})`,
     width: '60rem',
     display: 'inline-block',
-    overflowX: 'scroll'
   },
   content: {
     backgroundColor: 'white',
-    width: '50rem',
-    margin: 'auto',
-    marginTop: '5rem',
-    marginBottom: '5rem',
-    overflowX: 'scroll'
+    overflowX: 'scroll',
+    margin: '5rem',
+    [theme.breakpoints.down('sm')]: {
+      margin: '3rem',
+    },
+    [theme.breakpoints.down('xs')]: {
+      margin: '1rem',
+    },
   },
-});
+}));
 
 const useStylesMini = makeStyles({
   menu: {
