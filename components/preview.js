@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     display: 'inline-block',
-    fontSize: 14
+    fontSize: 18
   },
   footer: {
     position: 'absolute',
@@ -128,9 +128,6 @@ const RecipeItem = (props) => {
           <Typography variant="h5" component="h2">
             {name}
           </Typography> <br />
-          <Typography className={classes.title} color="textSecondary" gutterBottom>
-            サムネイル
-          </Typography>
           <CardMedia
             className={classes.media}
             image={thumbnail ? thumbnail : noImage}

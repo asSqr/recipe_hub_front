@@ -15,6 +15,7 @@ import { sleep } from '../../utils/utils';
 import Footer from '../../components/Footer';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import ViewModuleIcon from '@material-ui/icons/ViewModule';
+import { useWindowDimensions } from '../../utils/utils';
 
 function treeWidth( tree ) {
   let cnt = 0;
@@ -42,9 +43,18 @@ export default function Tree({ tree, id_recipe }) {
     overflowX: 'scroll'
   };
 
-  const treeStyling = {
-    width: `${(200+80)*Math.max(1, treeWidth(tree))}px`
+  const { width } = useWindowDimensions();
+
+  const treeContainerWidth = (200+80)*Math.max(1, treeWidth(tree));
+
+  let treeStyling = {
+    width: `${treeContainerWidth}px`
   };
+
+  if( treeContainerWidth < width ) {
+    treeStyling.width = `${width}px`;
+    treeStyling.paddingLeft = `${(width-treeContainerWidth)/2}px`;
+  }
 
   return (
     <>
