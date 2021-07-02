@@ -83,6 +83,10 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
     data.append('id_author', user.id);
     data.append('author_photo_url', user.photo_url);
     data.append('genre', genre);
+
+    if( forkFlag ) {
+      data.append('is_temp', false);
+    }
     
     if( initObj )
       await apiFunc(id_recipe, data);

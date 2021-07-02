@@ -4,7 +4,7 @@ export const apiUrl = 'https://recipe-hub-back.herokuapp.com/';
 // export const apiUrl = 'http://localhost:8000/';
 
 export const fetchRecipes = async () => {
-  return axios.get(`${apiUrl}admin/v1/mrepository/`);
+  return axios.get(`${apiUrl}api/v1/mrepository`);
 }
 
 export const fetchRecipe = async id => {
@@ -29,4 +29,12 @@ export const patchRecipe = async (id, param) => {
 
 export const deleteRecipe = async id => {
   return axios.delete(`${apiUrl}api/v1/mrepository/${id}`);
+}
+
+export const fetchImages = async id_user => {
+  return axios.get(`${apiUrl}api/v1/mimage/${id_user}`);
+}
+
+export const postImage = async param => {
+  return axios.post(`${apiUrl}admin/v1/mimage/`, param);
 }
