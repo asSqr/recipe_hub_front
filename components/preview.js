@@ -45,8 +45,7 @@ const useStyles = makeStyles((theme) => ({
     transform: 'scale(0.8)',
   },
   title: {
-    display: 'inline-block',
-    fontSize: 14,
+    display: 'inline-block'
   },
   footer: {
     position: 'absolute',
