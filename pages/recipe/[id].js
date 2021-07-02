@@ -21,6 +21,11 @@ import CreateIcon from '@material-ui/icons/Create';
 import LibraryAddIcon from '@material-ui/icons/LibraryAdd';
 import ViewModuleIcon from '@material-ui/icons/ViewModule';
 import AccountTreeIcon from '@material-ui/icons/AccountTree';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 export default function Recipe({ recipe, id_recipe }) {
   const nameRef = React.createRef();
@@ -54,6 +59,21 @@ export default function Recipe({ recipe, id_recipe }) {
 
     router.push(`/`);
   }
+
+  const [dialogOpen, setDialogOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setDialogOpen(true);
+  };
+
+  const handleCloseCancel = () => {
+    setDialogOpen(false);
+  };
+
+  const handleCloseDelete = () => {
+    setDialogOpen(false);
+    deleteHandler();
+  };
 
   return (
     <>
@@ -103,13 +123,34 @@ export default function Recipe({ recipe, id_recipe }) {
                 <CustomButton
                   variant="contained"
                   themeColor={red}
-                  onClick={deleteHandler}
+                  onClick={handleClickOpen}
                   style={{ margin: '1rem', width: '10rem' }}
                   endIcon={<DeleteIcon />}
                 >
                   レシピ削除
                 </CustomButton>
               )}
+              <Dialog
+                open={dialogOpen}
+                onClose={handleCloseCancel}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">{"レシピを削除"}</DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    一度レシピを削除すると復元できません。本当にレシピを削除しますか？
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleCloseCancel} color="default" autoFocus>
+                    キャンセル
+                  </Button>
+                  <CustomButton onClick={handleCloseDelete} themeColor={red}>
+                    削除
+                  </CustomButton>
+                </DialogActions>
+              </Dialog>
             </Grid>
           </form>
           <Grid
