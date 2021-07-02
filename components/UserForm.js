@@ -63,6 +63,8 @@ const UserForm = ({ isRegister }) => {
             setError("既に登録済みのメールアドレスです");
           } else if (error.code == "auth/invalid-email") {
             setError("無効なメールアドレスです")
+          } else if (error.code == "auth/weak-password") {
+            setError("6文字以上のパスワードを設定してください")
           } else {
             setError(error.message);
           }
