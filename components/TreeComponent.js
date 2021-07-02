@@ -16,21 +16,22 @@ import { truncate } from '../utils/utils';
 
 const useStyles = makeStyles((theme) => ({
   media: {
-    marginTop: 10,
-    marginBottom: 10,
-    width: 260,
-    height: 220,
+    marginTop: 5,
+    marginBottom: 5,
+    width: 180,
+    height: 120,
     backgroundColor: 'transparent'
   },
   cardcontent: {
-    padding: 16, // default value
+    padding: 8, // default value
     "&:last-child": {
-      paddingBottom: 16 // default value is 24
+      paddingBottom: 8 // default value is 24
     },
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    height: 360
+    height: 270,
+    width: 200
   },
   avatar: {
     width: theme.spacing(3),
@@ -41,10 +42,10 @@ const useStyles = makeStyles((theme) => ({
 
 const normalCardStyle = makeStyles((theme) => ({
   root: {
-    minWidth: '290px',
-    maxWidth: '290px',
-    minHeight: '360px',
-    maxHeight: '360px',
+    minWidth: '200px',
+    maxWidth: '200px',
+    minHeight: '270px',
+    maxHeight: '270px',
 	  position: 'relative',
     display: 'inline-block',
     overflow: 'hidden'
@@ -65,10 +66,10 @@ const normalCardStyle = makeStyles((theme) => ({
 
 const pickupCardStyle = makeStyles((theme) => ({
   root: {
-    minWidth: '290px',
-    maxWidth: '290px',
-    minHeight: '360px',
-    maxHeight: '360px',
+    minWidth: '200px',
+    maxWidth: '200px',
+    minHeight: '270px',
+    maxHeight: '270px',
     backgroundColor: '#fff59d',
 	  position: 'relative',
     display: 'inline-block',
@@ -97,7 +98,7 @@ export const TreeComponent = (tree) => {
           <Link href={`/recipe/${tree.id}`}>
             <Grid container alignItems="center">
               <CardContent className={classes.cardcontent}>
-                <Typography variant="h5" component="h2">
+                <Typography variant="h7" component="h3">
                   {truncate(tree.title, 20)}
                 </Typography>
                 <CardMedia
