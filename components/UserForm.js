@@ -1,15 +1,18 @@
 import Head from 'next/head';
 import Router from 'next/router';
 import firebase from '../firebase/firebase';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Button, Grid } from '@material-ui/core'
 import { sleep } from '../utils/utils';
 import CustomTextField from '../styles/CustomTextField';
+import Alert from '@material-ui/lab/Alert';
 
 const UserForm = ({ isRegister }) => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const userNameRef = useRef(null);
+
+  const [errorMessage, setError] = useState([]);
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
@@ -25,7 +28,16 @@ const UserForm = ({ isRegister }) => {
           Router.push('/');
         })
         .catch(error => {
-          
+          console.log(error);
+          if (error.code == "auth/user-not-found") {
+            setError("メールアドレスが登録されていません")
+          } else if (error.code == "auth/wrong-password") {
+            setError("パスワードが間違っています")
+          } else if (error.code == "auth/invalid-email") {
+            setError("無効なメールアドレスです")
+          } else {
+            setError(error.message);
+          }
         });
   };
 
@@ -46,6 +58,14 @@ const UserForm = ({ isRegister }) => {
         })
         .catch(error => {
           console.log(error);
+          console.log("bbbb");
+          if (error.code == "auth/email-already-in-use") {
+            setError("既に登録済みのメールアドレスです");
+          } else if (error.code == "auth/invalid-email") {
+            setError("無効なメールアドレスです")
+          } else {
+            setError(error.message);
+          }
         });
     } else {
       await login();
@@ -79,6 +99,7 @@ const UserForm = ({ isRegister }) => {
       </Head>
 	  
       <form className="login">
+        {errorMessage != "" && <Alert severity="error">{errorMessage}</Alert>}
         <h2>{isRegister ? 'アカウントを登録' : 'アカウントにログイン'}</h2>
         <hr />
         <Grid container justify="center" spacing={2}>
