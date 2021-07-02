@@ -31,7 +31,7 @@ const useStyles = makeStyles({
 });
 
 const RecipeItem = (props) => {
-  const { id, name, recipe, id_fork_from, show_link } = props;
+  const { id, name, recipe, id_fork_from, show_link, is_fork } = props;
 
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
@@ -40,14 +40,14 @@ const RecipeItem = (props) => {
     <Card className={classes.root}>
       <CardContent>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
-          レシピ名
+          {!is_fork ? 'レシピ名' : '派生元レシピ名'}
         </Typography>
         <Typography variant="h5" component="h2">
           {name}
         </Typography>
         <br /> <br />
         <Typography className={classes.title} color="textSecondary" gutterBottom>
-          レシピ
+          {!is_fork ? 'レシピ' : '派生元レシピ'}
         </Typography>
         <Typography variant="body2" component="p">
           {recipe}

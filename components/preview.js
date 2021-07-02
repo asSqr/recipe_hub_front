@@ -14,20 +14,30 @@ import { convertFromRaw } from 'draft-js';
 import { stateToHTML } from 'draft-js-export-html';
 import tomatoImg from '../public/tomato.jpg';
 import noImage from '../public/noimage_transparent.png';
+import { useWindowDimensions, widthThreshold } from '../utils/utils';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: '20rem',
     height: '20rem',
     textAlign: 'center',
     position: 'relative'
   },
+  wrapper: {
+    overflowX: 'scroll',
+    width: '100vw',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 'auto'
+  },
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
     marginTop: '20px',
     marginBottom: '20px',
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
+    display: 'block'
   },
   bullet: {
     display: 'inline-block',
@@ -35,7 +45,7 @@ const useStyles = makeStyles({
     transform: 'scale(0.8)',
   },
   title: {
-    fontSize: 14,
+    display: 'inline-block'
   },
   footer: {
     position: 'absolute',
@@ -46,14 +56,29 @@ const useStyles = makeStyles({
   menu: {
     backgroundImage: `url(${tomatoImg})`,
     width: '60rem',
+    display: 'inline-block',
   },
   content: {
     backgroundColor: 'white',
-    width: '50rem',
-    margin: 'auto',
-    marginTop: '5rem',
-    marginBottom: '5rem'
+    overflowX: 'scroll',
+    margin: '5rem',
+    [theme.breakpoints.down('sm')]: {
+      margin: '3rem',
+    },
+    [theme.breakpoints.down('xs')]: {
+      margin: '1rem',
+    },
   },
+}));
+
+const useStylesMini = makeStyles({
+  menu: {
+    width: '2000px',
+    backgroundImage: `url(${tomatoImg})`,
+    width: '60rem',
+    display: 'inline-block',
+    overflowX: 'scroll'
+  }
 });
 
 const unescapeHtml = target => {
@@ -76,62 +101,67 @@ const unescapeHtml = target => {
 };
 
 const RecipeItem = (props) => {
-  const { id, name, recipe, title, show_link, thumbnail } = props;
+  const { id, name, recipe, title, show_link, thumbnail, is_fork } = props;
+
+  const { width } = useWindowDimensions();
 
   const classes = useStyles();
+  const classesMini = useStylesMini();
   const bull = <span className={classes.bullet}>•</span>;
 
   const onMediaFallback = event => event.target.src = noImage;
   
   return (
-    <Card className={classes.menu}>
-      <CardContent className={classes.content}>
-      <Typography className={classes.title} color="textSecondary" gutterBottom>
-          レシピ名
-        </Typography>
-        <Typography variant="h5" component="h2">
-          {title}
-        </Typography> <br />
+    <div className={classes.wrapper}>
+      <Card className={width >= widthThreshold ? classes.menu : classesMini.menu}>
+        <CardContent className={classes.content}>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
-          料理名
-        </Typography>
-        <Typography variant="h5" component="h2">
-          {name}
-        </Typography> <br />
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
-          サムネイル
-        </Typography>
-        <CardMedia
-          className={classes.media}
-          image={thumbnail ? thumbnail : noImage}
-          title={name}
-          onError={onMediaFallback}
-        />
-        <br />
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
-          レシピ
-        </Typography>
-        <div className="markdown-body">
-          <div
-            className={classes.title}
-            dangerouslySetInnerHTML={{__html: `${unescapeHtml(stateToHTML(convertFromRaw(JSON.parse(recipe))))}`,}}
+            {!is_fork ? 'レシピ名' : '派生元レシピ名'}
+          </Typography>
+          <Typography variant="h5" component="h2">
+            {title}
+          </Typography> <br />
+          <Typography className={classes.title} color="textSecondary" gutterBottom>
+            料理名
+          </Typography>
+          <Typography variant="h5" component="h2">
+            {name}
+          </Typography> <br />
+          <Typography className={classes.title} color="textSecondary" gutterBottom>
+            サムネイル
+          </Typography>
+          <CardMedia
+            className={classes.media}
+            image={thumbnail ? thumbnail : noImage}
+            title={name}
+            onError={onMediaFallback}
           />
-        </div>
-      </CardContent>
-      
-      {show_link ?
-        <Link href={`/recipe/${id}`}>
-          <Button 
-            variant="contained"
-            color="primary"
-            className={classes.footer}
-          >
-            レシピページへ
-          </Button>
-        </Link>
-      : 
-        <></>}
-    </Card>
+          <br />
+          <Typography className={classes.title} color="textSecondary" gutterBottom>
+            {!is_fork ? 'レシピ' : '派生元レシピ'}
+          </Typography>
+          <div className="markdown-body">
+            <div
+              className={width >= widthThreshold ? classes.title : classesMini.title}
+              dangerouslySetInnerHTML={{__html: `${unescapeHtml(stateToHTML(convertFromRaw(JSON.parse(recipe))))}`,}}
+            />
+          </div>
+        </CardContent>
+        
+        {show_link ?
+          <Link href={`/recipe/${id}`}>
+            <Button 
+              variant="contained"
+              color="primary"
+              className={classes.footer}
+            >
+              レシピページへ
+            </Button>
+          </Link>
+        : 
+          <></>}
+      </Card>
+    </div>
   );
 };
 
