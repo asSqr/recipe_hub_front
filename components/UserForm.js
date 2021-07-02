@@ -122,16 +122,18 @@ const UserForm = ({ isRegister }) => {
             style={{width: '300px', marginTop: '2rem'}}
             onChange={keyHandler}
           /> <br />
-          <CustomTextField
-            id="standard-basic"
-            label="ユーザー名"
-            inputRef={userNameRef}
-            color="primary"
-            inputProps={{ maxLength: 100 }}
-            focused
-            style={{width: '300px', marginTop: '2rem'}}
-            onChange={keyHandler}
-          /> <br />
+          { isRegister && (
+            <CustomTextField
+              id="standard-basic"
+              label="ユーザー名"
+              inputRef={userNameRef}
+              color="primary"
+              inputProps={{ maxLength: 100 }}
+              focused
+              style={{width: '300px', marginTop: '2rem'}}
+              onChange={keyHandler}
+            />
+          )} <br />
           <CustomTextField
             id="standard-basic"
             label="パスワード"
