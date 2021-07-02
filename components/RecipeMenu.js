@@ -15,10 +15,12 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import { format } from 'date-fns';
 import noImage from '../public/noimage_transparent.png';
+import { truncate } from '../utils/utils';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width:270,
+    width: 270,
+    height: 425,
   },
   media: {
     height: 0,
@@ -53,6 +55,11 @@ const RecipeMenu = (props) => {
 
   const headID = author_name.substr(0,1);
 
+  // カード幅に合わせた 1 行の文字数
+  const strWidth = 10;
+
+  let dispTitle = truncate(title, 3*strWidth);
+
   return (
     <Card className={classes.root}>
 
@@ -74,7 +81,7 @@ const RecipeMenu = (props) => {
         //     <MoreVertIcon />
         //   </IconButton>
         // }
-        title={<Link href={`/recipe/${id}`}><a><h3 style={{ margin: 0 }}>{title}</h3></a></Link>}
+        title={<Link href={`/recipe/${id}`}><div style={{ margin: 0, height: 75, display: 'flex', alignItems: 'center' }}><a><h3 style={{ verticalAlign: 'middle' }}>{dispTitle}</h3></a></div></Link>}
         subheader={<>{author_name}<br />{date}</>}
         />
    
@@ -91,7 +98,7 @@ const RecipeMenu = (props) => {
       {/* 本文 */}
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-        料理名:{name}<br></br>
+        料理名:{truncate(name, 12)}<br></br>
         ジャンル:{genre}<br></br>         
         </Typography>
       </CardContent>

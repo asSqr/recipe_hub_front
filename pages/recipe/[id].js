@@ -16,6 +16,11 @@ import { useAuth } from '../../utils/auth';
 import Footer from '../../components/Footer';
 import CustomButton from '../../styles/CustomButton';
 import { red } from '@material-ui/core/colors';
+import DeleteIcon from '@material-ui/icons/Delete';
+import CreateIcon from '@material-ui/icons/Create';
+import LibraryAddIcon from '@material-ui/icons/LibraryAdd';
+import ViewModuleIcon from '@material-ui/icons/ViewModule';
+import AccountTreeIcon from '@material-ui/icons/AccountTree';
 
 export default function Recipe({ recipe, id_recipe }) {
   const nameRef = React.createRef();
@@ -61,7 +66,7 @@ export default function Recipe({ recipe, id_recipe }) {
           </h1>
 
           {recipe && (<div style={{ margin: '4rem' }}>
-            <RecipeItem key={id_recipe} show_link={false} {...recipe} />
+            <RecipeItem key={id_recipe} show_link={false} {...recipe} is_fork={false} />
           </div>)}
 
           <form style={{ margin: '2rem', flexDirection: 'row', justifyContent: 'center', }} noValidate autoComplete="off">
@@ -74,11 +79,12 @@ export default function Recipe({ recipe, id_recipe }) {
               {user && (
                 <Button
                   variant="contained"
-                  color="primary"
+                  color="secondary"
                   onClick={clickHandler}
-                  style={{ margin: '1rem', width: '12rem' }}
+                  style={{ margin: '1rem', width: '10rem' }}
+                  endIcon={<LibraryAddIcon />}
                 >
-                  派生レシピを作る
+                  派生レシピ作成
                 </Button>
               )}
               {user && recipe && user.id === recipe.id_author && (
@@ -86,9 +92,10 @@ export default function Recipe({ recipe, id_recipe }) {
                   <Button
                     variant="contained"
                     color="primary"
-                    style={{ margin: '1rem', width: '12rem' }}
+                    style={{ margin: '1rem', width: '10rem' }}
+                    endIcon={<CreateIcon />}
                   >
-                    レシピ編集画面へ
+                    レシピ編集
                   </Button>
                 </Link>
               )}
@@ -97,7 +104,8 @@ export default function Recipe({ recipe, id_recipe }) {
                   variant="contained"
                   themeColor={red}
                   onClick={deleteHandler}
-                  style={{ margin: '1rem', width: '12rem' }}
+                  style={{ margin: '1rem', width: '10rem' }}
+                  endIcon={<DeleteIcon />}
                 >
                   レシピ削除
                 </CustomButton>
@@ -113,17 +121,19 @@ export default function Recipe({ recipe, id_recipe }) {
             <Link href="/"><Button
                 variant="contained"
                 color="primary"
-                style={{ margin: '1rem', width: '12rem' }}
+                style={{ margin: '1rem', width: '10rem' }}
+                endIcon={<ViewModuleIcon />}
               >
-                レシピ一覧へ
+                レシピ一覧
               </Button>
             </Link>
             <Link href={`/tree/${id_recipe}`}><Button
               variant="contained"
               color="primary"
-              style={{ margin: '1rem', width: '12rem' }}
+              style={{ margin: '1rem', width: '10rem' }}
+              endIcon={<AccountTreeIcon />}
             >
-              レシピツリー画面へ
+              レシピツリー
             </Button></Link>
           </Grid>
         </main>

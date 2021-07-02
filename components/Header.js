@@ -4,9 +4,11 @@ import Router from "next/router";
 import firebase from '../firebase/firebase';
 import { useAuth } from '../utils/auth';
 import styles from '/styles/Home.module.css'
+import { widthThreshold, useWindowDimensions} from '../utils/utils';
 
 const Header = () => {
   const { user } = useAuth();
+  const { width } = useWindowDimensions();
 
   useEffect(() => {
     
@@ -16,7 +18,7 @@ const Header = () => {
     <div className={styles.header}>
       <Link href="/">
         <h1>
-          <Link href="/"><a>Recipe Hub (Github for Cooking)</a></Link>
+          <Link href="/"><a>{width >= widthThreshold ? 'Recipe Hub (Github for Cooking)' : 'Recipe Hub'}</a></Link>
         </h1>
       </Link>
       <div className="menu">

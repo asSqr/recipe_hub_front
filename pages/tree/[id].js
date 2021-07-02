@@ -13,6 +13,19 @@ import Meta from '../../components/Meta';
 import tomatoImg from '../../public/tomato.jpg';
 import { sleep } from '../../utils/utils';
 import Footer from '../../components/Footer';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
+import ViewModuleIcon from '@material-ui/icons/ViewModule';
+import { useWindowDimensions } from '../../utils/utils';
+
+function treeWidth( tree ) {
+  let cnt = 0;
+
+  for( const child of tree.next ) {
+    cnt += treeWidth(child);
+  }
+
+  return cnt || 1;
+}
 
 export default function Tree({ tree, id_recipe }) {
   useEffect(() => {
@@ -26,7 +39,21 @@ export default function Tree({ tree, id_recipe }) {
   const styling = {
     backgroundImage: `url(${tomatoImg})`, //あとで"/tomato.jpg"に戻す
     width:"100%",
-    marginTop: '6rem'
+    marginTop: '6rem',
+    overflowX: 'scroll'
+  };
+
+  const { width } = useWindowDimensions();
+
+  const treeContainerWidth = (200+80)*Math.max(1, treeWidth(tree));
+
+  let treeStyling = {
+    width: `${treeContainerWidth}px`
+  };
+
+  if( treeContainerWidth < width ) {
+    treeStyling.width = `${width}px`;
+    treeStyling.paddingLeft = `${(width-treeContainerWidth)/2}px`;
   }
 
   return (
@@ -39,21 +66,21 @@ export default function Tree({ tree, id_recipe }) {
             レシピツリー
           </h1>
           <div style={styling}>
-            {tree && (<ul className="construction">
+            {tree && (<div className="tree" style={treeStyling}><ul>
               <TreeComponent key={tree.id} source={id_recipe} {...tree} />
-            </ul>)}
+            </ul></div>)}
           </div>
           <Grid container alignItems="center" justify="center" style={{ margin: '2rem' }}>
             <Grid item xs={6} sm={4} md={3} style={{ textAlign: "center" }}>
               <Link href={`/`}>
-                <Button variant="contained" color="primary">
+                <Button variant="contained" color="primary" endIcon={<ViewModuleIcon />}>
                   レシピ一覧
                 </Button>
               </Link>
             </Grid>
             <Grid item xs={6} sm={4} md={3} style={{ textAlign: "center" }}>
               <Link href={`/recipe/${id_recipe}`}>
-                <Button variant="contained" color="primary">
+                <Button variant="contained" color="primary" endIcon={<MenuBookIcon />}>
                   レシピに戻る
                 </Button>
               </Link>

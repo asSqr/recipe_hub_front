@@ -10,47 +10,93 @@ body {
   box-sizing: border-box;
 }
 
-
-.construction{
-  list-style-type: none;
-}
-  
-.construction ul {  
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-  position: relative;
-  margin-left: 10vw;
-}
-  
-.construction ul li {  
-  position: relative;
-  margin: 2.5vw 0 2.5vw 5vw;
-  padding: 0;
+.tree {
+  overflow-x: scroll;
+  display: inline-block;
 }
 
-.construction ul li:first-child:before {
-  top: -2.5vw;
-  height: 6.1vw;
+.tree ul {
+	padding-top: 40px; position: relative;
+  overflow: hidden;
+  display: inline-block;
+	
+	transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
 }
 
-.construction ul li:before {
-  top: -6.5vw;
-  height: 10vw;
+.tree li {
+	float: left; text-align: center;
+	list-style-type: none;
+	position: relative;
+  overflow: hidden;
+	
+	transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
 }
 
-.ul-border {
+/*We will use ::before and ::after to draw the connectors*/
 
+.tree li::before, .tree li::after{
+	content: '';
+	position: absolute; top: 0; right: 50%;
+	border-top: 5px solid rgb(40,40,40);
+	width: 50%; height: 45px;
+}
+.tree li::after{
+	right: auto; left: 50%;
+	border-left: 5px solid rgb(40,40,40);
 }
 
-.construction ul li:before {  
-  content: "";
-  display: block;
-  position: absolute;
-  left: -5vw;
-  width: 4.7vw;
-  border-bottom: 5px solid black;
-  border-left: 5px solid black;
+/*We need to remove left-right connectors from elements without 
+any siblings*/
+.tree li:only-child::after, .tree li:only-child::before {
+	display: none;
+}
+
+/* only-child の場合だけズレるのを修正 */
+.tree li:only-child {
+  padding-left: 0;
+  margin-left: -30px;
+}
+
+/*Remove space from the top of single children*/
+.tree li:only-child{ padding-top: 0;}
+
+/*Remove left connector from first child and 
+right connector from last child*/
+.tree li:first-child::before, .tree li:last-child::after{
+	border: 0 none;
+}
+/*Adding back the vertical connector to the last nodes*/
+.tree li:last-child::before{
+	border-right: 5px solid rgb(40,40,40);
+	border-radius: 0 5px 0 0;
+	-webkit-border-radius: 0 5px 0 0;
+	-moz-border-radius: 0 5px 0 0;
+}
+.tree li:first-child::after{
+	border-radius: 5px 0 0 0;
+	-webkit-border-radius: 5px 0 0 0;
+	-moz-border-radius: 5px 0 0 0;
+}
+
+/*Time to add downward connectors from parents*/
+.tree ul ul::before{
+	content: '';
+	position: absolute; top: 0px; left: 50%;
+	border-left: 5px solid rgb(40,40,40);
+	width: 0; height: 45px;
+}
+
+.tree li {
+	padding: 45px 10px;
+	display: inline-block;
+	
+	transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
 }
 
 footer {

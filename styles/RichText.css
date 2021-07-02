@@ -1,9 +1,13 @@
 .RichEditor-root {
     background: #fff;
     border: 1px solid #ddd;
-    font-family: 'Georgia', serif;
-    font-size: 14px;
+    font-family: -apple-system,BlinkMacSystemFont,Helvetica Neue,Segoe UI,Hiragino Kaku Gothic ProN,Hiragino Sans,ヒラギノ角ゴ ProN W3,Arial,メイリオ,Meiryo,sans-serif;
+    font-size: 18px;
+    line-height: 36px;
     padding: 15px;
+    width: 1250px;
+    max-width: 100vw;
+    margin: auto;
 }
 
 .RichEditor-editor {
@@ -11,6 +15,8 @@
     cursor: text;
     font-size: 16px;
     margin-top: 10px;
+    display: inline-block;
+    overflow-y: scroll;
 }
 
 .RichEditor-editor .public-DraftEditorPlaceholder-root,
@@ -20,9 +26,10 @@
 }
 
 .RichEditor-editor .public-DraftEditor-content {
-    min-width: 1000px;
-    min-height: 400px;
-    max-width: 1000px;
+    min-height: 450px;
+    max-height: 450px;
+    width: 1250px;
+    max-width: 100vw;
 }
 
 .RichEditor-hidePlaceholder .public-DraftEditorPlaceholder-root {
