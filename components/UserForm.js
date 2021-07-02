@@ -31,7 +31,7 @@ const UserForm = ({ isRegister }) => {
           console.log(error);
           switch (error.code) {
             case "auth/user-not-found":
-              setError("メールアドレスが登録されていません");
+              setError("このメールアドレスは登録されていません");
               break;
             case "auth/wrong-password":
               setError("パスワードが間違っています");
