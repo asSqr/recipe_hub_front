@@ -10,6 +10,9 @@ import CustomTextField from '../styles/CustomTextField';
 import CustomButton from '../styles/CustomButton';
 import { red } from '@material-ui/core/colors';
 import { widthThreshold, useWindowDimensions } from '../utils/utils';
+import CheckIcon from '@material-ui/icons/Check';
+import CloseIcon from '@material-ui/icons/Close';
+import ViewModuleIcon from '@material-ui/icons/ViewModule';
 
 export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_recipe, user }) {
   const nameRef = React.createRef();
@@ -184,33 +187,36 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
           />
         </div>
       </form>
-
+      
       <Grid container alignItems="center" justify="center">
-        {!forkFlag && (<Link href="/"><Button 
+        <Button 
+          variant="contained"
+          color="secondary"
+          onClick={clickHandler}
+          style={{margin: '2rem'}}
+          endIcon={<CheckIcon />}
+        >
+          {action}
+        </Button>
+        {!forkFlag && (<Link href="/"><CustomButton 
             variant="contained"
-            color="primary"
+            themeColor={red}
             style={{margin: '2rem'}}
+            endIcon={<CloseIcon />}
           >
-          レシピ一覧へ
-        </Button></Link>)}
+          キャンセル
+        </CustomButton></Link>)}
         {forkFlag && (
           <CustomButton 
             variant="contained"
             themeColor={red}
             onClick={cancelHandler}
             style={{margin: '2rem'}}
+            endIcon={<CloseIcon />}
           >
             キャンセル
           </CustomButton>
         )}
-        <Button 
-          variant="contained"
-          color="primary"
-          onClick={clickHandler}
-          style={{margin: '2rem'}}
-        >
-          {action}
-        </Button>
       </Grid>
     </div>
   )

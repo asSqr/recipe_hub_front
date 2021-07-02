@@ -13,6 +13,8 @@ import Meta from '../../components/Meta';
 import tomatoImg from '../../public/tomato.jpg';
 import { sleep } from '../../utils/utils';
 import Footer from '../../components/Footer';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
+import ViewModuleIcon from '@material-ui/icons/ViewModule';
 
 function treeWidth( tree ) {
   let cnt = 0;
@@ -61,14 +63,14 @@ export default function Tree({ tree, id_recipe }) {
           <Grid container alignItems="center" justify="center" style={{ margin: '2rem' }}>
             <Grid item xs={6} sm={4} md={3} style={{ textAlign: "center" }}>
               <Link href={`/`}>
-                <Button variant="contained" color="primary">
+                <Button variant="contained" color="primary" endIcon={<ViewModuleIcon />}>
                   レシピ一覧
                 </Button>
               </Link>
             </Grid>
             <Grid item xs={6} sm={4} md={3} style={{ textAlign: "center" }}>
               <Link href={`/recipe/${id_recipe}`}>
-                <Button variant="contained" color="primary">
+                <Button variant="contained" color="primary" endIcon={<MenuBookIcon />}>
                   レシピに戻る
                 </Button>
               </Link>
