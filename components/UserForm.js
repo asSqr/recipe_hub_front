@@ -29,14 +29,18 @@ const UserForm = ({ isRegister }) => {
         })
         .catch(error => {
           console.log(error);
-          if (error.code == "auth/user-not-found") {
-            setError("メールアドレスが登録されていません")
-          } else if (error.code == "auth/wrong-password") {
-            setError("パスワードが間違っています")
-          } else if (error.code == "auth/invalid-email") {
-            setError("無効なメールアドレスです")
-          } else {
-            setError(error.message);
+          switch (error.code) {
+            case "auth/user-not-found":
+              setError("メールアドレスが登録されていません");
+              break;
+            case "auth/wrong-password":
+              setError("パスワードが間違っています");
+              break;
+            case "auth/invalid-email":
+              setError("無効なメールアドレスです");
+              break;
+            default:
+              setError(error.message);
           }
         });
   };
@@ -58,15 +62,18 @@ const UserForm = ({ isRegister }) => {
         })
         .catch(error => {
           console.log(error);
-          console.log("bbbb");
-          if (error.code == "auth/email-already-in-use") {
-            setError("既に登録済みのメールアドレスです");
-          } else if (error.code == "auth/invalid-email") {
-            setError("無効なメールアドレスです")
-          } else if (error.code == "auth/weak-password") {
-            setError("6文字以上のパスワードを設定してください")
-          } else {
-            setError(error.message);
+          switch (error.code) {
+            case "auth/email-already-in-use":
+              setError("既に登録済みのメールアドレスです");
+              break;
+            case "auth/invalid-email":
+              setError("無効なメールアドレスです");
+              break;
+            case "auth/weak-password":
+              setError("6文字以上のパスワードを設定してください");
+              break;
+            default:
+              setError(error.message);
           }
         });
     } else {
