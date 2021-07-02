@@ -45,7 +45,8 @@ const useStyles = makeStyles((theme) => ({
     transform: 'scale(0.8)',
   },
   title: {
-    display: 'inline-block'
+    display: 'inline-block',
+    fontSize: 14
   },
   footer: {
     position: 'absolute',
@@ -142,7 +143,6 @@ const RecipeItem = (props) => {
           </Typography>
           <div className="markdown-body">
             <div
-              className={width >= widthThreshold ? classes.title : classesMini.title}
               dangerouslySetInnerHTML={{__html: `${unescapeHtml(stateToHTML(convertFromRaw(JSON.parse(recipe))))}`,}}
             />
           </div>
