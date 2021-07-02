@@ -1,4 +1,4 @@
-import { Button, TextareaAutosize, Grid } from '@material-ui/core'
+import { Button, TextareaAutosize, Grid, Box } from '@material-ui/core'
 import Link from 'next/link';
 import styles from '../styles/Home.module.css'
 import React, { useEffect, useState } from 'react';
@@ -110,119 +110,108 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
     setGenreError(!validateGenre(genre));
   }
 
-  const wrapperStyling = {
-    display: 'block',
-    width: '200vw',
-    paddingLeft: '15rem'
-  };
-
-  const blockStyling = {
-  };
-
   // const getImageName = "image/"+{image.name}
 
   return (
-    <div style={width >= widthThreshold ? {} : wrapperStyling}>
-      <div style={blockStyling}>
-        <h1 className={styles.title}>
-          {title}
-        </h1>
-        {recipeFrom && (
-          <div style={{ margin: '4rem' }}>
-            <RecipeItem show_link={false} {...recipeFrom} is_fork={true} />
-          </div>
-        )}
-        <form noValidate autoComplete="off">
-          <Grid
-            container
-            direction="row"
-            justify="center"
-            alignItems="center">
-            <Grid style={{marginRight: '10rem'}}>
-              <CustomTextField
-                id="standard-basic"
-                label="料理名"
-                inputRef={nameRef}
-                color="primary"
-                inputProps={{ maxLength: 100 }}
-                focused
-                style={{width: '300px', marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
-              /> <br />
-              <CustomTextField
-                id="standard-basic"
-                label="ジャンル (和食・洋食・中華)"
-                inputRef={genreRef}
-                color="primary"
-                focused
-                style={{width: '300px', marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
-                error={genreError}
-                onChange={handleChange}
-              /> <br />
-              <CustomTextField
-                id="standard-basic"
-                label="レシピ名"
-                inputRef={titleRef}
-                color="primary"
-                focused
-                inputProps={{ maxLength: 100 }}
-                style={{width: '300px', marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
-              /> 
-              <br />
-            </Grid>
-            <div style={{display: 'flex', flexDirection: 'column', marginLeft: '5rem', marginTop: '2rem'}}>
-              <img src={imgData} style={{width: '300px', height: '200px', marginTop: '2rem', border: 'double 5px #FFC000'}} />
-              <label htmlFor="file" style={{marginRight: '2rem', marginTop: '2rem',  marginBottom: '1rem', color: '#9c786c'}}>サムネイル画像を追加して下さい</label>
-              <input id="img" type="file" accept="image/*,.png,.jpg,.jpeg,.gif" onChange={(e) => getImage(e)} />  
-            </div>
+    <div>
+      <h1 className={styles.title}>
+        {title}
+      </h1>
+      {recipeFrom && (
+        <div style={{ margin: '4rem' }}>
+          <RecipeItem show_link={false} {...recipeFrom} is_fork={true} />
+        </div>
+      )}
+      <form noValidate autoComplete="off">
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="center">
+          <Grid style={{ marginLeft: '5rem', marginRight: '5rem' }}>
+            <CustomTextField
+              id="standard-basic"
+              label="料理名"
+              inputRef={nameRef}
+              color="primary"
+              inputProps={{ maxLength: 100 }}
+              focused
+              style={{width: '300px', marginTop: '2rem', marginButtom: '2rem' }}
+            /> <br />
+            <CustomTextField
+              id="standard-basic"
+              label="ジャンル (和食・洋食・中華)"
+              inputRef={genreRef}
+              color="primary"
+              focused
+              style={{width: '300px', marginTop: '2rem', marginButtom: '2rem' }}
+              error={genreError}
+              onChange={handleChange}
+            /> <br />
+            <CustomTextField
+              id="standard-basic"
+              label="レシピ名"
+              inputRef={titleRef}
+              color="primary"
+              focused
+              inputProps={{ maxLength: 100 }}
+              style={{width: '300px', marginTop: '2rem', marginButtom: '2rem' }}
+            /> 
+            <br />
           </Grid>
-          {/* <TextareaAutosize
-            rowsMax={100}
+          <div style={{display: 'flex', flexDirection: 'column', marginLeft: '5rem', marginRight: '5rem', marginTop: '2rem'}}>
+            <img src={imgData} style={{width: '300px', height: '200px', marginTop: '2rem', border: 'double 5px #FFC000'}} />
+            <label htmlFor="file" style={{marginRight: '2rem', marginTop: '2rem',  marginBottom: '1rem', color: '#9c786c'}}>サムネイル画像を追加して下さい</label>
+            <input id="img" type="file" accept="image/*,.png,.jpg,.jpeg,.gif" onChange={(e) => getImage(e)} />  
+          </div>
+        </Grid>
+        {/* <TextareaAutosize
+          rowsMax={100}
+          aria-label="maximum height"
+          placeholder="レシピを入力してください"
+          defaultValue=""
+          ref={recipeRef}
+          style={{marginTop: '2rem', marginButtom: '2rem'}}
+        /> <br /> */}
+        <div style={{marginTop: '2rem', marginButtom: '2rem'}}>
+          <RichEditorExample 
+            rowsMax={10}
             aria-label="maximum height"
             placeholder="レシピを入力してください"
             defaultValue=""
-            ref={recipeRef}
-            style={{marginTop: '2rem', marginButtom: '2rem'}}
-          /> <br /> */}
-          <div style={{marginTop: '2rem', marginButtom: '2rem'}}>
-            <RichEditorExample 
-              rowsMax={10}
-              aria-label="maximum height"
-              placeholder="レシピを入力してください"
-              defaultValue=""
-              default={initObj ? initObj.recipe : ""}
-              setContent={setRecipe}
-            />
-          </div>
-        </form>
+            default={initObj ? initObj.recipe : ""}
+            setContent={setRecipe}
+          />
+        </div>
+      </form>
 
-        <Grid container alignItems="center" justify="center">
-          {!forkFlag && (<Link href="/"><Button 
-              variant="contained"
-              color="primary"
-              style={{margin: '2rem'}}
-            >
-            レシピ一覧へ
-          </Button></Link>)}
-          {forkFlag && (
-            <CustomButton 
-              variant="contained"
-              themeColor={red}
-              onClick={cancelHandler}
-              style={{margin: '2rem'}}
-            >
-              キャンセル
-            </CustomButton>
-          )}
-          <Button 
+      <Grid container alignItems="center" justify="center">
+        {!forkFlag && (<Link href="/"><Button 
             variant="contained"
             color="primary"
-            onClick={clickHandler}
             style={{margin: '2rem'}}
           >
-            {action}
-          </Button>
-        </Grid>
-      </div>
+          レシピ一覧へ
+        </Button></Link>)}
+        {forkFlag && (
+          <CustomButton 
+            variant="contained"
+            themeColor={red}
+            onClick={cancelHandler}
+            style={{margin: '2rem'}}
+          >
+            キャンセル
+          </CustomButton>
+        )}
+        <Button 
+          variant="contained"
+          color="primary"
+          onClick={clickHandler}
+          style={{margin: '2rem'}}
+        >
+          {action}
+        </Button>
+      </Grid>
     </div>
   )
 }
