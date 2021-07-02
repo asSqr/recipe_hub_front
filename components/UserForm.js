@@ -91,6 +91,7 @@ const UserForm = ({ isRegister }) => {
       })
       .catch(error => {
         console.log(error);
+        setError("連携に失敗しました");
       })
   };
 
