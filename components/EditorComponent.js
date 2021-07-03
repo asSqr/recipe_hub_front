@@ -2,7 +2,7 @@ import { Button, TextareaAutosize, Grid, Box } from '@material-ui/core'
 import Link from 'next/link';
 import styles from '../styles/Home.module.css'
 import React, { useEffect, useState } from 'react';
-import { fetchRecipe, deleteRecipe, fetchImages, postImage } from '../utils/api_request';
+import { fetchRecipe, deleteRecipe, fetchImages, postImage, deleteImage } from '../utils/api_request';
 import RichEditorExample from '../components/markdown';
 import RecipeItem from '../components/preview';
 import Router, { useRouter } from 'next/router';
@@ -16,7 +16,7 @@ import ViewModuleIcon from '@material-ui/icons/ViewModule';
 import ImageGallery from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css";
 
-export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_recipe, user, images }) {
+export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_recipe, user }) {
   const nameRef = React.createRef();
   const [recipe, setRecipe] = useState('');
   const [recipeFrom, setRecipeFrom] = useState(null);
@@ -31,7 +31,8 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
   const [galleryUploadFlag, setGalleryUploadFlag] = useState(false);
   const galleryRef = React.createRef();
   const [galleryIndex, setGalleryIndex] = useState(0);
-
+  const [images, setImages] = useState([]);
+  
   const { width } = useWindowDimensions();
   
   const router = useRouter();
@@ -67,6 +68,8 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
         return;
       
       const { data: imageList } = await fetchImages(user.id);
+
+      setImages(imageList);
 
       const convertedList = imageList.map(obj => { 
         return {
@@ -150,6 +153,14 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
     data.append('id_author', user.id);
 
     await postImage(data);
+
+    setGalleryUploadFlag(true);
+  }
+
+  const libDeleteHandler = async () => {
+    const index = galleryRef.current.state.currentIndex;
+
+    await deleteImage(images[index].id);
 
     setGalleryUploadFlag(true);
   }
@@ -259,11 +270,20 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
               variant="contained"
               color="secondary"
               onClick={libUploadHandler}
-              style={{margin: '2rem'}}
+              style={{marginTop: '2rem', marginLeft: '3rem', marginRight: '3rem', width: '200px'}}
               endIcon={<CheckIcon />}
             >
               アップロード
             </Button>
+            {galleryList && galleryList.length > 0 && (<CustomButton 
+              variant="contained"
+              themeColor={red}
+              onClick={libDeleteHandler}
+              endIcon={<CloseIcon />}
+              style={{marginTop: '2rem', marginLeft: '3rem', width: '200px'}}
+            >
+              選択された画像を削除
+            </CustomButton>)}
           </div>
         </Grid>
         <div style={{marginTop: '2rem', marginBottom: '2rem'}}>

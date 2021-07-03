@@ -38,3 +38,7 @@ export const fetchImages = async id_user => {
 export const postImage = async param => {
   return axios.post(`${apiUrl}admin/v1/mimage/`, param);
 }
+
+export const deleteImage = async id => {
+  return axios.delete(`${apiUrl}admin/v1/mimage/${id}/`);
+}
