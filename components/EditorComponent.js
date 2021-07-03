@@ -2,7 +2,7 @@ import { Button, TextareaAutosize, Grid, Box } from '@material-ui/core'
 import Link from 'next/link';
 import styles from '../styles/Home.module.css'
 import React, { useEffect, useState } from 'react';
-import { fetchRecipe, deleteRecipe } from '../utils/api_request';
+import { fetchRecipe, deleteRecipe, fetchImages, postImage } from '../utils/api_request';
 import RichEditorExample from '../components/markdown';
 import RecipeItem from '../components/preview';
 import Router, { useRouter } from 'next/router';
@@ -13,19 +13,27 @@ import { widthThreshold, useWindowDimensions } from '../utils/utils';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import ViewModuleIcon from '@material-ui/icons/ViewModule';
+import ImageGallery from 'react-image-gallery';
+import "react-image-gallery/styles/css/image-gallery.css";
 
-export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_recipe, user }) {
+export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_recipe, user, images }) {
   const nameRef = React.createRef();
   const [recipe, setRecipe] = useState('');
   const [recipeFrom, setRecipeFrom] = useState(null);
   const titleRef = React.createRef();
   const genreRef = React.createRef();
   const [image, setImage] = useState(null);
+  const [libImage, setLibImage] = useState(null);
   const [imgData, setImgData] = useState(null);
+  const [imgLibData, setImgLibData] = useState(null);
   const [genreError, setGenreError] = useState(false);
+  const [galleryList, setGalleryList] = useState([]);
+  const [galleryUploadFlag, setGalleryUploadFlag] = useState(false);
+  const galleryRef = React.createRef();
+  const [galleryIndex, setGalleryIndex] = useState(0);
 
   const { width } = useWindowDimensions();
-
+  
   const router = useRouter();
 
   useEffect(() => {
@@ -53,6 +61,28 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
     f();
   }, [initObj]);
 
+  useEffect(() => {
+    const f = async () => {
+      if( !user.id ) 
+        return;
+      
+      const { data: imageList } = await fetchImages(user.id);
+
+      const convertedList = imageList.map(obj => { 
+        return {
+          original: obj.image,
+          thumbnail: obj.image
+        };
+      });
+
+      console.log(convertedList);
+
+      setGalleryList(convertedList);
+    };
+
+    f();
+  }, [user.id, galleryUploadFlag]);
+
   const getImage = (e) => {
       if(!e.target.files) return
       const img = e.target.files[0]
@@ -62,6 +92,17 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
         setImgData(reader.result);
       });
       reader.readAsDataURL(e.target.files[0]);
+  }
+
+  const getLibImage = (e) => {
+    if(!e.target.files) return
+    const img = e.target.files[0]
+    setLibImage(img)
+    const reader = new FileReader();
+    reader.addEventListener("load", () => {
+      setImgLibData(reader.result);
+    });
+    reader.readAsDataURL(e.target.files[0]);
   }
 
   const clickHandler = async () => {
@@ -96,6 +137,21 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
     router.push(`/`);
   }
 
+  const libUploadHandler = async () => {
+    if( !libImage )
+      return;
+    
+    const data = new FormData()
+    if( libImage )
+      data.append('image', libImage)
+    
+    data.append('id_author', user.id);
+
+    await postImage(data);
+
+    setGalleryUploadFlag(true);
+  }
+
   const cancelHandler = async () => {
     if( !id_recipe )
       return;
@@ -115,6 +171,12 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
     const genre = genreRef.current.value;
 
     setGenreError(!validateGenre(genre));
+  }
+
+  const galleryHandler = () => {
+    setGalleryIndex(galleryRef.current.state.currentIndex);
+
+    // console.log(galleryRef.current.state.currentIndex);
   }
 
   // const getImageName = "image/"+{image.name}
@@ -180,7 +242,29 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
           ref={recipeRef}
           style={{marginTop: '2rem', marginButtom: '2rem'}}
         /> <br /> */}
-        <div style={{marginTop: '2rem', marginButtom: '2rem'}}>
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+          style={{marginTop: '4rem'}}>
+          {galleryList && galleryList.length > 0 && (<ImageGallery items={galleryList} showPlayButton={false} ref={galleryRef} onSlide={galleryHandler} />)}
+          <div style={{display: 'flex', flexDirection: 'column', marginLeft: '5rem', marginRight: '5rem', marginTop: '2rem'}}>
+            <img src={imgLibData} style={{width: '300px', height: '200px', marginTop: '2rem', border: 'double 5px #FFC000'}} />
+            <label htmlFor="file" style={{marginRight: '2rem', marginTop: '2rem',  marginBottom: '1rem', color: '#9c786c'}}>ギャラリーに投稿する画像を選択して下さい</label>
+            <input id="img" type="file" accept="image/*,.png,.jpg,.jpeg,.gif" onChange={(e) => getLibImage(e)} />  
+            <Button 
+              variant="contained"
+              color="secondary"
+              onClick={libUploadHandler}
+              style={{margin: '2rem'}}
+              endIcon={<CheckIcon />}
+            >
+              アップロード
+            </Button>
+          </div>
+        </Grid>
+        <div style={{marginTop: '2rem', marginBottom: '2rem'}}>
           <RichEditorExample 
             rowsMax={10}
             aria-label="maximum height"
@@ -188,6 +272,8 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
             defaultValue=""
             default={initObj ? initObj.recipe : ""}
             setContent={setRecipe}
+            galleryList={galleryList}
+            index={galleryIndex}
           />
         </div>
       </form>

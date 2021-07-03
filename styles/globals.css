@@ -145,3 +145,7 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+img.image-gallery-image {
+  width: 640px !important;
+}

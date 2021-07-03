@@ -30,6 +30,7 @@
     "firebase": "^8.6.8",
     "next-images": "^1.8.1",
     "nookies": "^2.5.2",
+    "react-image-gallery": "^1.1.1",
     "styled-components": "^5.3.0"
   }
 }
