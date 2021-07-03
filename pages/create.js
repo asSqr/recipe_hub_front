@@ -11,7 +11,7 @@ import { useAuth } from '../utils/auth';
 import Footer from '../components/Footer';
 import styles from '../styles/Home.module.css'
 
-export default function CreateRecipe() {
+export default function CreateRecipe({ images }) {
   const { user } = useAuth();
 
   return (

@@ -1,5 +1,5 @@
 import Editor from '../../components/EditorComponent';
-import { fetchRecipe, patchRecipe, deleteRecipe } from '../../utils/api_request';
+import { fetchRecipe, patchRecipe, deleteRecipe, fecthImages } from '../../utils/api_request';
 import Router, { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import styles from '../../styles/Home.module.css';

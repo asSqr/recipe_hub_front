@@ -1,15 +1,18 @@
 import Head from 'next/head';
 import Router from 'next/router';
 import firebase from '../firebase/firebase';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Button, Grid } from '@material-ui/core'
 import { sleep } from '../utils/utils';
 import CustomTextField from '../styles/CustomTextField';
+import Alert from '@material-ui/lab/Alert';
 
 const UserForm = ({ isRegister }) => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const userNameRef = useRef(null);
+
+  const [errorMessage, setError] = useState([]);
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
@@ -25,7 +28,20 @@ const UserForm = ({ isRegister }) => {
           Router.push('/');
         })
         .catch(error => {
-          
+          console.log(error);
+          switch (error.code) {
+            case "auth/user-not-found":
+              setError("このメールアドレスは登録されていません");
+              break;
+            case "auth/wrong-password":
+              setError("パスワードが間違っています");
+              break;
+            case "auth/invalid-email":
+              setError("無効なメールアドレスです");
+              break;
+            default:
+              setError(error.message);
+          }
         });
   };
 
@@ -46,6 +62,19 @@ const UserForm = ({ isRegister }) => {
         })
         .catch(error => {
           console.log(error);
+          switch (error.code) {
+            case "auth/email-already-in-use":
+              setError("既に登録済みのメールアドレスです");
+              break;
+            case "auth/invalid-email":
+              setError("無効なメールアドレスです");
+              break;
+            case "auth/weak-password":
+              setError("6文字以上のパスワードを設定してください");
+              break;
+            default:
+              setError(error.message);
+          }
         });
     } else {
       await login();
@@ -62,6 +91,7 @@ const UserForm = ({ isRegister }) => {
       })
       .catch(error => {
         console.log(error);
+        setError("連携に失敗しました");
       })
   };
 
@@ -79,6 +109,7 @@ const UserForm = ({ isRegister }) => {
       </Head>
 	  
       <form className="login">
+        {errorMessage != "" && <Alert severity="error">{errorMessage}</Alert>}
         <h2>{isRegister ? 'アカウントを登録' : 'アカウントにログイン'}</h2>
         <hr />
         <Grid container justify="center" spacing={2}>
@@ -92,16 +123,18 @@ const UserForm = ({ isRegister }) => {
             style={{width: '300px', marginTop: '2rem'}}
             onChange={keyHandler}
           /> <br />
-          <CustomTextField
-            id="standard-basic"
-            label="ユーザー名"
-            inputRef={userNameRef}
-            color="primary"
-            inputProps={{ maxLength: 100 }}
-            focused
-            style={{width: '300px', marginTop: '2rem'}}
-            onChange={keyHandler}
-          /> <br />
+          { isRegister && (
+            <CustomTextField
+              id="standard-basic"
+              label="ユーザー名"
+              inputRef={userNameRef}
+              color="primary"
+              inputProps={{ maxLength: 100 }}
+              focused
+              style={{width: '300px', marginTop: '2rem'}}
+              onChange={keyHandler}
+            />
+          )} <br />
           <CustomTextField
             id="standard-basic"
             label="パスワード"

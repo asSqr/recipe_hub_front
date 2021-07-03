@@ -39,7 +39,8 @@ class RichEditorExample extends React.Component {
 
   // https://daveteu.medium.com/draftjs-insert-paste-images-into-your-content-820159025258
   insertImage() {
-    const url = this.urlRef.current.value;
+    // const url = this.urlRef.current.value;
+    const url = this.props.galleryList[this.props.index].original;
 
     const entityKey = Entity.create( 'image', 'IMMUTABLE', { src: url } );
 
@@ -124,21 +125,21 @@ class RichEditorExample extends React.Component {
                 editorState={editorState}
                 onToggle={this.toggleInlineStyle}
               />
-              <CustomTextField
+              {/*<CustomTextField
                 id="standard-basic"
                 label="挿入するURL"
                 inputRef={this.urlRef}
                 color="primary"
                 focused
                 style={{width: '300px', marginTop: '2rem', marginButtom: '2rem', marginLeft: '2rem'}}
-              />
+              />*/}
               <Button 
                 variant="contained"
                 color="primary"
                 onClick={this.insertImage.bind(this)}
-                style={{marginTop: '2rem', marginButtom: '2rem'}}
+                style={{marginTop: '2rem', marginButtom: '2rem', marginLeft: '1rem'}}
               >
-                画像を挿入
+                選択された画像を挿入
               </Button>
             </Grid>
             <br />
@@ -219,7 +220,7 @@ function mediaBlockRenderer(block, flag) {
 }
 
 const Image = (props) => {
-  return <img src={props.src} />;
+  return <img src={props.src} width="640px" />;
 };
 
 const Media = (props) => {
