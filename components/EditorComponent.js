@@ -78,6 +78,8 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
       console.log(convertedList);
 
       setGalleryList(convertedList);
+
+      setGalleryUploadFlag(false);
     };
 
     f();
