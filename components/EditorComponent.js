@@ -279,15 +279,6 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
       </form>
       
       <Grid container alignItems="center" justify="center">
-        <Button 
-          variant="contained"
-          color="secondary"
-          onClick={clickHandler}
-          style={{margin: '2rem'}}
-          endIcon={<CheckIcon />}
-        >
-          {action}
-        </Button>
         {!forkFlag && (<Link href="/"><CustomButton 
             variant="contained"
             themeColor={red}
@@ -307,6 +298,15 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
             キャンセル
           </CustomButton>
         )}
+        <Button 
+          variant="contained"
+          color="secondary"
+          onClick={clickHandler}
+          style={{margin: '2rem'}}
+          endIcon={<CheckIcon />}
+        >
+          {action}
+        </Button>
       </Grid>
     </div>
   )
