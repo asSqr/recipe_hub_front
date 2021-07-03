@@ -32,6 +32,7 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
   const galleryRef = React.createRef();
   const [galleryIndex, setGalleryIndex] = useState(0);
   const [images, setImages] = useState([]);
+  const [imageInputRef, setImageInputRef] = useState(null);
   
   const { width } = useWindowDimensions();
   
@@ -108,6 +109,7 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
       setImgLibData(reader.result);
     });
     reader.readAsDataURL(e.target.files[0]);
+    setImageInputRef(e);
   }
 
   const clickHandler = async () => {
@@ -155,6 +157,9 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
     await postImage(data);
 
     setGalleryUploadFlag(true);
+    setLibImage(null);
+    setImgLibData(null);
+    imageInputRef.target.value = null;
   }
 
   const libDeleteHandler = async () => {
@@ -263,7 +268,11 @@ export default function Editor({ apiFunc, title, action, initObj, forkFlag, id_r
           style={{marginTop: '4rem'}}>
           {galleryList && galleryList.length > 0 && (<ImageGallery items={galleryList} showPlayButton={false} ref={galleryRef} onSlide={galleryHandler} />)}
           <div style={{display: 'flex', flexDirection: 'column', marginLeft: '5rem', marginRight: '5rem', marginTop: '2rem'}}>
-            <img src={imgLibData} style={{width: '300px', height: '200px', marginTop: '2rem', border: 'double 5px #FFC000'}} />
+            {imgLibData ? (
+              <img src={imgLibData} style={{width: '300px', height: '200px', marginTop: '2rem', border: 'double 5px #FFC000'}} />
+            ) : (
+              <div style={{width: '300px', height: '200px', marginTop: '2rem', border: 'double 5px #FFC000'}} />
+            )}
             <label htmlFor="file" style={{marginRight: '2rem', marginTop: '2rem',  marginBottom: '1rem', color: '#9c786c'}}>ギャラリーに投稿する画像を選択して下さい</label>
             <input id="img" type="file" accept="image/*,.png,.jpg,.jpeg,.gif" onChange={(e) => getLibImage(e)} />  
             <Button 
