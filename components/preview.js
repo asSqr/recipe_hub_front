@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative'
   },
   wrapper: {
-    overflowX: 'scroll',
     width: '100vw',
     display: 'flex',
     justifyContent: 'center',
@@ -61,7 +60,6 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     backgroundColor: 'white',
-    overflowX: 'scroll',
     margin: '5rem',
     [theme.breakpoints.down('sm')]: {
       margin: '3rem',
