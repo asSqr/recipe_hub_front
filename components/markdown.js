@@ -139,7 +139,7 @@ class RichEditorExample extends React.Component {
                 onClick={this.insertImage.bind(this)}
                 style={{marginTop: '2rem', marginButtom: '2rem', marginLeft: '1rem'}}
               >
-                ギャラリーの画像を挿入
+                選択された画像を挿入
               </Button>
             </Grid>
             <br />
