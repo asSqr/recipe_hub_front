@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@material-ui/lab": "^4.0.0-alpha.58",
     "draft-js": "^0.11.7",
     "draft-js-export-html": "^1.4.1",
     "next": "^11.0.2-canary.3",
